@@ -18,27 +18,29 @@ public class EminentDomainApplication extends Application {
         return instance;
     }
 
+    private GameManager gameManager = null;
+    private GameField gameField = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-    }
 
-    private GameActivity activity;
-    private GameManager gameManager = null;
-    private GameField gameField = null;
-
-    public void setActivity(GameActivity activity) {
-        this.activity = activity;
-    }
-
-    public void startGame(int numPlayers) {
         if (gameManager == null) {
             gameManager = new GameManager(this);
         }
         if (gameField == null) {
             gameField = new GameField();
         }
+    }
+
+    private GameActivity activity;
+
+    public void setActivity(GameActivity activity) {
+        this.activity = activity;
+    }
+
+    public void startGame(int numPlayers) {
         gameManager.startGame(numPlayers);
     }
 
