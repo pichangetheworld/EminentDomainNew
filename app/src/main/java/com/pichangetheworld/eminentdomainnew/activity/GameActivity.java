@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.fragment.FieldFragment;
+import com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
-import com.pichangetheworld.eminentdomainnew.fragment.PlayerHandAndDeckFragment;
 
 /**
  * Eminent Domain AS
@@ -39,7 +39,7 @@ public class GameActivity extends FragmentActivity {
             new FieldFragment(),
             new MyPlanetsFragment()
     };
-    PlayerHandAndDeckFragment playerHandAndDeckFragment;
+    MyHandAndDeckFragment playerHandAndDeckFragment;
 
     int numPlayers = 3;
 
@@ -57,7 +57,7 @@ public class GameActivity extends FragmentActivity {
         ft.add(R.id.fragment_container, fragments[0]);
         ft.commit();
 
-        playerHandAndDeckFragment = (PlayerHandAndDeckFragment) getSupportFragmentManager()
+        playerHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_player);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(

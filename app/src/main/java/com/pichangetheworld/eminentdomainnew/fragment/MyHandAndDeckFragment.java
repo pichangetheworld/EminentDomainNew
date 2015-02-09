@@ -26,7 +26,7 @@ import java.util.List;
  * Author: pchan
  * Date: 17/01/2015
  */
-public class PlayerHandAndDeckFragment extends Fragment {
+public class MyHandAndDeckFragment extends Fragment {
     // Views
     Button okayButton;
     Button viewPlanetButton;

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/fragment_player"
-        android:name="com.pichangetheworld.eminentdomainnew.fragment.PlayerHandAndDeckFragment"
+        android:name="com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_player" />
