@@ -10,6 +10,7 @@ import com.pichangetheworld.eminentdomainnew.card.Politics;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Deck;
+import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +111,7 @@ public abstract class BasePlayer {
         numShips += n;
     }
 
-    // Broadcast to view that phase has ended
+    // Broadcast to view that hand has changed
     private void broadcastHandUpdated() {
         ArrayList<CardDrawableData> handDrawables = new ArrayList<>();
         for (int i = 0; i < hand.size(); ++i) {
@@ -120,6 +121,19 @@ public abstract class BasePlayer {
         }
         mHandChangedIntent.putParcelableArrayListExtra("drawable", handDrawables);
         Log.d("BasePlayer", "Broadcasting hand changed " + handDrawables.size());
+        LocalBroadcastManager.getInstance(context).sendBroadcast(mHandChangedIntent);
+    }
+
+    // Broadcast to view that planets has changed
+    private void broadcastPlanetsUpdated() {
+        ArrayList<PlanetDrawableData> planetDrawables = new ArrayList<>();
+        for (int i = 0; i < hand.size(); ++i) {
+            PlanetDrawableData pd = new PlanetDrawableData();
+            pd.setData(surveyedPlanets.get(i));
+            planetDrawables.add(pd);
+        }
+        mHandChangedIntent.putParcelableArrayListExtra("drawable", planetDrawables);
+        Log.d("BasePlayer", "Broadcasting planets changed " + planetDrawables.size());
         LocalBroadcastManager.getInstance(context).sendBroadcast(mHandChangedIntent);
     }
 

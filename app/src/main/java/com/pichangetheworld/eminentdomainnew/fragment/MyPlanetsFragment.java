@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * Date: 17/01/2015
  */
 public class MyPlanetsFragment extends Fragment {
-    List<Integer> planetDrawables;
+    List<PlanetDrawableData> planetDrawables;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package com.pichangetheworld.eminentdomainnew.planet;
 
+import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 
@@ -11,7 +12,10 @@ import java.util.List;
  * Author: pchan
  * Date: 17/01/2015
  */
-public abstract class BasePlanet {
+public class BasePlanet {
+    String name;
+    int drawable;
+
     int colonizeCost;
     int conquerCost;
 
@@ -23,6 +27,10 @@ public abstract class BasePlanet {
     boolean conquered;
 
     BasePlanet(int colonizeCost, int conquerCost, int canProduce) {
+        // Temporarily
+        this.name = "Planet";
+        this.drawable = R.drawable.planet;
+
         this.colonizeCost = colonizeCost;
         this.conquerCost = conquerCost;
         this.produceCapacity = canProduce;
@@ -31,6 +39,19 @@ public abstract class BasePlanet {
         conquered = false;
         currentlyProduced = 0;
     }
+
+    // Getters
+    public String getName() { return name; }
+    public int getDrawable() { return drawable; }
+    public int getColonizeCost() {
+        return colonizeCost;
+    }
+    public int getConquerCost() {
+        return conquerCost;
+    }
+    public boolean isConquered() { return conquered; }
+    public int getProduceCapacity() { return produceCapacity; }
+    public int getCurProduceCount() { return currentlyProduced; }
 
     public void survey(BasePlayer player) {
         owner = player;
@@ -41,12 +62,6 @@ public abstract class BasePlanet {
         colonizeCount.add(card);
     }
 
-    public int getColonizeCost() {
-        return colonizeCost;
-    }
-    public int getConquerCost() {
-        return conquerCost;
-    }
     public boolean canProduce() {
         return owner != null && produceCapacity - currentlyProduced > 0;
     }
