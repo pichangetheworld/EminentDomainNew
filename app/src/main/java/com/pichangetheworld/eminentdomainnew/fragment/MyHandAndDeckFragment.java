@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class MyHandAndDeckFragment extends Fragment {
     List<Integer> handDrawables;
 
     DisplayMetrics displayMetrics;
-    float handWidth = 400;
+    float handWidth = 0;
 
     // Index of selected card
     int selectedAction;
@@ -142,7 +143,7 @@ public class MyHandAndDeckFragment extends Fragment {
         for (int i : handDrawables) {
             this.handDrawables.add(i);
         }
-        if (handView != null) {
+        if (handWidth > 0) {
             redraw();
         }
     }
@@ -150,13 +151,14 @@ public class MyHandAndDeckFragment extends Fragment {
     private void redraw() {
         float cardWidth;
         if (handDrawables.isEmpty()) {
-            cardWidth = 75;
+            cardWidth = 75 * displayMetrics.density;
         } else {
-            cardWidth = Math.min(handWidth/handDrawables.size(), 75);
+            cardWidth = Math.min(handWidth/handDrawables.size(), 75 * displayMetrics.density);
         }
+        Log.d("HandDeckFragment", "Setting card width to " + cardWidth);
         for (int i = 0; i < handDrawables.size(); ++i) {
             RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(
-                    Math.round(cardWidth * displayMetrics.density),
+                    Math.round(cardWidth),
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             newParams.addRule(RelativeLayout.RIGHT_OF, i);
             if (i == handCards.size()) {
@@ -202,6 +204,8 @@ public class MyHandAndDeckFragment extends Fragment {
     }
 
     public void onWindowFocusChanged() {
+        Log.d("HandDeckFragment", "Window is changed! width is " + handView.getWidth());
         handWidth = handView.getWidth();
+        redraw();
     }
 }
