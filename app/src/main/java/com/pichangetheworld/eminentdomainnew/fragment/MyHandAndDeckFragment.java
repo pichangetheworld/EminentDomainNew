@@ -16,6 +16,7 @@ import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.SelectMode;
 import com.pichangetheworld.eminentdomainnew.view.CardView;
 
 import java.util.ArrayList;
@@ -44,6 +45,9 @@ public class MyHandAndDeckFragment extends Fragment {
     float handWidth = 0;
 
 
+    // Select mode - single or multiple card select
+    SelectMode curMode;
+
     // Index of selected card
     int selectedAction;
     List<Integer> selectedHandCards;
@@ -55,10 +59,18 @@ public class MyHandAndDeckFragment extends Fragment {
             // This will most likely be from playing cards in the hand
             // Disable the button to prevent multiple clicking
             okayButton.setVisibility(View.GONE);
-            EminentDomainApplication.getInstance().playAction(selectedAction);
+            switch (curMode) {
+                case ACTION_PLAY_PHASE:
+                    EminentDomainApplication.getInstance().playAction(selectedAction);
+                    break;
+                case SELECT_TO_DISCARD_DRAW_PHASE:
+                    // discard the cards
+                    break;
+            }
 
             // Reset
             selectedAction = -1;
+            selectedHandCards.clear();
         }
     };
 
@@ -94,12 +106,23 @@ public class MyHandAndDeckFragment extends Fragment {
                     break;
                 }
             }
-
-            // Show the selected card
-            if (selectedAction == i) {
-                selectedAction = -1;
-            } else {
-                selectedAction = i;
+            switch (curMode) {
+                case ACTION_PLAY_PHASE:
+                    // Show the selected card
+                    if (selectedAction == i) {
+                        selectedAction = -1;
+                    } else {
+                        selectedAction = i;
+                    }
+                    break;
+                case SELECT_TO_DISCARD_DRAW_PHASE:
+                    // Show the selected card
+                    if (selectedHandCards.contains(i)) {
+                        selectedHandCards.remove(i);
+                    } else {
+                        selectedHandCards.add(i);
+                    }
+                    break;
             }
 
             redraw();
@@ -192,18 +215,21 @@ public class MyHandAndDeckFragment extends Fragment {
     }
 
     public void onActionPhase() {
+        curMode = SelectMode.ACTION_PLAY_PHASE;
         okayButton.setVisibility(View.VISIBLE);
     }
 
     public void onRolePhase() {
+        curMode = SelectMode.MATCH_ROLE_PHASE;
         okayButton.setVisibility(View.GONE);
         // TODO set it back to visible when we try to match
     }
 
     public void onDiscardDrawPhase() {
+        curMode = SelectMode.SELECT_TO_DISCARD_DRAW_PHASE;
         okayButton.setVisibility(View.VISIBLE);
 
-        if (cardData.size() <= 5) // TODO actual ma
+        if (cardData.size() <= 5) // TODO actually depend on what hand limit is
             // If you don't discard
             enableSkip(selectedHandCards.isEmpty());
         else
