@@ -143,6 +143,7 @@ public class GameActivity extends FragmentActivity {
     }
 
     public void letPlayerChooseTargetPlanet(TargetCallbackInterface callback) {
+        showPlanets();
         myPlanetsFragment.chooseTargetPlanet(callback);
     }
 }
