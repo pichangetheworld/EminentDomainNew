@@ -12,10 +12,6 @@ import com.pichangetheworld.eminentdomainnew.util.Phase;
  * Date: 17/01/2015
  */
 public class EminentDomainApplication extends Application {
-    public interface CallbackInterface {
-        public void callback();
-    }
-
     private static EminentDomainApplication instance;
 
     public static EminentDomainApplication getInstance() {
