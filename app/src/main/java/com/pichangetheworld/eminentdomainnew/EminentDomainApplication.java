@@ -6,6 +6,8 @@ import android.util.Log;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 
+import java.util.List;
+
 /**
  * Eminent Domain AS
  * Author: pchan
@@ -91,5 +93,9 @@ public class EminentDomainApplication extends Application {
 
     private void discardDrawPhase() {
         activity.discardDrawPhase();
+    }
+
+    public void discardSelectedCards(List<Integer> selectedCards) {
+        gameManager.curPlayerDiscardSelectedCards(selectedCards);
     }
 }

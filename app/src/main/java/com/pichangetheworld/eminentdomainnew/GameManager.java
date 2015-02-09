@@ -22,7 +22,7 @@ public class GameManager {
     private final String NAMES[] = { "Alf", "Bob", "Charles", "Dick" };
 
     EminentDomainApplication context;
-    List<BasePlayer> mPlayers;
+    private List<BasePlayer> mPlayers;
     int mCurrentPlayer;
     Phase mCurrentPhase;
 
@@ -116,5 +116,9 @@ public class GameManager {
 
     public void discardDrawPhase() {
         context.updateViewNextPhase(Phase.DISCARD_DRAW_PHASE, mPlayers.get(mCurrentPlayer).getName());
+    }
+
+    public void curPlayerDiscardSelectedCards(List<Integer> selectedCards) {
+        mPlayers.get(mCurrentPlayer).discardIndexCards(selectedCards);
     }
 }

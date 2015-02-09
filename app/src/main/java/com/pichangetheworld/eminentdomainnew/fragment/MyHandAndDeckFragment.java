@@ -61,16 +61,19 @@ public class MyHandAndDeckFragment extends Fragment {
             okayButton.setVisibility(View.GONE);
             switch (curMode) {
                 case ACTION_PLAY_PHASE:
+                    // play the selected action
                     EminentDomainApplication.getInstance().playAction(selectedAction);
                     break;
                 case SELECT_TO_DISCARD_DRAW_PHASE:
                     // discard the cards
+                    EminentDomainApplication.getInstance().discardSelectedCards(selectedHandCards);
                     break;
             }
 
             // Reset
             selectedAction = -1;
             selectedHandCards.clear();
+            redraw();
         }
     };
 
@@ -100,7 +103,7 @@ public class MyHandAndDeckFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // Clicking a card
-            int i;
+            Integer i;
             for (i = 0; i < handCards.size(); ++i) {
                 if (handCards.get(i) == v) {
                     break;
@@ -203,15 +206,38 @@ public class MyHandAndDeckFragment extends Fragment {
                 cv.setBackgroundResource(cardData.get(i).drawable);
                 cv.setVisibility(View.VISIBLE);
 
-                // Show the selected card
-                if (selectedAction == i) {
-                    cv.onCardSelected(true);
-                } else {
-                    cv.onCardSelected(false);
+                switch (curMode) {
+                    case ACTION_PLAY_PHASE:
+                        // Show the selected card
+                        if (selectedAction == i) {
+                            cv.onCardSelected(true);
+                        } else {
+                            cv.onCardSelected(false);
+                        }
+                        break;
+                    case SELECT_TO_DISCARD_DRAW_PHASE:
+                        if (selectedHandCards.contains(i)) {
+                            cv.onCardSelected(true);
+                        } else {
+                            cv.onCardSelected(false);
+                        }
+                        break;
                 }
             }
         }
-        enableSkip(selectedAction == -1);
+        switch (curMode) {
+            case ACTION_PLAY_PHASE:
+                enableSkip(selectedAction == -1);
+                break;
+            case SELECT_TO_DISCARD_DRAW_PHASE:
+                // TODO actually depend on what hand limit is
+                if (cardData.size() - selectedHandCards.size() <= 5) {
+                    enableSkip(selectedHandCards.isEmpty());
+                    okayButton.setEnabled(true);
+                } else
+                    okayButton.setEnabled(false);
+                break;
+        }
     }
 
     public void onActionPhase() {
@@ -223,17 +249,14 @@ public class MyHandAndDeckFragment extends Fragment {
         curMode = SelectMode.MATCH_ROLE_PHASE;
         okayButton.setVisibility(View.GONE);
         // TODO set it back to visible when we try to match
+
+        redraw();
     }
 
     public void onDiscardDrawPhase() {
         curMode = SelectMode.SELECT_TO_DISCARD_DRAW_PHASE;
         okayButton.setVisibility(View.VISIBLE);
-
-        if (cardData.size() <= 5) // TODO actually depend on what hand limit is
-            // If you don't discard
-            enableSkip(selectedHandCards.isEmpty());
-        else
-            okayButton.setEnabled(false);
+        redraw();
     }
 
     public void onWindowFocusChanged() {

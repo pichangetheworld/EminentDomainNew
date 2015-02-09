@@ -118,6 +118,18 @@ public abstract class BasePlayer {
         discardPile.addAll(cards);
     }
 
+    public void discardIndexCards(List<Integer> indices) {
+        List<BaseCard> toDiscard = new ArrayList<>();
+        for (int i : indices) {
+            toDiscard.add(hand.get(i));
+        }
+        for (BaseCard card : toDiscard) {
+            hand.remove(card);
+        }
+        discardCards(toDiscard);
+        broadcastHandUpdated();
+    }
+
     public void gainShips(int n) {
         numShips += n;
     }
