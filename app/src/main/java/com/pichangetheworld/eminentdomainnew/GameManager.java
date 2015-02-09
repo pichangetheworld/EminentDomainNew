@@ -120,5 +120,11 @@ public class GameManager {
 
     public void curPlayerDiscardSelectedCards(List<Integer> selectedCards) {
         mPlayers.get(mCurrentPlayer).discardIndexCards(selectedCards);
+        endDiscardDrawPhase();
+    }
+
+    private void endDiscardDrawPhase() {
+        mPlayers.get(mCurrentPlayer).drawUpToCardLimit();
+        nextPhase();
     }
 }

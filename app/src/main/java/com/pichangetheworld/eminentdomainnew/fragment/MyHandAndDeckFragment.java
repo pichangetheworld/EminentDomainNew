@@ -186,7 +186,7 @@ public class MyHandAndDeckFragment extends Fragment {
             cardWidth = Math.min(handWidth/cardData.size(), 75 * displayMetrics.density);
         }
         Log.d("HandDeckFragment", "Setting card width to " + cardWidth);
-        for (int i = 0; i < cardData.size(); ++i) {
+        for (int i = 0; i < Math.max(cardData.size(), handCards.size()); ++i) {
             RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(
                     Math.round(cardWidth),
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -199,7 +199,7 @@ public class MyHandAndDeckFragment extends Fragment {
                 handCards.add(cv);
             }
             CardView cv = handCards.get(i);
-            if (cardData.get(i).drawable == -1) {
+            if (i >= cardData.size() || cardData.get(i).drawable == -1) {
                 cv.setVisibility(View.GONE);
             } else {
                 cv.setLayoutParams(newParams);
@@ -222,6 +222,8 @@ public class MyHandAndDeckFragment extends Fragment {
                             cv.onCardSelected(false);
                         }
                         break;
+                    default:
+                        cv.onCardSelected(false);
                 }
             }
         }
