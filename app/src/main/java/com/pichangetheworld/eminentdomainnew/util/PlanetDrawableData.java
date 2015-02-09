@@ -24,6 +24,7 @@ public class PlanetDrawableData implements Parcelable {
     // Conquered Planets
     public int produceCapacity;
     public int curProduceCount;
+    public int vps;
 
     public PlanetDrawableData() {
         name = "none";
@@ -34,6 +35,7 @@ public class PlanetDrawableData implements Parcelable {
         conquered = false;
         produceCapacity = 0;
         curProduceCount = 0;
+        vps = 0;
     }
 
     public void setData(BasePlanet planet) {
@@ -45,6 +47,7 @@ public class PlanetDrawableData implements Parcelable {
         conquered = planet.isConquered();
         produceCapacity = planet.getProduceCapacity();
         curProduceCount = planet.getCurProduceCount();
+        vps = planet.getVPs();
     }
 
     PlanetDrawableData(Parcel cpy) {
@@ -56,6 +59,7 @@ public class PlanetDrawableData implements Parcelable {
         conquered = cpy.readByte() != 0;
         produceCapacity = cpy.readInt();
         curProduceCount = cpy.readInt();
+        vps = cpy.readInt();
     }
 
     @Override
@@ -73,6 +77,7 @@ public class PlanetDrawableData implements Parcelable {
         dest.writeByte((byte) (conquered ? 1 : 0));
         dest.writeInt(produceCapacity);
         dest.writeInt(curProduceCount);
+        dest.writeInt(vps);
     }
 
     public static final Creator<PlanetDrawableData> CREATOR = new Creator<PlanetDrawableData>() {

@@ -72,6 +72,7 @@ public abstract class BasePlayer {
     // Planets
     public void surveyPlanet(BasePlanet planet) {
         surveyedPlanets.add(planet);
+        planet.survey(this);
         if (this instanceof HumanPlayer) {
             broadcastPlanetsUpdated();
         }

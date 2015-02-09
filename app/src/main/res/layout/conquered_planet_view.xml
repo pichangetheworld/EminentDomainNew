@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/planet_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/conquered_planet"
+        android:contentDescription="@string/conquered_planet" />
+
+    <TextView
+        android:id="@+id/VPs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/planet_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/planet_image"
+        android:text="@string/two"
+        android:textSize="30sp"
+        android:textColor="#00ff00"/>
+
+    <TextView
+        android:id="@+id/produce_capacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@id/planet_image"
+        android:layout_margin="5dp"
+        android:text="@string/two"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="30sp" />
+</RelativeLayout>

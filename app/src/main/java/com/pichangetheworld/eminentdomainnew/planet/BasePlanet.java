@@ -21,7 +21,7 @@ public class BasePlanet {
 
     int produceCapacity;
     int currentlyProduced;
-    int VPs; // TODO, also PlanetType enum
+    int VPs; // TODO PlanetType enum
 
     BasePlayer owner;
     List<BaseCard> colonizeCount;
@@ -36,6 +36,7 @@ public class BasePlanet {
         this.warfareCost = warfareCost;
         this.colonizeCount = new ArrayList<>();
         this.produceCapacity = canProduce;
+        this.VPs = 0;
 
         owner = null;
         conquered = false;
@@ -54,6 +55,7 @@ public class BasePlanet {
     public boolean isConquered() { return conquered; }
     public int getProduceCapacity() { return produceCapacity; }
     public int getCurProduceCount() { return currentlyProduced; }
+    public int getVPs() { return VPs; }
 
     public void survey(BasePlayer player) {
         owner = player;

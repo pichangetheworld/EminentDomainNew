@@ -17,8 +17,13 @@ import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 public class PlanetView extends RelativeLayout {
     LayoutInflater mInflater;
 
+    // Surveyed planets
     TextView colonizeCost;
     TextView warfareCost;
+
+    // Conquered planets
+    TextView vps;
+    TextView produceCapacity;
 
     public PlanetView(Context context) {
         super(context);
@@ -38,15 +43,25 @@ public class PlanetView extends RelativeLayout {
         init();
     }
 
-    private void init() {
-        mInflater.inflate(R.layout.planet_view, this, true);
-
-        colonizeCost = (TextView) findViewById(R.id.colonize_cost);
-        warfareCost = (TextView) findViewById(R.id.warfare_cost);
-    }
+    private void init() {}
 
     public void setDetails(PlanetDrawableData data) {
-        colonizeCost.setText(Integer.toString(data.colonizeCost));
-        warfareCost.setText(Integer.toString(data.warfareCost));
+        if (!data.conquered) {
+            mInflater.inflate(R.layout.planet_view, this, true);
+
+            colonizeCost = (TextView) findViewById(R.id.colonize_cost);
+            warfareCost = (TextView) findViewById(R.id.warfare_cost);
+
+            colonizeCost.setText(Integer.toString(data.colonizeCost));
+            warfareCost.setText(Integer.toString(data.warfareCost));
+        } else {
+            mInflater.inflate(R.layout.conquered_planet_view, this, true);
+
+            vps = (TextView) findViewById(R.id.VPs);
+            produceCapacity = (TextView) findViewById(R.id.produce_capacity);
+
+            vps.setText(Integer.toString(data.vps));
+            produceCapacity.setText(Integer.toString(data.produceCapacity));
+        }
     }
 }
