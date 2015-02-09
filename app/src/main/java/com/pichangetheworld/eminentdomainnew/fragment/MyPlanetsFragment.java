@@ -32,6 +32,22 @@ public class MyPlanetsFragment extends Fragment {
     // Planet data
     List<PlanetDrawableData> planetData = new ArrayList<>();
 
+    // Callback
+    TargetCallbackInterface mCallback = null;
+
+    final View.OnClickListener onPlanetClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int i;
+            for (i = 0; i < planetViews.size(); ++i) {
+                if (v == planetViews.get(i)) break;
+            }
+
+            if (i < planetViews.size()) {
+                mCallback.callback(i);
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -102,7 +118,14 @@ public class MyPlanetsFragment extends Fragment {
     }
 
     public void chooseTargetPlanet(TargetCallbackInterface callback) {
-        // TODO select a planet
-        // callback on the planets index
+        mCallback = callback;
+
+        for (PlanetView pv : planetViews) {
+            if (!pv.isConquered()) {
+                pv.setOnClickListener(onPlanetClicked);
+            } else {
+                pv.setClickable(false);
+            }
+        }
     }
 }

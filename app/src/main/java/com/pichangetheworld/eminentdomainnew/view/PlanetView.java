@@ -17,6 +17,8 @@ import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 public class PlanetView extends RelativeLayout {
     LayoutInflater mInflater;
 
+    boolean conquered = false;
+
     // Surveyed planets
     TextView colonizeCost;
     TextView warfareCost;
@@ -43,8 +45,14 @@ public class PlanetView extends RelativeLayout {
         init();
     }
 
-    private void init() {}
+    private void init() {
+        conquered = false;
+    }
 
+    // Getter
+    public boolean isConquered() { return conquered; }
+
+    // Set all details at once
     public void setDetails(PlanetDrawableData data) {
         if (!data.conquered) {
             mInflater.inflate(R.layout.planet_view, this, true);
@@ -57,6 +65,7 @@ public class PlanetView extends RelativeLayout {
         } else {
             mInflater.inflate(R.layout.conquered_planet_view, this, true);
 
+            conquered = true;
             vps = (TextView) findViewById(R.id.VPs);
             produceCapacity = (TextView) findViewById(R.id.produce_capacity);
 
