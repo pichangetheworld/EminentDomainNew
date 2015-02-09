@@ -8,7 +8,7 @@ import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
  * Date: 17/01/2015
  */
 // Dumb AI Player always plays the first card
-public class DumbAIPlayer extends ComputerPlayer {
+public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     public DumbAIPlayer(EminentDomainApplication context, String name, int id) {
         super(context, name, id);
     }

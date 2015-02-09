@@ -7,8 +7,5 @@ import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
  * Author: pchan
  * Date: 17/01/2015
  */
-public class ComputerPlayer extends BasePlayer {
-    public ComputerPlayer(EminentDomainApplication context, String name, int id) {
-        super(context, name, id);
-    }
+public interface ComputerPlayer {
 }
