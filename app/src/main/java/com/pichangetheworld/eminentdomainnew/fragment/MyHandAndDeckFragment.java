@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -123,14 +121,6 @@ public class MyHandAndDeckFragment extends Fragment {
         viewPlanetButton.setOnClickListener(toggleFieldPlanet);
 
         handView = (RelativeLayout) v.findViewById(R.id.hand);
-        handView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                handView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                handWidth = handView.getWidth();
-                Log.d("PlayerHandFragment", "Updated hand width " + handWidth);
-            }
-        });
 
         selectedAction = -1;
 
@@ -209,5 +199,9 @@ public class MyHandAndDeckFragment extends Fragment {
 
         // If you don't discard
         enableSkip(selectedHandCards.isEmpty());
+    }
+
+    public void onWindowFocusChanged() {
+        handWidth = handView.getWidth();
     }
 }

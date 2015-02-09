@@ -31,7 +31,7 @@ public class GameActivity extends FragmentActivity {
         public void onReceive(Context context, Intent intent) {
             int [] drawables = intent.getIntArrayExtra("drawable");
             Log.d("GameActivity", "Received Hand Changed intent with " + drawables.length + " items");
-            playerHandAndDeckFragment.updateHand(drawables);
+            myHandAndDeckFragment.updateHand(drawables);
         }
     };
 
@@ -39,7 +39,7 @@ public class GameActivity extends FragmentActivity {
             new FieldFragment(),
             new MyPlanetsFragment()
     };
-    MyHandAndDeckFragment playerHandAndDeckFragment;
+    MyHandAndDeckFragment myHandAndDeckFragment;
 
     int numPlayers = 3;
 
@@ -57,7 +57,7 @@ public class GameActivity extends FragmentActivity {
         ft.add(R.id.fragment_container, fragments[0]);
         ft.commit();
 
-        playerHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
+        myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_player);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
@@ -86,6 +86,12 @@ public class GameActivity extends FragmentActivity {
         EminentDomainApplication.getInstance().setActivity(null);
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        myHandAndDeckFragment.onWindowFocusChanged();
+    }
+
     public void actionPhase(final String name) {
         runOnUiThread(new Runnable() {
             @Override
@@ -93,7 +99,7 @@ public class GameActivity extends FragmentActivity {
                 Toast.makeText(GameActivity.this, name + "'s turn! Action Phase", Toast.LENGTH_LONG).show();
                 showField();
                 ((FieldFragment) fragments[0]).onActionPhase();
-                playerHandAndDeckFragment.onActionPhase();
+                myHandAndDeckFragment.onActionPhase();
             }
         });
     }
@@ -102,14 +108,14 @@ public class GameActivity extends FragmentActivity {
         Toast.makeText(this, "Role Phase", Toast.LENGTH_LONG).show();
         showField();
         ((FieldFragment) fragments[0]).onRolePhase();
-        playerHandAndDeckFragment.onRolePhase();
+        myHandAndDeckFragment.onRolePhase();
     }
 
     public void discardDrawPhase() {
         Toast.makeText(this, "Discard Phase", Toast.LENGTH_LONG).show();
         showField();
         ((FieldFragment) fragments[0]).onDiscardDrawPhase();
-        playerHandAndDeckFragment.onDiscardDrawPhase();
+        myHandAndDeckFragment.onDiscardDrawPhase();
     }
 
     public void showField() {
