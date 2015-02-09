@@ -34,7 +34,7 @@ public class Research extends BaseCard {
     };
 
     public Research() {
-        super(R.drawable.research);
+        super("Research", R.drawable.research);
     }
 
     @Override

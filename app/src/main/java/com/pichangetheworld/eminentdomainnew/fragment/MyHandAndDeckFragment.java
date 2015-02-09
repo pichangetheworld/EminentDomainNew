@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
+import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.view.CardView;
 
 import java.util.ArrayList;
@@ -29,14 +30,19 @@ public class MyHandAndDeckFragment extends Fragment {
     // Views
     Button okayButton;
     Button viewPlanetButton;
+
     // Parent layout holding all the card views
     RelativeLayout handView;
     List<CardView> handCards;
-    // Drawables for hand cards at the same index as hand cards
-    List<Integer> handDrawables;
 
+    // Card data
+    List<CardDrawableData> cardData;
+
+
+    // Layout display sizes for resizing hand cards
     DisplayMetrics displayMetrics;
     float handWidth = 0;
+
 
     // Index of selected card
     int selectedAction;
@@ -104,7 +110,7 @@ public class MyHandAndDeckFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handCards = new ArrayList<>();
-        handDrawables = new ArrayList<>();
+        cardData = new ArrayList<>();
         selectedHandCards = new ArrayList<>();
         displayMetrics = new DisplayMetrics();
 
@@ -138,11 +144,9 @@ public class MyHandAndDeckFragment extends Fragment {
     }
 
     // Update the hand view with cards in the user's hand
-    public void updateHand(int [] handDrawables) {
-        this.handDrawables.clear();
-        for (int i : handDrawables) {
-            this.handDrawables.add(i);
-        }
+    public void updateHand(ArrayList<CardDrawableData> data) {
+        this.cardData.clear();
+        this.cardData.addAll(data);
         if (handWidth > 0) {
             redraw();
         }
@@ -150,13 +154,13 @@ public class MyHandAndDeckFragment extends Fragment {
 
     private void redraw() {
         float cardWidth;
-        if (handDrawables.isEmpty()) {
+        if (cardData.isEmpty()) {
             cardWidth = 75 * displayMetrics.density;
         } else {
-            cardWidth = Math.min(handWidth/handDrawables.size(), 75 * displayMetrics.density);
+            cardWidth = Math.min(handWidth/cardData.size(), 75 * displayMetrics.density);
         }
         Log.d("HandDeckFragment", "Setting card width to " + cardWidth);
-        for (int i = 0; i < handDrawables.size(); ++i) {
+        for (int i = 0; i < cardData.size(); ++i) {
             RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(
                     Math.round(cardWidth),
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -169,11 +173,11 @@ public class MyHandAndDeckFragment extends Fragment {
                 handCards.add(cv);
             }
             CardView cv = handCards.get(i);
-            if (handDrawables.get(i) == -1) {
+            if (cardData.get(i).drawable == -1) {
                 cv.setVisibility(View.GONE);
             } else {
                 cv.setLayoutParams(newParams);
-                cv.setBackgroundResource(handDrawables.get(i));
+                cv.setBackgroundResource(cardData.get(i).drawable);
                 cv.setVisibility(View.VISIBLE);
 
                 // Show the selected card
@@ -199,8 +203,11 @@ public class MyHandAndDeckFragment extends Fragment {
     public void onDiscardDrawPhase() {
         okayButton.setVisibility(View.VISIBLE);
 
-        // If you don't discard
-        enableSkip(selectedHandCards.isEmpty());
+        if (cardData.size() <= 5) // TODO actual ma
+            // If you don't discard
+            enableSkip(selectedHandCards.isEmpty());
+        else
+            okayButton.setEnabled(false);
     }
 
     public void onWindowFocusChanged() {

@@ -73,7 +73,7 @@ public class ProduceTrade extends BaseCard {
     };
 
     public ProduceTrade() {
-        super(R.drawable.producetrade);
+        super("ProduceTrade", R.drawable.producetrade);
     }
 
     @Override

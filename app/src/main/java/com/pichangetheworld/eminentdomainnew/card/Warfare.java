@@ -34,7 +34,7 @@ public class Warfare extends BaseCard {
     };
 
     public Warfare() {
-        super(R.drawable.warfare);
+        super("Warfare", R.drawable.warfare);
     }
 
     @Override

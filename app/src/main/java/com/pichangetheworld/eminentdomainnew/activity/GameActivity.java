@@ -17,6 +17,9 @@ import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.fragment.FieldFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
+import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+
+import java.util.ArrayList;
 
 /**
  * Eminent Domain AS
@@ -29,8 +32,8 @@ public class GameActivity extends FragmentActivity {
     private final BroadcastReceiver mUpdateHandReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int [] drawables = intent.getIntArrayExtra("drawable");
-            Log.d("GameActivity", "Received Hand Changed intent with " + drawables.length + " items");
+            ArrayList<CardDrawableData> drawables = intent.getParcelableArrayListExtra("drawable");
+            Log.d("GameActivity", "Received Hand Changed intent with " + drawables.size() + " items");
             myHandAndDeckFragment.updateHand(drawables);
         }
     };

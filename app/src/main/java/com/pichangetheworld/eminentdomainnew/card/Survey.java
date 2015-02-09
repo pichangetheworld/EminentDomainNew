@@ -9,7 +9,7 @@ import com.pichangetheworld.eminentdomainnew.R;
  */
 public class Survey extends BaseCard {
     public Survey() {
-        super(R.drawable.survey);
+        super("Survey", R.drawable.survey);
     }
 
     @Override

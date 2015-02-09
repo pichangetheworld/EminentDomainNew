@@ -12,9 +12,10 @@ import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 public abstract class BaseCard {
     EminentDomainApplication context;
     BasePlayer user;
+    String name;
     int drawable;
 
-    BaseCard(int drawable) {
+    BaseCard(String name, int drawable) {
         this.drawable = drawable;
     }
 
@@ -29,6 +30,8 @@ public abstract class BaseCard {
         return context;
     }
 
+    // Getters
+    public String getName() { return name; }
     public int getDrawable() {
         return drawable;
     }

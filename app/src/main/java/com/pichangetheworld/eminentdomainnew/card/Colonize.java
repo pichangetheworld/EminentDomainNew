@@ -31,7 +31,7 @@ public class Colonize extends BaseCard {
     };
 
     public Colonize() {
-        super(R.drawable.colonize);
+        super("Colonize", R.drawable.colonize);
     }
 
     @Override

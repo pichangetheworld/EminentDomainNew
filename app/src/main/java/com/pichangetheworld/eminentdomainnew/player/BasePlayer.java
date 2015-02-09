@@ -8,6 +8,7 @@ import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Politics;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
+import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Deck;
 
 import java.util.ArrayList;
@@ -111,12 +112,14 @@ public abstract class BasePlayer {
 
     // Broadcast to view that phase has ended
     private void broadcastHandUpdated() {
-        int handDrawables[] = new int [hand.size()];
+        ArrayList<CardDrawableData> handDrawables = new ArrayList<>();
         for (int i = 0; i < hand.size(); ++i) {
-            handDrawables[i] = hand.get(i).getDrawable();
+            CardDrawableData cd = new CardDrawableData();
+            cd.setData(hand.get(i));
+            handDrawables.add(cd);
         }
-        mHandChangedIntent.putExtra("drawable", handDrawables);
-        Log.d("BasePlayer", "Broadcasting hand changed " + handDrawables.length);
+        mHandChangedIntent.putParcelableArrayListExtra("drawable", handDrawables);
+        Log.d("BasePlayer", "Broadcasting hand changed " + handDrawables.size());
         LocalBroadcastManager.getInstance(context).sendBroadcast(mHandChangedIntent);
     }
 

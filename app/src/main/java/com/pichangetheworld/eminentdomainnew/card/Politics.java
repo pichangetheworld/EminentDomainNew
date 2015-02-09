@@ -32,7 +32,7 @@ public class Politics extends BaseCard {
     };
 
     public Politics() {
-        super(R.drawable.blank_card);
+        super("Politics", R.drawable.blank_card);
     }
 
     @Override
