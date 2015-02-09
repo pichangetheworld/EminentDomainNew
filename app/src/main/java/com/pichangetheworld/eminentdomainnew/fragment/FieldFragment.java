@@ -88,6 +88,17 @@ public class FieldFragment extends Fragment {
         return v;
     }
 
+    // Hide the view
+    public void setVisibility(boolean visible) {
+        if (getView() != null) {
+            if (visible) {
+                getView().setVisibility(View.VISIBLE);
+            } else {
+                getView().setVisibility(View.GONE);
+            }
+        }
+    }
+
     // Update the field for Action Phase
     public void onActionPhase() {
         selectedRole = -1;

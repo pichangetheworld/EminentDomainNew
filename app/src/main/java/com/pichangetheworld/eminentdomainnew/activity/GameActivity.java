@@ -65,6 +65,7 @@ public class GameActivity extends FragmentActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, fieldFragment);
+        ft.add(R.id.fragment_container, myPlanetsFragment);
         ft.commit();
 
         myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
@@ -131,14 +132,12 @@ public class GameActivity extends FragmentActivity {
     }
 
     public void showField() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fieldFragment);
-        ft.commit();
+        fieldFragment.setVisibility(true);
+        myPlanetsFragment.setVisibility(false);
     }
 
     public void showPlanets() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, myPlanetsFragment);
-        ft.commit();
+        fieldFragment.setVisibility(false);
+        myPlanetsFragment.setVisibility(true);
     }
 }
