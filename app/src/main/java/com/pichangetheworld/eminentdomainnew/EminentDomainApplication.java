@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 import java.util.List;
 
@@ -97,5 +98,16 @@ public class EminentDomainApplication extends Application {
 
     public void discardSelectedCards(List<Integer> selectedCards) {
         gameManager.curPlayerDiscardSelectedCards(selectedCards);
+    }
+
+    // selecting target planets
+    public void selectTargetPlanet(TargetCallbackInterface callback) {
+        if (gameManager.isComputerTurn()) {
+            // let computer select target
+            int index = gameManager.letAISelectTargetPlanet();
+            callback.callback(index);
+        } else {
+            activity.letPlayerChooseTargetPlanet(callback);
+        }
     }
 }

@@ -1,13 +1,8 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.util.Log;
-
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
  * Eminent Domain AS
@@ -16,17 +11,13 @@ import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
  */
 public class Colonize extends BaseCard {
     // Handler to receive CHOSE_TARGET_PLANET broadcasts
-    private final BroadcastReceiver mChoosePlanetReceiver = new BroadcastReceiver() {
+    private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
-        public void onReceive(Context context2, Intent intent) {
-            int planetIndex = intent.getIntExtra("planetIndex", -1);
-            Log.d("Colonize", "Broadcast Received! Planet chosen was " + planetIndex);
-
-            if (planetIndex >= 0) {
-                Colonize.this.colonizeAction(user.getSurveyedPlanets().get(planetIndex));
-                context.unregisterReceiver(this);
-                context.endActionPhase();
+        public void callback(int index) {
+            if (index >= 0) {
+                Colonize.this.colonizeAction(user.getSurveyedPlanets().get(index));
             }
+            context.endActionPhase();
         }
     };
 
@@ -36,7 +27,7 @@ public class Colonize extends BaseCard {
 
     @Override
     public void onAction() {
-        context.registerReceiver(mChoosePlanetReceiver, new IntentFilter("CHOSE_TARGET_PLANET"));
+        context.selectTargetPlanet(onActionCallback);
     }
 
     @Override

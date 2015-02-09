@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
+import com.pichangetheworld.eminentdomainnew.player.ComputerPlayer;
 import com.pichangetheworld.eminentdomainnew.player.DumbAIPlayer;
 import com.pichangetheworld.eminentdomainnew.player.HumanPlayer;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
@@ -126,5 +127,14 @@ public class GameManager {
     private void endDiscardDrawPhase() {
         mPlayers.get(mCurrentPlayer).drawUpToCardLimit();
         nextPhase();
+    }
+
+    // Computer
+    public boolean isComputerTurn() {
+        return mPlayers.get(mCurrentPlayer) instanceof ComputerPlayer;
+    };
+
+    public int letAISelectTargetPlanet() {
+        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
     }
 }

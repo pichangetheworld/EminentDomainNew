@@ -18,6 +18,7 @@ import com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 import java.util.ArrayList;
 
@@ -139,5 +140,9 @@ public class GameActivity extends FragmentActivity {
     public void showPlanets() {
         fieldFragment.setVisibility(false);
         myPlanetsFragment.setVisibility(true);
+    }
+
+    public void letPlayerChooseTargetPlanet(TargetCallbackInterface callback) {
+        myPlanetsFragment.chooseTargetPlanet(callback);
     }
 }

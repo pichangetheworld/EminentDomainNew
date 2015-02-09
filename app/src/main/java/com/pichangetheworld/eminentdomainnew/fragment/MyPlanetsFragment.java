@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.view.PlanetView;
 
 import java.util.ArrayList;
@@ -98,5 +99,10 @@ public class MyPlanetsFragment extends Fragment {
                 pv.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public void chooseTargetPlanet(TargetCallbackInterface callback) {
+        // TODO select a planet
+        // callback on the planets index
     }
 }

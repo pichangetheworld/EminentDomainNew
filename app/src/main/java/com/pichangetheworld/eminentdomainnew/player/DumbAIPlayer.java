@@ -12,4 +12,9 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     public DumbAIPlayer(EminentDomainApplication context, String name, int id) {
         super(context, name, id);
     }
+
+    @Override
+    public int selectTargetPlanet() {
+        return 0;
+    }
 }
