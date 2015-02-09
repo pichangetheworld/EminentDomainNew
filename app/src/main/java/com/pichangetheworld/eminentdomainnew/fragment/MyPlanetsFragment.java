@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import com.pichangetheworld.eminentdomainnew.R;
@@ -33,9 +34,20 @@ public class MyPlanetsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_myplanets, container, false);
+        final View v = inflater.inflate(R.layout.fragment_myplanets, container, false);
 
         planetLayout = (LinearLayout) v.findViewById(R.id.fragment_myplanets);
+
+        v.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (layoutWidth != planetLayout.getWidth()) {
+                    Log.d("MyPlanetsFragment", "Window is changed! width is " + planetLayout.getWidth());
+                    layoutWidth = planetLayout.getWidth();
+                    redraw();
+                }
+            }
+        });
 
         redraw();
 
@@ -79,11 +91,5 @@ public class MyPlanetsFragment extends Fragment {
                 pv.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    public void onWindowFocusChanged() {
-        Log.d("MyPlanetsFragment", "Window is changed! width is " + planetLayout.getWidth());
-        layoutWidth = planetLayout.getWidth();
-        redraw();
     }
 }

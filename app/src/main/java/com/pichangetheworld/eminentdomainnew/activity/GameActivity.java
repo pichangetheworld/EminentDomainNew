@@ -42,7 +42,7 @@ public class GameActivity extends FragmentActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             ArrayList<PlanetDrawableData> drawables = intent.getParcelableArrayListExtra("drawable");
-            Log.d("GameActivity", "Received Hand Changed intent with " + drawables.size() + " items");
+            Log.d("GameActivity", "Received Planets Changed intent with " + drawables.size() + " items");
             myPlanetsFragment.updatePlanets(drawables);
         }
     };
@@ -102,9 +102,6 @@ public class GameActivity extends FragmentActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         myHandAndDeckFragment.onWindowFocusChanged();
-        if (myPlanetsFragment.isVisible()) {
-            myPlanetsFragment.onWindowFocusChanged();
-        }
     }
 
     public void actionPhase(final String name) {
