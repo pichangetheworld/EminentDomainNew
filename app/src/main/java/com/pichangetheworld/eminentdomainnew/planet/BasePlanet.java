@@ -17,7 +17,7 @@ public class BasePlanet {
     int drawable;
 
     int colonizeCost;
-    int conquerCost;
+    int warfareCost;
 
     int produceCapacity;
     int currentlyProduced;
@@ -27,13 +27,13 @@ public class BasePlanet {
     List<BaseCard> colonizeCount;
     boolean conquered;
 
-    public BasePlanet(int colonizeCost, int conquerCost, int canProduce) {
+    public BasePlanet(int colonizeCost, int warfareCost, int canProduce) {
         // Temporarily
         this.name = "Planet";
         this.drawable = R.drawable.planet;
 
         this.colonizeCost = colonizeCost;
-        this.conquerCost = conquerCost;
+        this.warfareCost = warfareCost;
         this.colonizeCount = new ArrayList<>();
         this.produceCapacity = canProduce;
 
@@ -48,8 +48,8 @@ public class BasePlanet {
     public int getColonizeCost() {
         return colonizeCost;
     }
-    public int getConquerCost() {
-        return conquerCost;
+    public int getWarfareCost() {
+        return warfareCost;
     }
     public boolean isConquered() { return conquered; }
     public int getProduceCapacity() { return produceCapacity; }

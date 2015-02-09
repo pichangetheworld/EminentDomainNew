@@ -34,12 +34,12 @@ public class GameManager {
     }
 
     private final BasePlanet[] STARTER_PLANETS = {
-            new BasePlanet(4, 2, 1),
-            new BasePlanet(4, 2, 1),
-            new BasePlanet(4, 2, 1),
-            new BasePlanet(4, 2, 1),
-            new BasePlanet(4, 2, 1),
-            new BasePlanet(4, 2, 1)
+            new BasePlanet(2, 2, 1),
+            new BasePlanet(2, 2, 1),
+            new BasePlanet(2, 2, 1),
+            new BasePlanet(2, 2, 1),
+            new BasePlanet(2, 2, 1),
+            new BasePlanet(2, 2, 1)
     };
     public void init(int numPlayers) {
         ArrayList<BasePlanet> starterPlanets = new ArrayList<>();

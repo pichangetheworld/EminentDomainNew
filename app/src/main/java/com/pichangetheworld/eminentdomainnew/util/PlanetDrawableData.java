@@ -17,7 +17,7 @@ public class PlanetDrawableData implements Parcelable {
 
     // Unconquered Planets
     public int colonizeCost;
-    public int conquerCost;
+    public int warfareCost;
     public int colonizeCount;
     public boolean conquered;
 
@@ -29,7 +29,7 @@ public class PlanetDrawableData implements Parcelable {
         name = "none";
         drawable = -1;
         colonizeCost = 0;
-        conquerCost = 0;
+        warfareCost = 0;
         colonizeCount = 0;
         conquered = false;
         produceCapacity = 0;
@@ -40,7 +40,7 @@ public class PlanetDrawableData implements Parcelable {
         name = planet.getName();
         drawable = planet.getDrawable();
         colonizeCost = planet.getColonizeCost();
-        conquerCost = planet.getConquerCost();
+        warfareCost = planet.getWarfareCost();
         colonizeCount = planet.getColonizeCount();
         conquered = planet.isConquered();
         produceCapacity = planet.getProduceCapacity();
@@ -51,7 +51,7 @@ public class PlanetDrawableData implements Parcelable {
         name = cpy.readString();
         drawable = cpy.readInt();
         colonizeCost = cpy.readInt();
-        conquerCost = cpy.readInt();
+        warfareCost = cpy.readInt();
         colonizeCount = cpy.readInt();
         conquered = cpy.readByte() != 0;
         produceCapacity = cpy.readInt();
@@ -68,7 +68,7 @@ public class PlanetDrawableData implements Parcelable {
         dest.writeString(name);
         dest.writeInt(drawable);
         dest.writeInt(colonizeCost);
-        dest.writeInt(conquerCost);
+        dest.writeInt(warfareCost);
         dest.writeInt(colonizeCount);
         dest.writeByte((byte) (conquered ? 1 : 0));
         dest.writeInt(produceCapacity);

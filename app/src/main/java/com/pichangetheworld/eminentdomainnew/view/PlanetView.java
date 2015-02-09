@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 
 /**
  * Eminent Domain AS
@@ -42,5 +43,10 @@ public class PlanetView extends RelativeLayout {
 
         colonizeCost = (TextView) findViewById(R.id.colonize_cost);
         warfareCost = (TextView) findViewById(R.id.warfare_cost);
+    }
+
+    public void setDetails(PlanetDrawableData data) {
+        colonizeCost.setText(Integer.toString(data.colonizeCost));
+        warfareCost.setText(Integer.toString(data.warfareCost));
     }
 }

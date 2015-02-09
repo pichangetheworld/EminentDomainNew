@@ -23,7 +23,7 @@ public class Warfare extends BaseCard {
             Log.d("Warfare", "Broadcast Received! Planet chosen was " + planetIndex);
 
             if (planetIndex >= 0 &&
-                    user.getNumShips() > user.getSurveyedPlanets().get(planetIndex).getConquerCost()) {
+                    user.getNumShips() > user.getSurveyedPlanets().get(planetIndex).getWarfareCost()) {
                 Warfare.this.conquerAction(user.getSurveyedPlanets().get(planetIndex));
             } else {
                 user.gainShips(1);
@@ -54,7 +54,7 @@ public class Warfare extends BaseCard {
     }
 
     public void conquerAction(BasePlanet targetPlanet) {
-        user.gainShips(-1 * targetPlanet.getConquerCost());
+        user.gainShips(-1 * targetPlanet.getWarfareCost());
         targetPlanet.conquer();
     }
 }

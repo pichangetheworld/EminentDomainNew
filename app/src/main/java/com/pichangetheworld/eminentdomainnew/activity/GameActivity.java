@@ -43,12 +43,12 @@ public class GameActivity extends FragmentActivity {
         public void onReceive(Context context, Intent intent) {
             ArrayList<PlanetDrawableData> drawables = intent.getParcelableArrayListExtra("drawable");
             Log.d("GameActivity", "Received Hand Changed intent with " + drawables.size() + " items");
-            planetsFragment.updatePlanets(drawables);
+            myPlanetsFragment.updatePlanets(drawables);
         }
     };
 
     FieldFragment fieldFragment = new FieldFragment();
-    MyPlanetsFragment planetsFragment = new MyPlanetsFragment();
+    MyPlanetsFragment myPlanetsFragment = new MyPlanetsFragment();
     MyHandAndDeckFragment myHandAndDeckFragment;
 
     int numPlayers = 3;
@@ -102,8 +102,8 @@ public class GameActivity extends FragmentActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         myHandAndDeckFragment.onWindowFocusChanged();
-        if (planetsFragment.isVisible()) {
-            planetsFragment.onWindowFocusChanged();
+        if (myPlanetsFragment.isVisible()) {
+            myPlanetsFragment.onWindowFocusChanged();
         }
     }
 
@@ -141,7 +141,7 @@ public class GameActivity extends FragmentActivity {
 
     public void showPlanets() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, planetsFragment);
+        ft.replace(R.id.fragment_container, myPlanetsFragment);
         ft.commit();
     }
 }

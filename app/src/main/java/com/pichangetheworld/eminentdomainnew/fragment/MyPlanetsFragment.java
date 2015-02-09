@@ -37,6 +37,8 @@ public class MyPlanetsFragment extends Fragment {
 
         planetLayout = (LinearLayout) v.findViewById(R.id.fragment_myplanets);
 
+        redraw();
+
         return v;
     }
 
@@ -73,15 +75,14 @@ public class MyPlanetsFragment extends Fragment {
                 pv.setVisibility(View.GONE);
             } else {
                 pv.setLayoutParams(newParams);
-                pv.setBackgroundResource(planetData.get(i).drawable);
+                pv.setDetails(planetData.get(i));
                 pv.setVisibility(View.VISIBLE);
             }
         }
     }
 
-
     public void onWindowFocusChanged() {
-        Log.d("HandDeckFragment", "Window is changed! width is " + planetLayout.getWidth());
+        Log.d("MyPlanetsFragment", "Window is changed! width is " + planetLayout.getWidth());
         layoutWidth = planetLayout.getWidth();
         redraw();
     }
