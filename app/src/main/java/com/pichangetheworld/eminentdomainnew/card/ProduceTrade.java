@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
  * Eminent Domain AS
@@ -26,13 +27,11 @@ public class ProduceTrade extends BaseCard {
                 // Action
                 switch (actionIndex) {
                     case 0: // PRODUCE
-                        context.registerReceiver(mChoosePlanetProduceReceiver,
-                                new IntentFilter("CHOSE_TARGET_PLANET"));
+                        context.selectTargetPlanet(onActionProduceCallback);
                         break;
                     case 1: // TRADE
                     default:
-                        context.registerReceiver(mChoosePlanetTradeReceiver,
-                                new IntentFilter("CHOSE_TARGET_PLANET"));
+                        context.selectTargetPlanet(onActionTradeCallback);
                         break;
                 }
             } else {
@@ -42,33 +41,26 @@ public class ProduceTrade extends BaseCard {
         }
     };
 
-    // Handler to receive CHOSE_TARGET_PLANET broadcasts
-    private BroadcastReceiver mChoosePlanetProduceReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context2, Intent intent) {
-            int planetIndex = intent.getIntExtra("planetIndex", -1);
-            Log.d("Colonize", "Broadcast Received! Planet chosen was " + planetIndex);
 
-            if (planetIndex >= 0 && user.getSurveyedPlanets().get(planetIndex).canProduce()) {
-                user.getSurveyedPlanets().get(planetIndex).produce(1);
-                context.unregisterReceiver(this);
-                context.endActionPhase();
+    // Callback after target planet has been selected
+    private final TargetCallbackInterface onActionProduceCallback = new TargetCallbackInterface() {
+        @Override
+        public void callback(int index) {
+            if (index >= 0 && user.getSurveyedPlanets().get(index).canProduce()) {
+                user.getSurveyedPlanets().get(index).produce(1);
             }
+            context.endActionPhase();
         }
     };
 
-    // Handler to receive CHOSE_TARGET_PLANET broadcasts
-    private BroadcastReceiver mChoosePlanetTradeReceiver = new BroadcastReceiver() {
+    // Callback after target planet has been selected
+    private final TargetCallbackInterface onActionTradeCallback = new TargetCallbackInterface() {
         @Override
-        public void onReceive(Context context2, Intent intent) {
-            int planetIndex = intent.getIntExtra("planetIndex", -1);
-            Log.d("Colonize", "Broadcast Received! Planet chosen was " + planetIndex);
-
+        public void callback(int planetIndex) {
             if (planetIndex >= 0 && user.getSurveyedPlanets().get(planetIndex).canTrade()) {
                 user.getSurveyedPlanets().get(planetIndex).trade(1);
-                context.unregisterReceiver(this);
-                context.endActionPhase();
             }
+            context.endActionPhase();
         }
     };
 

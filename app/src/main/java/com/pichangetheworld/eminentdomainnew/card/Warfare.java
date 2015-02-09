@@ -1,13 +1,8 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.util.Log;
-
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
  * Eminent Domain AS
@@ -15,20 +10,16 @@ import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
  * Date: 17/01/2015
  */
 public class Warfare extends BaseCard {
-    // Handler to receive CHOSE_TARGET_PLANET broadcasts
-    private final BroadcastReceiver mChoosePlanetReceiver = new BroadcastReceiver() {
+    // Callback after target planet has been selected
+    private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
-        public void onReceive(Context context2, Intent intent) {
-            int planetIndex = intent.getIntExtra("planetIndex", -1);
-            Log.d("Warfare", "Broadcast Received! Planet chosen was " + planetIndex);
-
-            if (planetIndex >= 0 &&
-                    user.getNumShips() > user.getSurveyedPlanets().get(planetIndex).getWarfareCost()) {
-                Warfare.this.conquerAction(user.getSurveyedPlanets().get(planetIndex));
+        public void callback(int index) {
+            if (index >= 0 &&
+                    user.getNumShips() > user.getSurveyedPlanets().get(index).getWarfareCost()) {
+                Warfare.this.conquerAction(user.getSurveyedPlanets().get(index));
             } else {
                 user.gainShips(1);
             }
-            context.unregisterReceiver(this);
             context.endActionPhase();
         }
     };
@@ -39,7 +30,7 @@ public class Warfare extends BaseCard {
 
     @Override
     public void onAction() {
-        context.registerReceiver(mChoosePlanetReceiver, new IntentFilter("CHOSE_TARGET_PLANET"));
+        context.selectTargetPlanet(onActionCallback);
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
  * Date: 17/01/2015
  */
 public class Colonize extends BaseCard {
-    // Handler to receive CHOSE_TARGET_PLANET broadcasts
+    // Callback after target planet has been selected
     private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
