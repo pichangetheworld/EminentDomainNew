@@ -2,13 +2,16 @@ package com.pichangetheworld.eminentdomainnew;
 
 import android.util.Log;
 
+import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 import com.pichangetheworld.eminentdomainnew.player.DumbAIPlayer;
 import com.pichangetheworld.eminentdomainnew.player.HumanPlayer;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Eminent Domain AS
@@ -30,17 +33,35 @@ public class GameManager {
         mPlayers = new ArrayList<>();
     }
 
-    public void startGame(int numPlayers) {
+    private final BasePlanet[] STARTER_PLANETS = {
+            new BasePlanet(4, 2, 1),
+            new BasePlanet(4, 2, 1),
+            new BasePlanet(4, 2, 1),
+            new BasePlanet(4, 2, 1),
+            new BasePlanet(4, 2, 1),
+            new BasePlanet(4, 2, 1)
+    };
+    public void init(int numPlayers) {
+        ArrayList<BasePlanet> starterPlanets = new ArrayList<>();
+        starterPlanets.addAll(Arrays.asList(STARTER_PLANETS));
         mPlayers.clear();
         mPlayers.add(new HumanPlayer(context, NAMES[0], 0).init());
         for (int i = 1; i < numPlayers; ++i) {
             mPlayers.add(new DumbAIPlayer(context, NAMES[i], i).init());
         }
 
+        Random r = new Random();
+        for (BasePlayer player : mPlayers) {
+            int j = r.nextInt(starterPlanets.size());
+            player.surveyPlanet(starterPlanets.remove(j));
+        }
+    }
+
+    public void startGame() {
+        Log.d("GameManager", "Game started with " + mPlayers.size() + " players");
+
         mCurrentPlayer = 0;
         mCurrentPhase = Phase.ACTION_PHASE;
-
-        Log.d("GameManager", "Game started with " + numPlayers + " players");
 
         actionPhase();
     }

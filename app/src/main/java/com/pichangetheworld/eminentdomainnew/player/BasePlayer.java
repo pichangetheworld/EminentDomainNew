@@ -25,6 +25,7 @@ public abstract class BasePlayer {
     final int[] STARTING_DECK = { 0, 0, 0, 0, 0, 0 }; // TODO for testing
 
     private final Intent mHandChangedIntent = new Intent("HAND_UPDATED");
+    private final Intent mPlanetsChangedIntent = new Intent("PLANETS_UPDATED");
 
     EminentDomainApplication context;
     String name;
@@ -68,6 +69,15 @@ public abstract class BasePlayer {
         return this;
     }
 
+    // Planets
+    public void surveyPlanet(BasePlanet planet) {
+        surveyedPlanets.add(planet);
+        if (this instanceof HumanPlayer) {
+            broadcastPlanetsUpdated();
+        }
+    }
+
+    // Hand cards
     public void drawUpToCardLimit() {
         drawCards(cardLimit - hand.size());
     }
@@ -127,14 +137,14 @@ public abstract class BasePlayer {
     // Broadcast to view that planets has changed
     private void broadcastPlanetsUpdated() {
         ArrayList<PlanetDrawableData> planetDrawables = new ArrayList<>();
-        for (int i = 0; i < hand.size(); ++i) {
+        for (int i = 0; i < surveyedPlanets.size(); ++i) {
             PlanetDrawableData pd = new PlanetDrawableData();
             pd.setData(surveyedPlanets.get(i));
             planetDrawables.add(pd);
         }
-        mHandChangedIntent.putParcelableArrayListExtra("drawable", planetDrawables);
+        mPlanetsChangedIntent.putParcelableArrayListExtra("drawable", planetDrawables);
         Log.d("BasePlayer", "Broadcasting planets changed " + planetDrawables.size());
-        LocalBroadcastManager.getInstance(context).sendBroadcast(mHandChangedIntent);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(mPlanetsChangedIntent);
     }
 
     // Play the card at index i

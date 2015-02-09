@@ -41,7 +41,8 @@ public class EminentDomainApplication extends Application {
     }
 
     public void startGame(int numPlayers) {
-        gameManager.startGame(numPlayers);
+        gameManager.init(numPlayers);
+        gameManager.startGame();
     }
 
     public GameField getGameField() { return gameField; }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -18,6 +17,7 @@ import com.pichangetheworld.eminentdomainnew.fragment.FieldFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Date:   1/17/2015
  */
 public class GameActivity extends FragmentActivity {
-    // Handler to receive PHASE_END broadcasts
+    // Handler to receive HAND_CHANGED broadcasts
     private final BroadcastReceiver mUpdateHandReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -37,11 +37,18 @@ public class GameActivity extends FragmentActivity {
             myHandAndDeckFragment.updateHand(drawables);
         }
     };
-
-    final Fragment fragments[] = {
-            new FieldFragment(),
-            new MyPlanetsFragment()
+    // Handler to receive PLANETS_CHANGED broadcasts
+    private final BroadcastReceiver mUpdatePlanetsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ArrayList<PlanetDrawableData> drawables = intent.getParcelableArrayListExtra("drawable");
+            Log.d("GameActivity", "Received Hand Changed intent with " + drawables.size() + " items");
+            planetsFragment.updatePlanets(drawables);
+        }
     };
+
+    FieldFragment fieldFragment = new FieldFragment();
+    MyPlanetsFragment planetsFragment = new MyPlanetsFragment();
     MyHandAndDeckFragment myHandAndDeckFragment;
 
     int numPlayers = 3;
@@ -57,7 +64,7 @@ public class GameActivity extends FragmentActivity {
         numPlayers = getIntent().getIntExtra("numPlayers", 3);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, fragments[0]);
+        ft.add(R.id.fragment_container, fieldFragment);
         ft.commit();
 
         myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
@@ -65,6 +72,8 @@ public class GameActivity extends FragmentActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mUpdateHandReceiver, new IntentFilter("HAND_UPDATED"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mUpdatePlanetsReceiver, new IntentFilter("PLANETS_UPDATED"));
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -93,6 +102,9 @@ public class GameActivity extends FragmentActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         myHandAndDeckFragment.onWindowFocusChanged();
+        if (planetsFragment.isVisible()) {
+            planetsFragment.onWindowFocusChanged();
+        }
     }
 
     public void actionPhase(final String name) {
@@ -101,7 +113,7 @@ public class GameActivity extends FragmentActivity {
             public void run() {
                 Toast.makeText(GameActivity.this, name + "'s turn! Action Phase", Toast.LENGTH_LONG).show();
                 showField();
-                ((FieldFragment) fragments[0]).onActionPhase();
+                fieldFragment.onActionPhase();
                 myHandAndDeckFragment.onActionPhase();
             }
         });
@@ -110,26 +122,26 @@ public class GameActivity extends FragmentActivity {
     public void rolePhase() {
         Toast.makeText(this, "Role Phase", Toast.LENGTH_LONG).show();
         showField();
-        ((FieldFragment) fragments[0]).onRolePhase();
+        fieldFragment.onRolePhase();
         myHandAndDeckFragment.onRolePhase();
     }
 
     public void discardDrawPhase() {
         Toast.makeText(this, "Discard Phase", Toast.LENGTH_LONG).show();
         showField();
-        ((FieldFragment) fragments[0]).onDiscardDrawPhase();
+        fieldFragment.onDiscardDrawPhase();
         myHandAndDeckFragment.onDiscardDrawPhase();
     }
 
     public void showField() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragments[0]);
+        ft.replace(R.id.fragment_container, fieldFragment);
         ft.commit();
     }
 
     public void showPlanets() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragments[1]);
+        ft.replace(R.id.fragment_container, planetsFragment);
         ft.commit();
     }
 }

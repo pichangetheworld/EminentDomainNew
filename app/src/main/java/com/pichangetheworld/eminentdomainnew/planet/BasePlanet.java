@@ -21,18 +21,20 @@ public class BasePlanet {
 
     int produceCapacity;
     int currentlyProduced;
+    int VPs; // TODO, also PlanetType enum
 
     BasePlayer owner;
     List<BaseCard> colonizeCount;
     boolean conquered;
 
-    BasePlanet(int colonizeCost, int conquerCost, int canProduce) {
+    public BasePlanet(int colonizeCost, int conquerCost, int canProduce) {
         // Temporarily
         this.name = "Planet";
         this.drawable = R.drawable.planet;
 
         this.colonizeCost = colonizeCost;
         this.conquerCost = conquerCost;
+        this.colonizeCount = new ArrayList<>();
         this.produceCapacity = canProduce;
 
         owner = null;
@@ -55,7 +57,6 @@ public class BasePlanet {
 
     public void survey(BasePlayer player) {
         owner = player;
-        colonizeCount = new ArrayList<>();
     }
 
     public void addColony(BaseCard card) {
