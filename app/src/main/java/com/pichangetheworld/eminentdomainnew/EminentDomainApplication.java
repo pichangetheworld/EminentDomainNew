@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
-import com.pichangetheworld.eminentdomainnew.util.Constants.Phase;
+import com.pichangetheworld.eminentdomainnew.util.Phase;
 
 /**
  * Eminent Domain AS

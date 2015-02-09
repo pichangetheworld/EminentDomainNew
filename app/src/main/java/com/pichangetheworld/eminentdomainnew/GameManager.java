@@ -5,7 +5,7 @@ import android.util.Log;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 import com.pichangetheworld.eminentdomainnew.player.DumbAIPlayer;
 import com.pichangetheworld.eminentdomainnew.player.HumanPlayer;
-import com.pichangetheworld.eminentdomainnew.util.Constants.Phase;
+import com.pichangetheworld.eminentdomainnew.util.Phase;
 
 import java.util.ArrayList;
 import java.util.List;
