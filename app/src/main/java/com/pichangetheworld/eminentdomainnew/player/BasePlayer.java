@@ -149,7 +149,7 @@ public abstract class BasePlayer {
     }
 
     // Broadcast to view that planets has changed
-    private void broadcastPlanetsUpdated() {
+    public void broadcastPlanetsUpdated() {
         ArrayList<PlanetDrawableData> planetDrawables = new ArrayList<>();
         for (int i = 0; i < surveyedPlanets.size(); ++i) {
             PlanetDrawableData pd = new PlanetDrawableData();

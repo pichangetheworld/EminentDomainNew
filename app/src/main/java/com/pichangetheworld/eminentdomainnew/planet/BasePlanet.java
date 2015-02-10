@@ -1,5 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.planet;
 
+import android.util.Log;
+
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
@@ -62,7 +64,10 @@ public class BasePlanet {
     }
 
     public void addColony(BaseCard card) {
+        Log.d("BasePlanet", "Colonize count was " + getColonizeCount());
         colonizeCount.add(card);
+
+        Log.d("BasePlanet", "Now colonize count is " + getColonizeCount());
     }
 
     public boolean canProduce() {
@@ -77,6 +82,7 @@ public class BasePlanet {
         for (BaseCard card : colonizeCount) {
             total += card.getColonize();
         }
+        Log.d("BasePlanet", "Getting colonize count is " + total);
         return total;
     }
 

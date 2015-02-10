@@ -48,5 +48,6 @@ public class Colonize extends BaseCard {
         } else {
             targetPlanet.addColony(this);
         }
+        user.broadcastPlanetsUpdated();
     }
 }

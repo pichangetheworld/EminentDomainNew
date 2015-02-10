@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class PlanetView extends RelativeLayout {
     // Surveyed planets
     TextView colonizeCost;
     TextView warfareCost;
+    TextView colonizeCount;
 
     // Conquered planets
     TextView vps;
@@ -54,14 +56,23 @@ public class PlanetView extends RelativeLayout {
 
     // Set all details at once
     public void setDetails(PlanetDrawableData data) {
+        Log.d("PlanetView", "Drawing planet conquered: " + data.conquered);
         if (!data.conquered) {
             mInflater.inflate(R.layout.planet_view, this, true);
 
             colonizeCost = (TextView) findViewById(R.id.colonize_cost);
             warfareCost = (TextView) findViewById(R.id.warfare_cost);
+            colonizeCount = (TextView) findViewById(R.id.colonize_count);
 
             colonizeCost.setText(Integer.toString(data.colonizeCost));
             warfareCost.setText(Integer.toString(data.warfareCost));
+            Log.d("PlanetView", "Drawing planet colonize count is: " + data.colonizeCount);
+            if (data.colonizeCount > 0) {
+                colonizeCount.setText(Integer.toString(data.colonizeCount));
+                colonizeCount.setVisibility(VISIBLE);
+            } else {
+                colonizeCount.setVisibility(GONE);
+            }
         } else {
             mInflater.inflate(R.layout.conquered_planet_view, this, true);
 
