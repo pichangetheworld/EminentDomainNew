@@ -142,6 +142,7 @@ public class GameActivity extends FragmentActivity {
         myPlanetsFragment.setVisibility(true);
     }
 
+    // Let the player choose target planet
     public void letPlayerChooseTargetPlanet(TargetCallbackInterface callback) {
         showPlanets();
         myPlanetsFragment.chooseTargetPlanet(callback);
