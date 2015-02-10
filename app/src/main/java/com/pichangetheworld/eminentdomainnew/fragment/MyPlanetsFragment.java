@@ -118,6 +118,7 @@ public class MyPlanetsFragment extends Fragment {
     }
 
     public void chooseTargetPlanet(TargetCallbackInterface callback) {
+        Log.d("PlanetsFragment", "Choosing target planet " + planetViews.size());
         mCallback = callback;
 
         for (PlanetView pv : planetViews) {

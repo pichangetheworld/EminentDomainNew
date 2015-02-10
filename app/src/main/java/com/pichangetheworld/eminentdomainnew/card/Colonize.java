@@ -14,6 +14,7 @@ public class Colonize extends BaseCard {
     private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
+            user.useCard(Colonize.this);
             if (index >= 0) {
                 Colonize.this.colonizeAction(user.getSurveyedPlanets().get(index));
             }
@@ -41,7 +42,6 @@ public class Colonize extends BaseCard {
     }
 
     public void colonizeAction(BasePlanet targetPlanet) {
-        user.useCard(this);
         if (targetPlanet.getColonizeCount() >= targetPlanet.getColonizeCost()) {
             user.discardCard(this);
             targetPlanet.conquer();

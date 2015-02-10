@@ -87,12 +87,12 @@ public class MyHandAndDeckFragment extends Fragment {
             } else {
                 ((GameActivity) getActivity()).showField();
             }
-            showPlanet = !showPlanet;
-            toggleFieldPlanetButton();
         }
     };
-    private void toggleFieldPlanetButton() {
-        if (showPlanet) {
+    public void toggleFieldPlanetButton(boolean show) {
+        Log.d("HandDeckFragment", "showPlanet was " + showPlanet + " is now " + show);
+        showPlanet = show;
+        if (show) {
             viewPlanetButton.setText(R.string.view_planet);
         } else {
             viewPlanetButton.setText(R.string.view_field);

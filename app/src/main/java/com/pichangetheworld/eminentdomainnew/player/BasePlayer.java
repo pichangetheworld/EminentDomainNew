@@ -22,7 +22,7 @@ import java.util.List;
  */
 public abstract class BasePlayer {
 //    final int[] STARTING_DECK = { 0, 0, 1, 2, 2, 3, 3, 4, 4 };
-    final int[] STARTING_DECK = { 0, 0, 0, 0, 0, 0 }; // TODO for testing
+    final int[] STARTING_DECK = { 2, 2, 2, 2, 2, 2 }; // TODO for testing
 
     private final Intent mHandChangedIntent = new Intent("HAND_UPDATED");
     private final Intent mPlanetsChangedIntent = new Intent("PLANETS_UPDATED");
@@ -89,6 +89,7 @@ public abstract class BasePlayer {
     // Remove a card from the user's hand
     public void useCard(BaseCard card) {
         hand.remove(card);
+        broadcastHandUpdated();
     }
     public void useCardIndex(int index) { hand.remove(index); }
 

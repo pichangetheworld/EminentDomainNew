@@ -111,7 +111,7 @@ public class GameActivity extends FragmentActivity {
             @Override
             public void run() {
                 Toast.makeText(GameActivity.this, name + "'s turn! Action Phase", Toast.LENGTH_LONG).show();
-                showField();
+                showPlanets();
                 fieldFragment.onActionPhase();
                 myHandAndDeckFragment.onActionPhase();
             }
@@ -135,11 +135,13 @@ public class GameActivity extends FragmentActivity {
     public void showField() {
         fieldFragment.setVisibility(true);
         myPlanetsFragment.setVisibility(false);
+        myHandAndDeckFragment.toggleFieldPlanetButton(true);
     }
 
     public void showPlanets() {
         fieldFragment.setVisibility(false);
         myPlanetsFragment.setVisibility(true);
+        myHandAndDeckFragment.toggleFieldPlanetButton(false);
     }
 
     // Let the player choose target planet
