@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew;
 
 import android.util.Log;
 
+import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 import com.pichangetheworld.eminentdomainnew.player.ComputerPlayer;
@@ -72,7 +73,7 @@ public class GameManager {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -81,6 +82,7 @@ public class GameManager {
                 if (mCurrentPhase == null) {
                     mCurrentPlayer = (mCurrentPlayer + 1) % mPlayers.size();
                     mCurrentPhase = Phase.ACTION_PHASE;
+                    mPlayers.get(mCurrentPlayer).updateAllViews();
                 }
                 context.updateViewNextPhase(mCurrentPhase, mPlayers.get(mCurrentPlayer).getName());
             }
@@ -103,8 +105,10 @@ public class GameManager {
 
     // Play the role at the selected index
     public void playRole(int index) {
-        context.getGameField().drawCardFromFieldDeck(context, mPlayers.get(mCurrentPlayer), index)
-                .onRole();
+        BaseCard card = context.getGameField()
+                .drawCardFromFieldDeck(context, mPlayers.get(mCurrentPlayer), index);
+        if (card != null)
+            card.onRole();
     }
 
     public void endRolePhase() {

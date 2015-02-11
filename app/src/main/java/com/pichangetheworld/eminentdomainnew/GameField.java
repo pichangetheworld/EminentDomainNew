@@ -1,5 +1,7 @@
 package com.pichangetheworld.eminentdomainnew;
 
+import android.util.Log;
+
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Colonize;
 import com.pichangetheworld.eminentdomainnew.card.ProduceTrade;
@@ -41,6 +43,7 @@ public class GameField {
 
     public BaseCard drawCardFromFieldDeck(EminentDomainApplication context, BasePlayer player, int index) {
         if (fieldDecks[index].isEmpty()) {
+            Log.d("GameField", "Field deck is null");
             // TODO broadcast to view that the deck is empty and scene should be redrawn
             return null;
         }

@@ -1,8 +1,6 @@
 package com.pichangetheworld.eminentdomainnew.util;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
-import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,15 +11,16 @@ import java.util.List;
  * Author: pchan
  * Date: 17/01/2015
  */
-public class PlayerDeck extends Deck {
+public class PlayerDeck {
+    List<BaseCard> deck;
     List<BaseCard> discards;
 
     public PlayerDeck() {
         super();
+        deck = new ArrayList<>();
         discards = new ArrayList<>();
     }
 
-    @Override
     public boolean isEmpty() {
         return deck.isEmpty() && discards.isEmpty();
     }
@@ -33,13 +32,6 @@ public class PlayerDeck extends Deck {
             Collections.shuffle(deck);
         }
         return deck.remove(0);
-    }
-
-    public BaseCard drawCardFromField(EminentDomainApplication context, BasePlayer player) {
-        if (!deck.isEmpty()) {
-            return deck.remove(0).toUser(context, player);
-        }
-        return null;
     }
 
     public void addDiscard(BaseCard card) {

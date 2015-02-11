@@ -59,9 +59,12 @@ public abstract class BasePlayer {
     }
 
     public BasePlayer init() {
-        for (int index : STARTING_DECK)
-            discardCard(EminentDomainApplication.getInstance()
-                    .getGameField().drawCardFromFieldDeck(context, this, index));
+        for (int index : STARTING_DECK) {
+            BaseCard card = context.getGameField()
+                    .drawCardFromFieldDeck(context, this, index);
+            if (card != null)
+                discardCard(card);
+        }
         discardCard(new Politics().toUser(context, this));
         drawUpToCardLimit();
         return this;
@@ -71,9 +74,9 @@ public abstract class BasePlayer {
     public void surveyPlanet(BasePlanet planet) {
         surveyedPlanets.add(planet);
         planet.survey(this);
-        if (this instanceof HumanPlayer) {
+//        if (this instanceof HumanPlayer) {
             broadcastPlanetsUpdated();
-        }
+//        }
     }
 
     // Hand cards
@@ -97,9 +100,9 @@ public abstract class BasePlayer {
             if (deck.isEmpty()) break;
             hand.add(deck.drawCard());
         }
-        if (this instanceof HumanPlayer) {
+//        if (this instanceof HumanPlayer) {
             broadcastHandUpdated();
-        }
+//        }
     }
 
     // Add a card to the discard pile
@@ -157,5 +160,10 @@ public abstract class BasePlayer {
     // Play the card at index i
     public void playCard(int index) {
         hand.remove(index).onAction();
+    }
+
+    public void updateAllViews() {
+        broadcastHandUpdated();
+        broadcastPlanetsUpdated();
     }
 }

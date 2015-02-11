@@ -23,8 +23,10 @@ public class Politics extends BaseCard {
 
             if (roleIndex >= 0) {
                 user.useCard(Politics.this);
-                user.addCardToHand(context.getGameField()
-                        .drawCardFromFieldDeck(context, user, roleIndex));
+                BaseCard card = context.getGameField()
+                        .drawCardFromFieldDeck(context, user, roleIndex);
+                if (card != null)
+                    user.addCardToHand(card);
                 context.unregisterReceiver(this);
                 context.endActionPhase();
             }
