@@ -50,18 +50,24 @@ public class EminentDomainApplication extends Application {
 
     public GameField getGameField() { return gameField; }
 
-    public void updateViewNextPhase(Phase phase, String name) {
+    public void updateViewNextPhase(Phase phase, String name, boolean isComputerTurn) {
         Log.d("NextPhaseStart", "Got phase start: " + phase);
         switch (phase) {
-            case ACTION_PHASE: actionPhase(name); break;
+            case ACTION_PHASE: actionPhase(name, isComputerTurn); break;
             case ROLE_PHASE: rolePhase(); break;
             case DISCARD_DRAW_PHASE: discardDrawPhase(); break;
             default:
         }
     }
 
-    private void actionPhase(String name) {
-        activity.actionPhase(name);
+    private void actionPhase(String name, boolean isComputerTurn) {
+        if (isComputerTurn) {
+            int index = gameManager.letAISelectTargetHandCard();
+            Log.d("ActionPhase", "AI plays card at " + index);
+            playAction(index);
+        } else {
+            activity.actionPhase(name);
+        }
     }
 
     // Play the card at index i

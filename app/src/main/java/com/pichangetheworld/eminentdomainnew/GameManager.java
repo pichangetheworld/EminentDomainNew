@@ -65,9 +65,13 @@ public class GameManager {
         mCurrentPlayer = 0;
         mCurrentPhase = Phase.ACTION_PHASE;
 
-        context.updateViewNextPhase(mCurrentPhase, mPlayers.get(mCurrentPlayer).getName());
+        mPlayers.get(mCurrentPlayer).updateAllViews();
+        context.updateViewNextPhase(mCurrentPhase,
+                mPlayers.get(mCurrentPlayer).getName(),
+                isComputerTurn());
     }
 
+    // Next Phase
     private void nextPhase() {
         Thread thread = new Thread() {
             @Override
@@ -84,12 +88,15 @@ public class GameManager {
                     mCurrentPhase = Phase.ACTION_PHASE;
                     mPlayers.get(mCurrentPlayer).updateAllViews();
                 }
-                context.updateViewNextPhase(mCurrentPhase, mPlayers.get(mCurrentPlayer).getName());
+                context.updateViewNextPhase(mCurrentPhase,
+                        mPlayers.get(mCurrentPlayer).getName(),
+                        isComputerTurn());
             }
         };
         thread.start();
     }
 
+// ACTION PHASE
     // Current player plays the card at index i
     public void playAction(int index) {
         mPlayers.get(mCurrentPlayer).playCard(index);
@@ -103,6 +110,7 @@ public class GameManager {
         }
     }
 
+// ROLE PHASE
     // Play the role at the selected index
     public void playRole(int index) {
         BaseCard card = context.getGameField()
@@ -119,6 +127,8 @@ public class GameManager {
         }
     }
 
+// DISCARD / DRAW PHASE
+    // Discard selected cards
     public void curPlayerDiscardSelectedCards(List<Integer> selectedCards) {
         mPlayers.get(mCurrentPlayer).discardIndexCards(selectedCards);
         endDiscardDrawPhase();
@@ -133,9 +143,13 @@ public class GameManager {
         }
     }
 
-    // Computer
+    // Computer AI
     public boolean isComputerTurn() {
         return mPlayers.get(mCurrentPlayer) instanceof ComputerPlayer;
+    }
+
+    public int letAISelectTargetHandCard() {
+        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetHandCard();
     }
 
     public int letAISelectTargetPlanet() {

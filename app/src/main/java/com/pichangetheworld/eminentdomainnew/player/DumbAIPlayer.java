@@ -17,4 +17,9 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     public int selectTargetPlanet() {
         return 0;
     }
+
+    @Override
+    public int selectTargetHandCard() {
+        return 0;
+    }
 }

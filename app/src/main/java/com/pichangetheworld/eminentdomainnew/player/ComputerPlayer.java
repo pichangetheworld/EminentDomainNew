@@ -1,7 +1,5 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
-
 /**
  * Eminent Domain AS
  * Author: pchan
@@ -9,4 +7,6 @@ import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
  */
 public interface ComputerPlayer {
     int selectTargetPlanet();
+
+    int selectTargetHandCard();
 }
