@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
-import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.SelectMode;
 import com.pichangetheworld.eminentdomainnew.view.CardView;
@@ -30,7 +29,6 @@ import java.util.List;
 public class MyHandAndDeckFragment extends Fragment {
     // Views
     Button okayButton;
-    Button viewPlanetButton;
 
     // Parent layout holding all the card views
     RelativeLayout handView;
@@ -76,28 +74,6 @@ public class MyHandAndDeckFragment extends Fragment {
             redraw();
         }
     };
-
-    boolean showPlanet = true;
-    private final View.OnClickListener toggleFieldPlanet = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (showPlanet) {
-                // Clicking the show Planet View
-                ((GameActivity) getActivity()).showPlanets();
-            } else {
-                ((GameActivity) getActivity()).showField();
-            }
-        }
-    };
-    public void toggleFieldPlanetButton(boolean show) {
-        Log.d("HandDeckFragment", "showPlanet was " + showPlanet + " is now " + show);
-        showPlanet = show;
-        if (show) {
-            viewPlanetButton.setText(R.string.view_planet);
-        } else {
-            viewPlanetButton.setText(R.string.view_field);
-        }
-    }
 
     private final View.OnClickListener onCardClicked = new View.OnClickListener() {
         @Override
@@ -149,9 +125,6 @@ public class MyHandAndDeckFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_player, container, false);
         okayButton = (Button) v.findViewById(R.id.okay_button);
         okayButton.setOnClickListener(onOkay);
-
-        viewPlanetButton = (Button) v.findViewById(R.id.view_planet_button);
-        viewPlanetButton.setOnClickListener(toggleFieldPlanet);
 
         handView = (RelativeLayout) v.findViewById(R.id.hand);
 
