@@ -36,6 +36,15 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     }
 
     @Override
+    public int selectTargetConqueredPlanet() {
+        for (int i = 0; i < surveyedPlanets.size(); ++i) {
+            if (surveyedPlanets.get(i).isConquered())
+                return i;
+        }
+        return -1;
+    }
+
+    @Override
     public List<Integer> selectTargetHandCardsToDiscard(int min) {
         List<Integer> ret = new ArrayList<>();
         for (int i = 0; i < min; ++i) {

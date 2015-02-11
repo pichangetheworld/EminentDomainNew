@@ -26,11 +26,11 @@ public class ProduceTrade extends BaseCard {
                 // Action
                 switch (actionIndex) {
                     case 0: // PRODUCE
-                        context.selectTargetUnconqueredPlanet(false, onActionProduceCallback);
+                        context.selectTargetConqueredPlanet(onActionProduceCallback);
                         break;
                     case 1: // TRADE
                     default:
-                        context.selectTargetUnconqueredPlanet(false, onActionTradeCallback);
+                        context.selectTargetConqueredPlanet(onActionTradeCallback);
                         break;
                 }
             } else {
@@ -45,6 +45,7 @@ public class ProduceTrade extends BaseCard {
     private final TargetCallbackInterface onActionProduceCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
+            user.useCard(ProduceTrade.this);
             if (index >= 0 && user.getSurveyedPlanets().get(index).canProduce()) {
                 user.getSurveyedPlanets().get(index).produce(1);
             }
@@ -56,6 +57,7 @@ public class ProduceTrade extends BaseCard {
     private final TargetCallbackInterface onActionTradeCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int planetIndex) {
+            user.useCard(ProduceTrade.this);
             if (planetIndex >= 0 && user.getSurveyedPlanets().get(planetIndex).canTrade()) {
                 user.getSurveyedPlanets().get(planetIndex).trade(1);
             }

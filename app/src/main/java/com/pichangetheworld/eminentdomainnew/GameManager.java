@@ -164,6 +164,10 @@ public class GameManager {
         return getComputerPlayer().selectTargetUnconqueredPlanet(allowNone);
     }
 
+    public int letAISelectTargetConqueredPlanet() {
+        return getComputerPlayer().selectTargetConqueredPlanet();
+    }
+
     public List<Integer> letAISelectHandCardsToDiscard() {
         int min = mPlayers.get(mCurrentPlayer).numCardsAboveLimit();
         return getComputerPlayer().selectTargetHandCardsToDiscard(min);

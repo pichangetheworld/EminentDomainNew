@@ -188,4 +188,9 @@ public class GameActivity extends FragmentActivity {
             myHandAndDeckFragment.allowNone(callback);
         }
     }
+
+    public void letPlayerChooseTargetConqueredPlanet(TargetCallbackInterface callback) {
+        showPlanets();
+        myPlanetsFragment.chooseTargetConqueredPlanet(callback);
+    }
 }

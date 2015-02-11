@@ -126,6 +126,24 @@ public class MyPlanetsFragment extends Fragment {
         }
     }
 
+    public void chooseTargetConqueredPlanet(TargetCallbackInterface callback) {
+        Log.d("PlanetsFragment", "Choosing target planet " + planetViews.size());
+        mCallback = callback;
+
+        int validTargets = 0;
+        for (PlanetView pv : planetViews) {
+            if (pv.isConquered()) {
+                validTargets++;
+                pv.setOnClickListener(onPlanetClicked);
+            } else {
+                pv.setClickable(false);
+            }
+        }
+        if (validTargets == 0) {
+            mCallback.callback(-1);
+        }
+    }
+
     public void resetPlanetsClickable() {
         for (PlanetView pv : planetViews) {
             pv.setClickable(false);
