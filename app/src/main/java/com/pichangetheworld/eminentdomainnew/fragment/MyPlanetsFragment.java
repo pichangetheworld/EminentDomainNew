@@ -70,17 +70,6 @@ public class MyPlanetsFragment extends Fragment {
         return v;
     }
 
-    // Hide the view
-    public void setVisibility(boolean visible) {
-        if (getView() != null) {
-            if (visible) {
-                getView().setVisibility(View.VISIBLE);
-            } else {
-                getView().setVisibility(View.GONE);
-            }
-        }
-    }
-
     // Update the planet view with the planets in the user's area
     public void updatePlanets(ArrayList<PlanetDrawableData> data) {
         this.planetData.clear();
