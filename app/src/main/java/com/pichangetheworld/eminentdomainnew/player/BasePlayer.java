@@ -9,8 +9,8 @@ import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Politics;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
-import com.pichangetheworld.eminentdomainnew.util.Deck;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.PlayerDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public abstract class BasePlayer {
     final int[] STARTING_DECK = { 0, 0, 1, 2, 2, 3, 3, 4, 4 };
-//    final int[] STARTING_DECK = { 2, 2, 2, 2, 2, 2 }; // TODO for testing
+//    final int[] STARTING_DECK = { 2, 2, 2, 2, 2, 2 }; // for testing
 
     private final Intent mHandChangedIntent = new Intent("HAND_UPDATED");
     private final Intent mPlanetsChangedIntent = new Intent("PLANETS_UPDATED");
@@ -33,8 +33,7 @@ public abstract class BasePlayer {
 
     int cardLimit;
 
-    Deck deck;
-    List<BaseCard> discardPile;
+    PlayerDeck deck;
     List<BasePlanet> surveyedPlanets;
 
     List<BaseCard> hand;
@@ -54,8 +53,7 @@ public abstract class BasePlayer {
         cardLimit = 5;
         numShips = 0;
 
-        deck = new Deck();
-        discardPile = new ArrayList<>();
+        deck = new PlayerDeck();
         hand = new ArrayList<>();
         surveyedPlanets = new ArrayList<>();
     }
@@ -96,11 +94,6 @@ public abstract class BasePlayer {
     // Draw a card into the hand
     public void drawCards(int n) {
         for (int i = 0; i < n; ++i) {
-            if (deck.isEmpty()) {
-                deck.addCardsToDeck(discardPile);
-                discardPile.clear();
-                deck.shuffle();
-            }
             if (deck.isEmpty()) break;
             hand.add(deck.drawCard());
         }
@@ -111,12 +104,12 @@ public abstract class BasePlayer {
 
     // Add a card to the discard pile
     public void discardCard(BaseCard card) {
-        discardPile.add(card);
+        deck.addDiscard(card);
     }
 
     // Add cards to the discard pile
     public void discardCards(List<BaseCard> cards) {
-        discardPile.addAll(cards);
+        deck.addDiscards(cards);
     }
 
     public void discardIndexCards(List<Integer> indices) {

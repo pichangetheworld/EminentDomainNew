@@ -5,7 +5,6 @@ import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,23 +23,8 @@ public class Deck {
         deck.add(card);
     }
 
-    public void addCardsToDeck(List<BaseCard> cards) {
-        deck.addAll(cards);
-    }
-
     public boolean isEmpty() {
         return deck.isEmpty();
-    }
-
-    public void shuffle() {
-        Collections.shuffle(deck);
-    }
-
-    public BaseCard drawCard() {
-        if (deck.isEmpty()) {
-            // TODO add discards
-        }
-        return deck.remove(0);
     }
 
     public BaseCard drawCardFromField(EminentDomainApplication context, BasePlayer player) {
