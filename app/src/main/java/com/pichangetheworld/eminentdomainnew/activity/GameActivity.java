@@ -72,12 +72,6 @@ public class GameActivity extends FragmentActivity {
 
         numPlayers = getIntent().getIntExtra("numPlayers", 3);
 
-        // TODO change this to a fragment viewpager
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.add(R.id.fragment_container, fieldFragment);
-//        ft.add(R.id.fragment_container, myPlanetsFragment);
-//        ft.commit();
-
         myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_player);
 
