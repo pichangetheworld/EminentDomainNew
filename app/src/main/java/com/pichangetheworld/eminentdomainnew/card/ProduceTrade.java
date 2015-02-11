@@ -70,7 +70,8 @@ public class ProduceTrade extends BaseCard {
 
     @Override
     public void onAction() {
-        context.registerReceiver(mChooseActionReceiver, new IntentFilter("CHOSE_TARGET_ACTION"));
+        context.endActionPhase();
+//        context.registerReceiver(mChooseActionReceiver, new IntentFilter("CHOSE_TARGET_ACTION"));
     }
 
     @Override

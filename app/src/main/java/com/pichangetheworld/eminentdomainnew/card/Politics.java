@@ -37,7 +37,8 @@ public class Politics extends BaseCard {
 
     @Override
     public void onAction() {
-        context.registerReceiver(mChooseRoleReceiver, new IntentFilter("CHOSE_TARGET_ROLE"));
+        context.endActionPhase();
+//        context.registerReceiver(mChooseRoleReceiver, new IntentFilter("CHOSE_TARGET_ROLE"));
     }
 
     @Override
