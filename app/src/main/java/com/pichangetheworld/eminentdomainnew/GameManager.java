@@ -64,32 +64,28 @@ public class GameManager {
         mCurrentPlayer = 0;
         mCurrentPhase = Phase.ACTION_PHASE;
 
-        actionPhase();
+        context.updateViewNextPhase(mCurrentPhase, mPlayers.get(mCurrentPlayer).getName());
     }
 
-    public void nextPhase() {
-        mCurrentPhase = mCurrentPhase.next();
-        if (mCurrentPhase == null) {
-            mCurrentPlayer = (mCurrentPlayer + 1) % mPlayers.size();
-            mCurrentPhase = Phase.ACTION_PHASE;
-        }
-        switch (mCurrentPhase) {
-            case ACTION_PHASE:
-                actionPhase();
-                break;
-            case ROLE_PHASE:
-                rolePhase();
-                break;
-            case DISCARD_DRAW_PHASE:
-                discardDrawPhase();
-                break;
-            default:
-                // should never get here
-        }
-    }
+    private void nextPhase() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-    public void actionPhase() {
-        context.updateViewNextPhase(Phase.ACTION_PHASE, mPlayers.get(mCurrentPlayer).getName());
+                mCurrentPhase = mCurrentPhase.next();
+                if (mCurrentPhase == null) {
+                    mCurrentPlayer = (mCurrentPlayer + 1) % mPlayers.size();
+                    mCurrentPhase = Phase.ACTION_PHASE;
+                }
+                context.updateViewNextPhase(mCurrentPhase, mPlayers.get(mCurrentPlayer).getName());
+            }
+        };
+        thread.start();
     }
 
     // Current player plays the card at index i
@@ -105,10 +101,6 @@ public class GameManager {
         }
     }
 
-    public void rolePhase() {
-        context.updateViewNextPhase(Phase.ROLE_PHASE, mPlayers.get(mCurrentPlayer).getName());
-    }
-
     // Play the role at the selected index
     public void playRole(int index) {
         context.getGameField().drawCardFromFieldDeck(context, mPlayers.get(mCurrentPlayer), index)
@@ -121,10 +113,6 @@ public class GameManager {
         else {
             Log.e("GameManager", "Trying to end role phase but we are in " + mCurrentPhase);
         }
-    }
-
-    public void discardDrawPhase() {
-        context.updateViewNextPhase(Phase.DISCARD_DRAW_PHASE, mPlayers.get(mCurrentPlayer).getName());
     }
 
     public void curPlayerDiscardSelectedCards(List<Integer> selectedCards) {

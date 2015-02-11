@@ -149,17 +149,27 @@ public class GameActivity extends FragmentActivity {
     }
 
     public void rolePhase() {
-        Toast.makeText(this, "Role Phase", Toast.LENGTH_LONG).show();
-        showField();
-        fieldFragment.onRolePhase();
-        myHandAndDeckFragment.onRolePhase();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GameActivity.this, "Role Phase", Toast.LENGTH_LONG).show();
+                showField();
+                fieldFragment.onRolePhase();
+                myHandAndDeckFragment.onRolePhase();
+            }
+        });
     }
 
     public void discardDrawPhase() {
-        Toast.makeText(this, "Discard Phase", Toast.LENGTH_LONG).show();
-        showField();
-        fieldFragment.onDiscardDrawPhase();
-        myHandAndDeckFragment.onDiscardDrawPhase();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GameActivity.this, "Discard Phase", Toast.LENGTH_LONG).show();
+                showField();
+                fieldFragment.onDiscardDrawPhase();
+                myHandAndDeckFragment.onDiscardDrawPhase();
+            }
+        });
     }
 
     public void showField() {

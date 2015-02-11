@@ -18,7 +18,7 @@ import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 public class PlanetView extends RelativeLayout {
     LayoutInflater mInflater;
 
-    boolean conquered = false;
+    private PlanetDrawableData data = null;
 
     // Surveyed planets
     TextView colonizeCost;
@@ -48,35 +48,33 @@ public class PlanetView extends RelativeLayout {
     }
 
     private void init() {
-        conquered = false;
+        mInflater.inflate(R.layout.planet_view, this, true);
+
+        colonizeCost = (TextView) findViewById(R.id.colonize_cost);
+        warfareCost = (TextView) findViewById(R.id.warfare_cost);
+        colonizeCount = (TextView) findViewById(R.id.colonize_count);
     }
 
     // Getter
-    public boolean isConquered() { return conquered; }
+    public boolean isConquered() { return (data != null && data.conquered); }
 
     // Set all details at once
     public void setDetails(PlanetDrawableData data) {
+        this.data = data;
         Log.d("PlanetView", "Drawing planet conquered: " + data.conquered);
         if (!data.conquered) {
-            mInflater.inflate(R.layout.planet_view, this, true);
-
-            colonizeCost = (TextView) findViewById(R.id.colonize_cost);
-            warfareCost = (TextView) findViewById(R.id.warfare_cost);
-            colonizeCount = (TextView) findViewById(R.id.colonize_count);
-
             colonizeCost.setText(Integer.toString(data.colonizeCost));
             warfareCost.setText(Integer.toString(data.warfareCost));
             Log.d("PlanetView", "Drawing planet colonize count is: " + data.colonizeCount);
             if (data.colonizeCount > 0) {
-                colonizeCount.setText(Integer.toString(data.colonizeCount));
                 colonizeCount.setVisibility(VISIBLE);
+                colonizeCount.setText(Integer.toString(data.colonizeCount));
             } else {
                 colonizeCount.setVisibility(GONE);
             }
         } else {
             mInflater.inflate(R.layout.conquered_planet_view, this, true);
 
-            conquered = true;
             vps = (TextView) findViewById(R.id.VPs);
             produceCapacity = (TextView) findViewById(R.id.produce_capacity);
 

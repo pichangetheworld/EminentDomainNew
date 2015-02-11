@@ -103,8 +103,8 @@ public class MyPlanetsFragment extends Fragment {
             if (planetData.get(i).drawable == -1) {
                 pv.setVisibility(View.GONE);
             } else {
-                pv.setDetails(planetData.get(i));
                 pv.setVisibility(View.VISIBLE);
+                pv.setDetails(planetData.get(i));
             }
         }
     }
