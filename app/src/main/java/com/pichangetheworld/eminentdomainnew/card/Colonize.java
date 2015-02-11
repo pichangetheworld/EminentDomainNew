@@ -29,7 +29,7 @@ public class Colonize extends BaseCard {
     @Override
     public void onAction() {
         super.onAction();
-        context.selectTargetPlanet(false, onActionCallback);
+        context.selectTargetUnconqueredPlanet(false, onActionCallback);
     }
 
     @Override

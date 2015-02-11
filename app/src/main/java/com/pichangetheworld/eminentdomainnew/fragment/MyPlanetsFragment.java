@@ -43,9 +43,7 @@ public class MyPlanetsFragment extends Fragment {
                 if (v == planetViews.get(i)) break;
             }
 
-            if (i < planetViews.size()) {
-                mCallback.callback(i);
-            }
+            mCallback.callback(i);
             resetPlanetsClickable();
         }
     };
@@ -110,16 +108,21 @@ public class MyPlanetsFragment extends Fragment {
     }
 
     // Choosing target unconquered planet
-    public void chooseTargetPlanet(TargetCallbackInterface callback) {
+    public void chooseTargetUnconqueredPlanet(TargetCallbackInterface callback) {
         Log.d("PlanetsFragment", "Choosing target planet " + planetViews.size());
         mCallback = callback;
 
+        int validTargets = 0;
         for (PlanetView pv : planetViews) {
             if (!pv.isConquered()) {
+                validTargets++;
                 pv.setOnClickListener(onPlanetClicked);
             } else {
                 pv.setClickable(false);
             }
+        }
+        if (validTargets == 0) {
+            mCallback.callback(-1);
         }
     }
 

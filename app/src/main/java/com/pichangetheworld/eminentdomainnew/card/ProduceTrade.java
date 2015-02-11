@@ -3,7 +3,6 @@ package com.pichangetheworld.eminentdomainnew.card;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.R;
@@ -27,11 +26,11 @@ public class ProduceTrade extends BaseCard {
                 // Action
                 switch (actionIndex) {
                     case 0: // PRODUCE
-                        context.selectTargetPlanet(false, onActionProduceCallback);
+                        context.selectTargetUnconqueredPlanet(false, onActionProduceCallback);
                         break;
                     case 1: // TRADE
                     default:
-                        context.selectTargetPlanet(false, onActionTradeCallback);
+                        context.selectTargetUnconqueredPlanet(false, onActionTradeCallback);
                         break;
                 }
             } else {

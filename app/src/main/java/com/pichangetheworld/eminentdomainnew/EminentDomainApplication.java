@@ -120,13 +120,13 @@ public class EminentDomainApplication extends Application {
     }
 
     // selecting target planets
-    public void selectTargetPlanet(boolean allowNone, TargetCallbackInterface callback) {
+    public void selectTargetUnconqueredPlanet(boolean allowNone, TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
             int index = gameManager.letAISelectTargetPlanet(allowNone);
             callback.callback(index);
         } else {
-            activity.letPlayerChooseTargetPlanet(allowNone, callback);
+            activity.letPlayerChooseTargetUnconqueredPlanet(allowNone, callback);
         }
     }
 }

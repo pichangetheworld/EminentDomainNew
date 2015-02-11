@@ -179,10 +179,10 @@ public class GameActivity extends FragmentActivity {
     }
 
     // Let the player choose target planet
-    public void letPlayerChooseTargetPlanet(boolean allowNone,
-                                            TargetCallbackInterface callback) {
+    public void letPlayerChooseTargetUnconqueredPlanet(boolean allowNone,
+                                                       TargetCallbackInterface callback) {
         showPlanets();
-        myPlanetsFragment.chooseTargetPlanet(callback);
+        myPlanetsFragment.chooseTargetUnconqueredPlanet(callback);
         if (allowNone) {
             // let hand be selectable too
             myHandAndDeckFragment.allowNone(callback);
