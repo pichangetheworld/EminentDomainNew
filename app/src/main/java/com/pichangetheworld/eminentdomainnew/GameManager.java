@@ -98,7 +98,11 @@ public class GameManager {
     }
 
     public void endActionPhase() {
-        nextPhase();
+        if (mCurrentPhase == Phase.ACTION_PHASE)
+            nextPhase();
+        else {
+            Log.e("GameManager", "Trying to end action phase but we are in " + mCurrentPhase);
+        }
     }
 
     public void rolePhase() {
@@ -112,7 +116,11 @@ public class GameManager {
     }
 
     public void endRolePhase() {
-        nextPhase();
+        if (mCurrentPhase == Phase.ROLE_PHASE)
+            nextPhase();
+        else {
+            Log.e("GameManager", "Trying to end role phase but we are in " + mCurrentPhase);
+        }
     }
 
     public void discardDrawPhase() {
@@ -125,14 +133,18 @@ public class GameManager {
     }
 
     private void endDiscardDrawPhase() {
-        mPlayers.get(mCurrentPlayer).drawUpToCardLimit();
-        nextPhase();
+        if (mCurrentPhase == Phase.DISCARD_DRAW_PHASE) {
+            mPlayers.get(mCurrentPlayer).drawUpToCardLimit();
+            nextPhase();
+        } else {
+            Log.e("GameManager", "Trying to end discard phase but we are in " + mCurrentPhase);
+        }
     }
 
     // Computer
     public boolean isComputerTurn() {
         return mPlayers.get(mCurrentPlayer) instanceof ComputerPlayer;
-    };
+    }
 
     public int letAISelectTargetPlanet() {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
