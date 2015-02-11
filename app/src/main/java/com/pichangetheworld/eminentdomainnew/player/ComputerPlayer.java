@@ -6,7 +6,10 @@ package com.pichangetheworld.eminentdomainnew.player;
  * Date: 17/01/2015
  */
 public interface ComputerPlayer {
-    int selectTargetPlanet();
 
     int selectTargetHandCard();
+
+    int selectTargetRole();
+
+    int selectTargetPlanet();
 }

@@ -54,7 +54,7 @@ public class EminentDomainApplication extends Application {
         Log.d("NextPhaseStart", "Got phase start: " + phase);
         switch (phase) {
             case ACTION_PHASE: actionPhase(name, isComputerTurn); break;
-            case ROLE_PHASE: rolePhase(); break;
+            case ROLE_PHASE: rolePhase(isComputerTurn); break;
             case DISCARD_DRAW_PHASE: discardDrawPhase(); break;
             default:
         }
@@ -84,12 +84,17 @@ public class EminentDomainApplication extends Application {
         gameManager.endActionPhase();
     }
 
-    private void rolePhase() {
-        activity.rolePhase();
+    private void rolePhase(boolean isComputerTurn) {
+        if (isComputerTurn) {
+            int index = gameManager.letAISelectTargetRole();
+            Log.d("ActionPhase", "AI plays role at " + index);
+            playRole(index);
+        } else {
+            activity.rolePhase();
+        }
     }
 
-    // Play the card at index i
-    // If i == -1 skip
+    // Play the role at index i
     public void playRole(int index) {
         gameManager.playRole(index);
     }

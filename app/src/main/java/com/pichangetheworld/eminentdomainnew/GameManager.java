@@ -152,6 +152,10 @@ public class GameManager {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetHandCard();
     }
 
+    public int letAISelectTargetRole() {
+        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetRole();
+    }
+
     public int letAISelectTargetPlanet() {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
     }
