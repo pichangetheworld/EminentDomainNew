@@ -160,7 +160,7 @@ public class GameManager {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
     }
 
-    public List<Integer> letAISelectTargetHandCardsToDiscard() {
+    public List<Integer> letAISelectHandCardsToDiscard() {
         int min = mPlayers.get(mCurrentPlayer).numCardsAboveLimit();
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer))
                 .selectTargetHandCardsToDiscard(min);

@@ -50,19 +50,19 @@ public class EminentDomainApplication extends Application {
 
     public GameField getGameField() { return gameField; }
 
-    public void updateViewNextPhase(Phase phase, String name, boolean isComputerTurn) {
+    public void updateViewNextPhase(Phase phase, String name, boolean isComputer) {
         Log.d("NextPhaseStart", "Got phase start: " + phase);
         switch (phase) {
-            case ACTION_PHASE: actionPhase(name, isComputerTurn); break;
-            case ROLE_PHASE: rolePhase(name, isComputerTurn); break;
-            case DISCARD_DRAW_PHASE: discardDrawPhase(isComputerTurn); break;
+            case ACTION_PHASE: actionPhase(name, isComputer); break;
+            case ROLE_PHASE: rolePhase(name, isComputer); break;
+            case DISCARD_DRAW_PHASE: discardDrawPhase(isComputer); break;
             default:
         }
     }
 
     // Action Phase
-    private void actionPhase(String name, boolean isComputerTurn) {
-        if (isComputerTurn) {
+    private void actionPhase(String name, boolean isComputer) {
+        if (isComputer) {
             int index = gameManager.letAISelectTargetHandCard();
             Log.d("ActionPhase", name + " plays card at " + index);
             playAction(index);
@@ -86,10 +86,10 @@ public class EminentDomainApplication extends Application {
     }
 
     // Role Phase
-    private void rolePhase(String name, boolean isComputerTurn) {
-        if (isComputerTurn) {
+    private void rolePhase(String name, boolean isComputer) {
+        if (isComputer) {
             int index = gameManager.letAISelectTargetRole();
-            Log.d("ActionPhase", name + " plays role at " + index);
+            Log.d("RolePhase", name + " plays role at " + index);
             playRole(index);
         } else {
             activity.rolePhase();
@@ -108,7 +108,7 @@ public class EminentDomainApplication extends Application {
     // Discard/Draw Phase
     private void discardDrawPhase(boolean isComputer) {
         if (isComputer) {
-            List<Integer> toDiscard = gameManager.letAISelectTargetHandCardsToDiscard();
+            List<Integer> toDiscard = gameManager.letAISelectHandCardsToDiscard();
             discardSelectedCards(toDiscard);
         } else {
             activity.discardDrawPhase();
