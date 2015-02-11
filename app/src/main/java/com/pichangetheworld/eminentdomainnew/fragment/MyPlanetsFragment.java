@@ -46,6 +46,7 @@ public class MyPlanetsFragment extends Fragment {
             if (i < planetViews.size()) {
                 mCallback.callback(i);
             }
+            resetPlanetsClickable();
         }
     };
 
@@ -66,6 +67,8 @@ public class MyPlanetsFragment extends Fragment {
                 }
             }
         });
+
+        resetPlanetsClickable();
 
         return v;
     }
@@ -117,6 +120,12 @@ public class MyPlanetsFragment extends Fragment {
             } else {
                 pv.setClickable(false);
             }
+        }
+    }
+
+    private void resetPlanetsClickable() {
+        for (PlanetView pv : planetViews) {
+            pv.setClickable(false);
         }
     }
 }
