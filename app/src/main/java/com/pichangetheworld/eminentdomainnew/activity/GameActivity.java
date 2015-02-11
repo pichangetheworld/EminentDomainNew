@@ -53,8 +53,8 @@ public class GameActivity extends FragmentActivity {
 
     MyFragmentAdapter mAdapter;
     ViewPager mPager;
-    static FieldFragment fieldFragment = new FieldFragment();
     static MyPlanetsFragment myPlanetsFragment = new MyPlanetsFragment();
+    static FieldFragment fieldFragment = new FieldFragment();
     MyHandAndDeckFragment myHandAndDeckFragment;
 
     int numPlayers = 3;
@@ -124,9 +124,9 @@ public class GameActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int i) {
             if (i == 0) {
-                return fieldFragment;
-            } else {
                 return myPlanetsFragment;
+            } else {
+                return fieldFragment;
             }
         }
 
@@ -172,14 +172,12 @@ public class GameActivity extends FragmentActivity {
         });
     }
 
-    public void showField() {
+    public void showPlanets() {
         mPager.setCurrentItem(0);
-        myHandAndDeckFragment.toggleFieldPlanetButton(true);
     }
 
-    public void showPlanets() {
+    public void showField() {
         mPager.setCurrentItem(1);
-        myHandAndDeckFragment.toggleFieldPlanetButton(false);
     }
 
     // Let the player choose target planet

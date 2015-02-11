@@ -21,8 +21,8 @@ import java.util.List;
  * Date: 17/01/2015
  */
 public abstract class BasePlayer {
-//    final int[] STARTING_DECK = { 0, 0, 1, 2, 2, 3, 3, 4, 4 };
-    final int[] STARTING_DECK = { 2, 2, 2, 2, 2, 2 }; // TODO for testing
+    final int[] STARTING_DECK = { 0, 0, 1, 2, 2, 3, 3, 4, 4 };
+//    final int[] STARTING_DECK = { 2, 2, 2, 2, 2, 2 }; // TODO for testing
 
     private final Intent mHandChangedIntent = new Intent("HAND_UPDATED");
     private final Intent mPlanetsChangedIntent = new Intent("PLANETS_UPDATED");
