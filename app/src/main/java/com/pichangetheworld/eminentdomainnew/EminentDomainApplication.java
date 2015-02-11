@@ -54,16 +54,17 @@ public class EminentDomainApplication extends Application {
         Log.d("NextPhaseStart", "Got phase start: " + phase);
         switch (phase) {
             case ACTION_PHASE: actionPhase(name, isComputerTurn); break;
-            case ROLE_PHASE: rolePhase(isComputerTurn); break;
-            case DISCARD_DRAW_PHASE: discardDrawPhase(); break;
+            case ROLE_PHASE: rolePhase(name, isComputerTurn); break;
+            case DISCARD_DRAW_PHASE: discardDrawPhase(isComputerTurn); break;
             default:
         }
     }
 
+    // Action Phase
     private void actionPhase(String name, boolean isComputerTurn) {
         if (isComputerTurn) {
             int index = gameManager.letAISelectTargetHandCard();
-            Log.d("ActionPhase", "AI plays card at " + index);
+            Log.d("ActionPhase", name + " plays card at " + index);
             playAction(index);
         } else {
             activity.actionPhase(name);
@@ -84,10 +85,11 @@ public class EminentDomainApplication extends Application {
         gameManager.endActionPhase();
     }
 
-    private void rolePhase(boolean isComputerTurn) {
+    // Role Phase
+    private void rolePhase(String name, boolean isComputerTurn) {
         if (isComputerTurn) {
             int index = gameManager.letAISelectTargetRole();
-            Log.d("ActionPhase", "AI plays role at " + index);
+            Log.d("ActionPhase", name + " plays role at " + index);
             playRole(index);
         } else {
             activity.rolePhase();
@@ -103,8 +105,14 @@ public class EminentDomainApplication extends Application {
         gameManager.endRolePhase();
     }
 
-    private void discardDrawPhase() {
-        activity.discardDrawPhase();
+    // Discard/Draw Phase
+    private void discardDrawPhase(boolean isComputer) {
+        if (isComputer) {
+            List<Integer> toDiscard = gameManager.letAISelectTargetHandCardsToDiscard();
+            discardSelectedCards(toDiscard);
+        } else {
+            activity.discardDrawPhase();
+        }
     }
 
     public void discardSelectedCards(List<Integer> selectedCards) {

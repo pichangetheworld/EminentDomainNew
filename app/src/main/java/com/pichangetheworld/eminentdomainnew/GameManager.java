@@ -159,4 +159,10 @@ public class GameManager {
     public int letAISelectTargetPlanet() {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
     }
+
+    public List<Integer> letAISelectTargetHandCardsToDiscard() {
+        int min = mPlayers.get(mCurrentPlayer).numCardsAboveLimit();
+        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer))
+                .selectTargetHandCardsToDiscard(min);
+    }
 }

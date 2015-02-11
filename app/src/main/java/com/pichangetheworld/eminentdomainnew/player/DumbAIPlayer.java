@@ -2,6 +2,9 @@ package com.pichangetheworld.eminentdomainnew.player;
 
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Eminent Domain AS
  * Author: pchan
@@ -14,11 +17,6 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     }
 
     @Override
-    public int selectTargetPlanet() {
-        return 0;
-    }
-
-    @Override
     public int selectTargetHandCard() {
         return 0;
     }
@@ -26,5 +24,19 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     @Override
     public int selectTargetRole() {
         return 0;
+    }
+
+    @Override
+    public int selectTargetPlanet() {
+        return 0;
+    }
+
+    @Override
+    public List<Integer> selectTargetHandCardsToDiscard(int min) {
+        List<Integer> ret = new ArrayList<>();
+        for (int i = 0; i < min; ++i) {
+            ret.add(i);
+        }
+        return ret;
     }
 }

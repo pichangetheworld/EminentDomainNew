@@ -31,11 +31,10 @@ public abstract class BasePlayer {
     String name;
     int id;
 
-    int cardLimit;
-
     PlayerDeck deck;
     List<BasePlanet> surveyedPlanets;
 
+    int handCardLimit;
     List<BaseCard> hand;
     int numShips;
 
@@ -50,7 +49,7 @@ public abstract class BasePlayer {
         this.name = name;
         this.id = id;
 
-        cardLimit = 5;
+        handCardLimit = 5;
         numShips = 0;
 
         deck = new PlayerDeck();
@@ -81,7 +80,7 @@ public abstract class BasePlayer {
 
     // Hand cards
     public void drawUpToCardLimit() {
-        drawCards(cardLimit - hand.size());
+        drawCards(handCardLimit - hand.size());
     }
 
     public void addCardToHand(BaseCard card) {
@@ -165,5 +164,9 @@ public abstract class BasePlayer {
     public void updateAllViews() {
         broadcastHandUpdated();
         broadcastPlanetsUpdated();
+    }
+
+    public int numCardsAboveLimit() {
+        return Math.max(0, hand.size() - handCardLimit);
     }
 }

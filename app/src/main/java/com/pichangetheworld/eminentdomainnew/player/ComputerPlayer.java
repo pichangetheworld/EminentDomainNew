@@ -1,5 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
+import java.util.List;
+
 /**
  * Eminent Domain AS
  * Author: pchan
@@ -12,4 +14,6 @@ public interface ComputerPlayer {
     int selectTargetRole();
 
     int selectTargetPlanet();
+
+    List<Integer> selectTargetHandCardsToDiscard(int min);
 }
