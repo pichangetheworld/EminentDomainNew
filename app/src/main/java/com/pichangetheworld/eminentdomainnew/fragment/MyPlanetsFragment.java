@@ -117,6 +117,7 @@ public class MyPlanetsFragment extends Fragment {
         }
     }
 
+    // Choosing target unconquered planet
     public void chooseTargetPlanet(TargetCallbackInterface callback) {
         Log.d("PlanetsFragment", "Choosing target planet " + planetViews.size());
         mCallback = callback;

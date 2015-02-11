@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -48,8 +51,10 @@ public class GameActivity extends FragmentActivity {
         }
     };
 
-    FieldFragment fieldFragment = new FieldFragment();
-    MyPlanetsFragment myPlanetsFragment = new MyPlanetsFragment();
+    MyFragmentAdapter mAdapter;
+    ViewPager mPager;
+    static FieldFragment fieldFragment = new FieldFragment();
+    static MyPlanetsFragment myPlanetsFragment = new MyPlanetsFragment();
     MyHandAndDeckFragment myHandAndDeckFragment;
 
     int numPlayers = 3;
@@ -57,18 +62,21 @@ public class GameActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_game);
+
+        mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
+        mPager = (ViewPager) findViewById(R.id.fragment_container);
+        mPager.setAdapter(mAdapter);
 
         EminentDomainApplication.getInstance().setActivity(this);
 
         numPlayers = getIntent().getIntExtra("numPlayers", 3);
 
         // TODO change this to a fragment viewpager
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, fieldFragment);
-        ft.add(R.id.fragment_container, myPlanetsFragment);
-        ft.commit();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.add(R.id.fragment_container, fieldFragment);
+//        ft.add(R.id.fragment_container, myPlanetsFragment);
+//        ft.commit();
 
         myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_player);
@@ -107,6 +115,27 @@ public class GameActivity extends FragmentActivity {
         myHandAndDeckFragment.onWindowFocusChanged();
     }
 
+    private static class MyFragmentAdapter extends FragmentPagerAdapter {
+
+        public MyFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            if (i == 0) {
+                return fieldFragment;
+            } else {
+                return myPlanetsFragment;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
     public void actionPhase(final String name) {
         runOnUiThread(new Runnable() {
             @Override
@@ -134,14 +163,12 @@ public class GameActivity extends FragmentActivity {
     }
 
     public void showField() {
-        fieldFragment.setVisibility(true);
-        myPlanetsFragment.setVisibility(false);
+        mPager.setCurrentItem(0);
         myHandAndDeckFragment.toggleFieldPlanetButton(true);
     }
 
     public void showPlanets() {
-        fieldFragment.setVisibility(false);
-        myPlanetsFragment.setVisibility(true);
+        mPager.setCurrentItem(1);
         myHandAndDeckFragment.toggleFieldPlanetButton(false);
     }
 
