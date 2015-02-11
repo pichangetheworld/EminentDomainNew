@@ -45,6 +45,7 @@ public class Research extends BaseCard {
 
     @Override
     public void onRole() {
-
+        // TODO
+        context.endRolePhase();
     }
 }

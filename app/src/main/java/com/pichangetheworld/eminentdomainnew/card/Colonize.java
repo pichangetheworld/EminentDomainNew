@@ -33,7 +33,8 @@ public class Colonize extends BaseCard {
 
     @Override
     public void onRole() {
-
+        // TODO
+        context.endRolePhase();
     }
 
     @Override

@@ -22,6 +22,7 @@ public class Survey extends BaseCard {
 
     @Override
     public void onRole() {
-
+        // TODO
+        context.endRolePhase();
     }
 }

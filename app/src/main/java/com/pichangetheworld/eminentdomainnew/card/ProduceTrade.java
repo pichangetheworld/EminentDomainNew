@@ -76,6 +76,7 @@ public class ProduceTrade extends BaseCard {
 
     @Override
     public void onRole() {
-
+        // TODO
+        context.endRolePhase();
     }
 }
