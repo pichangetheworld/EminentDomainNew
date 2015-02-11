@@ -14,6 +14,8 @@ public class Survey extends BaseCard {
 
     @Override
     public void onAction() {
+        super.onAction();
+
         user.useCard(this);
         user.drawCards(2);
         user.discardCard(this);
@@ -22,6 +24,8 @@ public class Survey extends BaseCard {
 
     @Override
     public void onRole() {
+        super.onRole();
+
         // TODO
         context.endRolePhase();
     }

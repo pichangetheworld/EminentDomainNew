@@ -1,5 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
+import android.util.Log;
+
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 
@@ -16,6 +18,7 @@ public abstract class BaseCard {
     int drawable;
 
     BaseCard(String name, int drawable) {
+        this.name = name;
         this.drawable = drawable;
     }
 
@@ -36,8 +39,12 @@ public abstract class BaseCard {
         return drawable;
     }
 
-    public abstract void onAction();
-    public abstract void onRole();
+    public void onAction() {
+        Log.d("BaseCard", "On Action playing " + name);
+    }
+    public void onRole() {
+        Log.d("BaseCard", "On Role playing " + name);
+    }
 
     public int getSurvey() { return 0; }
     public int getWarfare() { return 0; }

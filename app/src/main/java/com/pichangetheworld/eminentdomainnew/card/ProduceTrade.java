@@ -70,12 +70,16 @@ public class ProduceTrade extends BaseCard {
 
     @Override
     public void onAction() {
-        context.endActionPhase();
+        super.onAction();
+
+        context.endActionPhase(); // TODO
 //        context.registerReceiver(mChooseActionReceiver, new IntentFilter("CHOSE_TARGET_ACTION"));
     }
 
     @Override
     public void onRole() {
+        super.onRole();
+
         // TODO
         context.endRolePhase();
     }

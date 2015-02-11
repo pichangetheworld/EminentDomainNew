@@ -39,12 +39,15 @@ public class Research extends BaseCard {
 
     @Override
     public void onAction() {
-        context.endActionPhase();
+        super.onAction();
+        context.endActionPhase(); // TODO
 //        context.registerReceiver(mChooseHandCardReceiver, new IntentFilter("CHOSE_TARGET_HAND_CARD"));
     }
 
     @Override
     public void onRole() {
+        super.onRole();
+
         // TODO
         context.endRolePhase();
     }

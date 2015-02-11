@@ -28,11 +28,14 @@ public class Colonize extends BaseCard {
 
     @Override
     public void onAction() {
+        super.onAction();
         context.selectTargetPlanet(onActionCallback);
     }
 
     @Override
     public void onRole() {
+        super.onRole();
+
         // TODO
         context.endRolePhase();
     }
