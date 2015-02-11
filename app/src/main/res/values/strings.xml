@@ -18,8 +18,7 @@
     <string name="discard">Discard</string>
     <string name="produce">Produce</string>
     <string name="trade">Trade</string>
-    <string name="view_planet">View Planets</string>
-    <string name="view_field">View Field</string>
+    <string name="none">None</string>
     <string name="two">2</string>
     <string name="conquered_planet">Conquered Planet</string>
 

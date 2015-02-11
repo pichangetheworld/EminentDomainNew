@@ -31,8 +31,7 @@ public class Warfare extends BaseCard {
     @Override
     public void onAction() {
         super.onAction();
-        context.endActionPhase(); // TODO
-//        context.selectTargetPlanet(onActionCallback);
+        context.selectTargetPlanet(true, onActionCallback);
     }
 
     @Override

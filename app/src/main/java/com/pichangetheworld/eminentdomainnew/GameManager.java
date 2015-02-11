@@ -156,7 +156,7 @@ public class GameManager {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetRole();
     }
 
-    public int letAISelectTargetPlanet() {
+    public int letAISelectTargetPlanet(boolean allowNone) {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
     }
 

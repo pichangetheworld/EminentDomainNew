@@ -27,11 +27,11 @@ public class ProduceTrade extends BaseCard {
                 // Action
                 switch (actionIndex) {
                     case 0: // PRODUCE
-                        context.selectTargetPlanet(onActionProduceCallback);
+                        context.selectTargetPlanet(false, onActionProduceCallback);
                         break;
                     case 1: // TRADE
                     default:
-                        context.selectTargetPlanet(onActionTradeCallback);
+                        context.selectTargetPlanet(false, onActionTradeCallback);
                         break;
                 }
             } else {

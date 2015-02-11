@@ -109,6 +109,10 @@ public class GameActivity extends FragmentActivity {
         myHandAndDeckFragment.onWindowFocusChanged();
     }
 
+    public void doneWarfare() {
+        myPlanetsFragment.resetPlanetsClickable();
+    }
+
     private static class MyFragmentAdapter extends FragmentPagerAdapter {
 
         public MyFragmentAdapter(FragmentManager fm) {
@@ -175,8 +179,13 @@ public class GameActivity extends FragmentActivity {
     }
 
     // Let the player choose target planet
-    public void letPlayerChooseTargetPlanet(TargetCallbackInterface callback) {
+    public void letPlayerChooseTargetPlanet(boolean allowNone,
+                                            TargetCallbackInterface callback) {
         showPlanets();
         myPlanetsFragment.chooseTargetPlanet(callback);
+        if (allowNone) {
+            // let hand be selectable too
+            myHandAndDeckFragment.allowNone(callback);
+        }
     }
 }

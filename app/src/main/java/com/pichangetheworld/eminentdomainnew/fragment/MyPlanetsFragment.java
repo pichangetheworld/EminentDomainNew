@@ -123,7 +123,7 @@ public class MyPlanetsFragment extends Fragment {
         }
     }
 
-    private void resetPlanetsClickable() {
+    public void resetPlanetsClickable() {
         for (PlanetView pv : planetViews) {
             pv.setClickable(false);
         }

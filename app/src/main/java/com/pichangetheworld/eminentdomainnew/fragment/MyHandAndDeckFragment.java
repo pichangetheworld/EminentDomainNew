@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.SelectMode;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.view.CardView;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import java.util.List;
 public class MyHandAndDeckFragment extends Fragment {
     // Views
     Button okayButton;
+    Button noneButton;
 
     // Parent layout holding all the card views
     RelativeLayout handView;
@@ -125,6 +128,9 @@ public class MyHandAndDeckFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_player, container, false);
         okayButton = (Button) v.findViewById(R.id.okay_button);
         okayButton.setOnClickListener(onOkay);
+
+        noneButton = (Button) v.findViewById(R.id.allow_none);
+        noneButton.setVisibility(View.GONE);
 
         handView = (RelativeLayout) v.findViewById(R.id.hand);
 
@@ -238,5 +244,17 @@ public class MyHandAndDeckFragment extends Fragment {
         Log.d("HandDeckFragment", "Window is changed! width is " + handView.getWidth());
         handWidth = handView.getWidth();
         redraw();
+    }
+
+    public void allowNone(final TargetCallbackInterface callback) {
+        noneButton.setVisibility(View.VISIBLE);
+        noneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.callback(-1);
+                ((GameActivity) getActivity()).doneWarfare();
+                noneButton.setVisibility(View.GONE);
+            }
+        });
     }
 }
