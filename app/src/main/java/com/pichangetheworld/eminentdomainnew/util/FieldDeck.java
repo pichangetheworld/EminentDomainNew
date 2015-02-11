@@ -12,10 +12,10 @@ import java.util.List;
  * Author: pchan
  * Date: 17/01/2015
  */
-public class Deck {
+public class FieldDeck {
     List<BaseCard> deck;
 
-    public Deck() {
+    public FieldDeck() {
         deck = new ArrayList<>();
     }
 

@@ -10,7 +10,7 @@ import com.pichangetheworld.eminentdomainnew.card.Survey;
 import com.pichangetheworld.eminentdomainnew.card.Warfare;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
-import com.pichangetheworld.eminentdomainnew.util.Deck;
+import com.pichangetheworld.eminentdomainnew.util.FieldDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ import java.util.List;
  * Date: 17/01/2015
  */
 public class GameField {
-    Deck[] fieldDecks = {
-            new Deck(), // Survey
-            new Deck(), // Warfare
-            new Deck(), // Colonize
-            new Deck(), // ProduceTrade
-            new Deck()  // Research
+    FieldDeck[] fieldDecks = {
+            new FieldDeck(), // Survey
+            new FieldDeck(), // Warfare
+            new FieldDeck(), // Colonize
+            new FieldDeck(), // ProduceTrade
+            new FieldDeck()  // Research
     };
     List<BasePlanet> planetDeck;
 
