@@ -13,7 +13,7 @@ public interface ComputerPlayer {
 
     int selectTargetRole();
 
-    int selectTargetPlanet();
+    int selectTargetUnconqueredPlanet(boolean allowNone);
 
     List<Integer> selectTargetHandCardsToDiscard(int min);
 }

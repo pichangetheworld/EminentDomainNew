@@ -27,8 +27,12 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     }
 
     @Override
-    public int selectTargetPlanet() {
-        return 0;
+    public int selectTargetUnconqueredPlanet(boolean allowNone) {
+        for (int i = 0; i < surveyedPlanets.size(); ++i) {
+            if (!surveyedPlanets.get(i).isConquered())
+                return i;
+        }
+        return -1;
     }
 
     @Override

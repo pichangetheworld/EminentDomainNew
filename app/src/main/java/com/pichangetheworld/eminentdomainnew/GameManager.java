@@ -148,21 +148,24 @@ public class GameManager {
         return mPlayers.get(mCurrentPlayer) instanceof ComputerPlayer;
     }
 
+    private ComputerPlayer getComputerPlayer() {
+        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer));
+    }
+
     public int letAISelectTargetHandCard() {
-        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetHandCard();
+        return getComputerPlayer().selectTargetHandCard();
     }
 
     public int letAISelectTargetRole() {
-        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetRole();
+        return getComputerPlayer().selectTargetRole();
     }
 
-    public int letAISelectTargetPlanet(boolean allowNone) {
-        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer)).selectTargetPlanet();
+    public int letAISelectTargetUnconqueredPlanet(boolean allowNone) {
+        return getComputerPlayer().selectTargetUnconqueredPlanet(allowNone);
     }
 
     public List<Integer> letAISelectHandCardsToDiscard() {
         int min = mPlayers.get(mCurrentPlayer).numCardsAboveLimit();
-        return ((ComputerPlayer) mPlayers.get(mCurrentPlayer))
-                .selectTargetHandCardsToDiscard(min);
+        return getComputerPlayer().selectTargetHandCardsToDiscard(min);
     }
 }

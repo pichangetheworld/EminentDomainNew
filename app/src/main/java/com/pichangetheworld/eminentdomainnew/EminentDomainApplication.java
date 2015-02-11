@@ -123,7 +123,7 @@ public class EminentDomainApplication extends Application {
     public void selectTargetUnconqueredPlanet(boolean allowNone, TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
-            int index = gameManager.letAISelectTargetPlanet(allowNone);
+            int index = gameManager.letAISelectTargetUnconqueredPlanet(allowNone);
             callback.callback(index);
         } else {
             activity.letPlayerChooseTargetUnconqueredPlanet(allowNone, callback);
