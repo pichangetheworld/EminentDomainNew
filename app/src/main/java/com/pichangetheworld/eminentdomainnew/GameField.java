@@ -45,6 +45,18 @@ public class GameField {
         if (fieldDecks[index].isEmpty()) {
             Log.d("GameField", "Field deck is null");
             // TODO broadcast to view that the deck is empty and scene should be redrawn
+            switch (index) {
+                case 0:
+                    return new Survey();
+                case 1:
+                    return new Warfare();
+                case 2:
+                    return new Colonize();
+                case 3:
+                    return new ProduceTrade();
+                case 4:
+                    return new Research();
+            }
             return null;
         }
         return fieldDecks[index].drawCardFromField(context, player);

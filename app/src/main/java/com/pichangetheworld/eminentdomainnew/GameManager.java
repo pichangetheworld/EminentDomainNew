@@ -9,6 +9,7 @@ import com.pichangetheworld.eminentdomainnew.player.ComputerPlayer;
 import com.pichangetheworld.eminentdomainnew.player.DumbAIPlayer;
 import com.pichangetheworld.eminentdomainnew.player.HumanPlayer;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
+import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 
 import java.util.ArrayList;
@@ -100,11 +101,11 @@ public class GameManager {
 // ACTION PHASE
     // Current player plays the card at index i
     public void playAction(final int index) {
-        BasePlayer player = mPlayers.get(mCurrentPlayer);
+        final BasePlayer player = mPlayers.get(mCurrentPlayer);
         context.popupPrompt(player.getCardData(index), new CallbackInterface() {
             @Override
             public void callback() {
-                mPlayers.get(mCurrentPlayer).playCard(index);
+                player.playCard(index);
             }
         });
     }
@@ -120,10 +121,16 @@ public class GameManager {
 // ROLE PHASE
     // Play the role at the selected index
     public void playRole(int index) {
-        BaseCard card = context.getGameField()
+        final BaseCard card = context.getGameField()
                 .drawCardFromFieldDeck(context, mPlayers.get(mCurrentPlayer), index);
-        if (card != null)
-            card.onRole();
+        CardDrawableData cardData = new CardDrawableData();
+        cardData.setData(card);
+        context.popupPrompt(cardData, new CallbackInterface() {
+            @Override
+            public void callback() {
+                card.onRole();
+            }
+        });
     }
 
     public void endRolePhase() {
