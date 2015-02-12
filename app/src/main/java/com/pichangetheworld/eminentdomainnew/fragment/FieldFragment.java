@@ -26,12 +26,14 @@ public class FieldFragment extends Fragment {
             R.id.research
     };
 
+    Button okayButton;
+
     private final View.OnClickListener onOkay = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             EminentDomainApplication.getInstance().playRole(selectedRole);
 
-            v.setEnabled(false);
+            okayButton.setVisibility(View.GONE);
 
             // Reset the view
             selectedRole = -1;
@@ -55,7 +57,6 @@ public class FieldFragment extends Fragment {
             updateSelectedRole();
         }
     };
-    Button okayButton;
 
     ImageButton [] roles = {
             null,
@@ -128,6 +129,6 @@ public class FieldFragment extends Fragment {
     public void onDiscardDrawPhase() {
         selectedRole = -1;
         updateSelectedRole();
-        okayButton.setEnabled(true);
+        okayButton.setVisibility(View.GONE);
     }
 }

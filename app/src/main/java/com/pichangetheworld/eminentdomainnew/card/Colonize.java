@@ -22,6 +22,17 @@ public class Colonize extends BaseCard {
         }
     };
 
+    // Callback after target planet has been selected
+    private final TargetCallbackInterface onRoleCallback = new TargetCallbackInterface() {
+        @Override
+        public void callback(int index) {
+            if (index >= 0) {
+                Colonize.this.colonizeAction(user.getSurveyedPlanets().get(index));
+            }
+            context.endRolePhase();
+        }
+    };
+
     public Colonize() {
         super("Colonize", R.drawable.colonize);
     }
@@ -36,8 +47,7 @@ public class Colonize extends BaseCard {
     public void onRole() {
         super.onRole();
 
-        // TODO
-        context.endRolePhase();
+        context.selectTargetUnconqueredPlanet(false, onRoleCallback);
     }
 
     @Override
