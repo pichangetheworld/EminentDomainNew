@@ -9,12 +9,16 @@ import java.util.List;
  */
 public interface ComputerPlayer {
 
+    // Action phase
     int selectTargetHandCard();
 
+    // Role phase
     int selectTargetRole();
 
+    // Selecting targets
     int selectTargetUnconqueredPlanet(boolean allowNone);
     int selectTargetConqueredPlanet();
 
+    // Discard phase
     List<Integer> selectTargetHandCardsToDiscard(int min);
 }
