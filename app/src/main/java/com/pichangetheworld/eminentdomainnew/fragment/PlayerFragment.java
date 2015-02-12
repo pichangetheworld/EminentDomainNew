@@ -29,7 +29,7 @@ import java.util.List;
  * Author: pchan
  * Date: 17/01/2015
  */
-public class MyHandAndDeckFragment extends Fragment {
+public class PlayerFragment extends Fragment {
     // Views
     Button okayButton;
     Button noneButton;
@@ -233,11 +233,13 @@ public class MyHandAndDeckFragment extends Fragment {
         curMode = SelectMode.ACTION_PLAY_PHASE;
         okayButton.setVisibility(View.VISIBLE);
         okayButton.setEnabled(true);
+        noneButton.setVisibility(View.GONE);
     }
 
     public void onRolePhase() {
         curMode = SelectMode.MATCH_ROLE_PHASE;
         okayButton.setVisibility(View.GONE);
+        noneButton.setVisibility(View.GONE);
         // TODO set it back to visible when we try to match
 
         redraw();
@@ -246,6 +248,7 @@ public class MyHandAndDeckFragment extends Fragment {
     public void onDiscardDrawPhase() {
         curMode = SelectMode.SELECT_TO_DISCARD_DRAW_PHASE;
         okayButton.setVisibility(View.VISIBLE);
+        noneButton.setVisibility(View.GONE);
         redraw();
     }
 
