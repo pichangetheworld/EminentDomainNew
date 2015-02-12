@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.fragment.FieldFragment;
-import com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment;
+import com.pichangetheworld.eminentdomainnew.fragment.PlayerFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
@@ -30,12 +30,16 @@ import java.util.ArrayList;
  * Date:   1/17/2015
  */
 public class GameActivity extends FragmentActivity {
+    // Fragment View Pager for planets/field
     MyFragmentAdapter mAdapter;
     ViewPager mPager;
+
     static MyPlanetsFragment myPlanetsFragment = new MyPlanetsFragment();
     static FieldFragment fieldFragment = new FieldFragment();
+
+    // Current phase
     ImageView currentPhase;
-    MyHandAndDeckFragment myHandAndDeckFragment;
+    PlayerFragment playerFragment;
 
     int numPlayers = 3;
 
@@ -53,7 +57,7 @@ public class GameActivity extends FragmentActivity {
         numPlayers = getIntent().getIntExtra("numPlayers", 3);
 
         currentPhase = (ImageView) findViewById(R.id.current_phase);
-        myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
+        playerFragment = (PlayerFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_player);
 
         Thread thread = new Thread() {
@@ -83,7 +87,7 @@ public class GameActivity extends FragmentActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        myHandAndDeckFragment.onWindowFocusChanged();
+        playerFragment.onWindowFocusChanged();
     }
 
     public void doneWarfare() {
@@ -133,7 +137,7 @@ public class GameActivity extends FragmentActivity {
                 if (!isComputer) {
                     showPlanets();
                     fieldFragment.onActionPhase();
-                    myHandAndDeckFragment.onActionPhase();
+                    playerFragment.onActionPhase();
                 }
             }
         });
@@ -146,7 +150,7 @@ public class GameActivity extends FragmentActivity {
                 currentPhase.setImageDrawable(getResources().getDrawable(R.drawable.role_phase));
 
                 fieldFragment.onRolePhase();
-                myHandAndDeckFragment.onRolePhase();
+                playerFragment.onRolePhase();
             }
         });
     }
@@ -160,7 +164,7 @@ public class GameActivity extends FragmentActivity {
                 if (!isComputer) {
                     showField();
                     fieldFragment.onDiscardDrawPhase();
-                    myHandAndDeckFragment.onDiscardDrawPhase();
+                    playerFragment.onDiscardDrawPhase();
                 }
             }
         });
@@ -188,7 +192,7 @@ public class GameActivity extends FragmentActivity {
         myPlanetsFragment.chooseTargetUnconqueredPlanet(callback);
         if (allowNone) {
             // let hand be selectable too
-            myHandAndDeckFragment.allowNone(callback);
+            playerFragment.allowNone(callback);
         }
     }
 
@@ -202,7 +206,7 @@ public class GameActivity extends FragmentActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                myHandAndDeckFragment.updateHand(drawables);
+                playerFragment.updateHand(drawables);
             }
         });
     }
@@ -212,7 +216,7 @@ public class GameActivity extends FragmentActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                myHandAndDeckFragment.updateShipCount(shipCount);
+                playerFragment.updateShipCount(shipCount);
             }
         });
     }

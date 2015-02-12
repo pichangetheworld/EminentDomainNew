@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -19,12 +20,12 @@ import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
  */
 public class PopupView extends PopupWindow implements View.OnClickListener {
     TextView cardName;
-    CardView cardView;
+    ImageView cardView;
     CallbackInterface mCallback;
 
     public PopupView(Context context, CallbackInterface callback) {
-        super((int) (70 * context.getResources().getDisplayMetrics().density),
-                (int) (120 * context.getResources().getDisplayMetrics().density));
+        super((int) (140 * context.getResources().getDisplayMetrics().density),
+                (int) (200 * context.getResources().getDisplayMetrics().density));
 
         mCallback = callback;
         setOnDismissListener(new OnDismissListener() {
@@ -47,7 +48,7 @@ public class PopupView extends PopupWindow implements View.OnClickListener {
     private PopupView init(View view) {
         setContentView(view);
         cardName = (TextView) view.findViewById(R.id.name);
-        cardView = (CardView) view.findViewById(R.id.card_view);
+        cardView = (ImageView) view.findViewById(R.id.card_view);
         view.setOnClickListener(this);
         return this;
     }
