@@ -6,11 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
  * Eminent Domain AS
@@ -26,20 +25,7 @@ public class FieldFragment extends Fragment {
             R.id.research
     };
 
-    Button okayButton;
-
-    private final View.OnClickListener onOkay = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            EminentDomainApplication.getInstance().playRole(selectedRole);
-
-            okayButton.setVisibility(View.GONE);
-
-            // Reset the view
-            selectedRole = -1;
-            updateSelectedRole();
-        }
-    };
+    TargetCallbackInterface mCallback;
     private final View.OnClickListener onClickCard = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -50,6 +36,11 @@ public class FieldFragment extends Fragment {
                 }
             }
             if (selectedRole == i) {
+                if (mCallback != null) {
+                    mCallback.callback(selectedRole);
+
+                    mCallback = null;
+                }
                 selectedRole = -1;
             } else {
                 selectedRole = i;
@@ -58,13 +49,7 @@ public class FieldFragment extends Fragment {
         }
     };
 
-    ImageButton [] roles = {
-            null,
-            null,
-            null,
-            null,
-            null
-    };
+    ImageButton [] roles = new ImageButton[5];
     int selectedRole = -1;
 
     @Override
@@ -75,8 +60,6 @@ public class FieldFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_field, container, false);
-        okayButton = (Button) v.findViewById(R.id.okay_button);
-        okayButton.setOnClickListener(onOkay);
 
         for (int i = 0; i < ROLE_CARDS.length; ++i) {
             int id = ROLE_CARDS[i];
@@ -92,22 +75,18 @@ public class FieldFragment extends Fragment {
     // Update the field for Action Phase
     public void onActionPhase() {
         selectedRole = -1;
-        if (roles[0] != null) {
-            updateSelectedRole();
-            okayButton.setVisibility(View.GONE);
-        }
+        updateSelectedRole();
     }
 
     // Update the field for Role Phase
     public void onRolePhase() {
         selectedRole = -1;
         updateSelectedRole();
-        chooseRole();
-        okayButton.setVisibility(View.VISIBLE);
     }
 
     // Allow the user to choose a role
-    public void chooseRole() {
+    public void chooseTargetRole(TargetCallbackInterface callback) {
+        mCallback = callback;
         for (ImageButton button : roles) {
             button.setClickable(true);
         }
@@ -116,19 +95,18 @@ public class FieldFragment extends Fragment {
     // Update which role is selected
     public void updateSelectedRole() {
         for (int i = 0; i < roles.length; ++i) {
+            if (roles[i] == null) break;
             if (i == selectedRole) {
                 roles[i].setAlpha(0.7f);
             } else {
                 roles[i].setAlpha(1.0f);
             }
         }
-        okayButton.setEnabled(selectedRole != -1);
     }
 
     // Update the field for Discard/Draw Phase
     public void onDiscardDrawPhase() {
         selectedRole = -1;
         updateSelectedRole();
-        okayButton.setVisibility(View.GONE);
     }
 }

@@ -58,7 +58,7 @@ public class EminentDomainApplication extends Application {
         Log.d("NextPhaseStart", "Got phase start: " + phase);
         switch (phase) {
             case ACTION_PHASE: actionPhase(name, isComputer); break;
-            case ROLE_PHASE: rolePhase(name, isComputer); break;
+            case ROLE_PHASE: rolePhase(); break;
             case DISCARD_DRAW_PHASE: discardDrawPhase(isComputer); break;
             default:
         }
@@ -90,14 +90,15 @@ public class EminentDomainApplication extends Application {
     }
 
     // Role Phase
-    private void rolePhase(String name, boolean isComputer) {
-        activity.rolePhase(isComputer);
+    private void rolePhase() {
+        activity.rolePhase();
 
-        if (isComputer) {
-            int index = gameManager.letAISelectTargetRole();
-            Log.d("RolePhase", name + " plays role at " + index);
-            playRole(index);
-        }
+        selectTargetRole(new TargetCallbackInterface() {
+            @Override
+            public void callback(int index) {
+                playRole(index);
+            }
+        });
     }
 
     // Play the role at index i
@@ -121,6 +122,17 @@ public class EminentDomainApplication extends Application {
 
     public void discardSelectedCards(List<Integer> selectedCards) {
         gameManager.curPlayerDiscardSelectedCards(selectedCards);
+    }
+
+    // selecting target planets
+    public void selectTargetRole(TargetCallbackInterface callback) {
+        if (gameManager.isComputerTurn()) {
+            // let computer select target
+            int index = gameManager.letAISelectTargetRole();
+            callback.callback(index);
+        } else {
+            activity.letPlayerChooseTargetRole(callback);
+        }
     }
 
     // selecting target planets

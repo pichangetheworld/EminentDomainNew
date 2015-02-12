@@ -232,6 +232,7 @@ public class MyHandAndDeckFragment extends Fragment {
     public void onActionPhase() {
         curMode = SelectMode.ACTION_PLAY_PHASE;
         okayButton.setVisibility(View.VISIBLE);
+        okayButton.setEnabled(true);
     }
 
     public void onRolePhase() {

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -138,17 +139,14 @@ public class GameActivity extends FragmentActivity {
         });
     }
 
-    public void rolePhase(final boolean isComputer) {
+    public void rolePhase() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 currentPhase.setImageDrawable(getResources().getDrawable(R.drawable.role_phase));
 
-                if (!isComputer) {
-                    showField();
-                    fieldFragment.onRolePhase();
-                    myHandAndDeckFragment.onRolePhase();
-                }
+                fieldFragment.onRolePhase();
+                myHandAndDeckFragment.onRolePhase();
             }
         });
     }
@@ -176,9 +174,16 @@ public class GameActivity extends FragmentActivity {
         mPager.setCurrentItem(1);
     }
 
+    // Let player choose role
+    public void letPlayerChooseTargetRole(TargetCallbackInterface callback) {
+        showField();
+        fieldFragment.chooseTargetRole(callback);
+    }
+
     // Let the player choose target planet
     public void letPlayerChooseTargetUnconqueredPlanet(boolean allowNone,
                                                        TargetCallbackInterface callback) {
+        Log.d("GameActivity", "Letting player choose target unconquered planet.");
         showPlanets();
         myPlanetsFragment.chooseTargetUnconqueredPlanet(callback);
         if (allowNone) {

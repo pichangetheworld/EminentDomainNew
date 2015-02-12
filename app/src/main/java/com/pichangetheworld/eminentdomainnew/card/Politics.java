@@ -1,12 +1,9 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
  * Eminent Domain AS
@@ -15,10 +12,9 @@ import com.pichangetheworld.eminentdomainnew.R;
  */
 public class Politics extends BaseCard {
     // Handler to receive CHOSE_TARGET_ROLE broadcasts
-    private final BroadcastReceiver mChooseRoleReceiver = new BroadcastReceiver() {
+    private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
-        public void onReceive(Context context2, Intent intent) {
-            int roleIndex = intent.getIntExtra("roleIndex", -1);
+        public void callback(int roleIndex) {
             Log.d("Politics", "Broadcast Received! Role chosen was " + roleIndex);
 
             if (roleIndex >= 0) {
@@ -27,7 +23,6 @@ public class Politics extends BaseCard {
                         .drawCardFromFieldDeck(context, user, roleIndex);
                 if (card != null)
                     user.addCardToHand(card);
-                context.unregisterReceiver(this);
                 context.endActionPhase();
             }
         }
@@ -40,12 +35,10 @@ public class Politics extends BaseCard {
     @Override
     public void onAction() {
         super.onAction();
-        context.endActionPhase();
-//        context.registerReceiver(mChooseRoleReceiver, new IntentFilter("CHOSE_TARGET_ROLE"));
+
+        context.selectTargetRole(onActionCallback);
     }
 
     @Override
-    public void onRole() {
-
-    }
+    public void onRole() {}
 }

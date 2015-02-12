@@ -78,6 +78,7 @@ public abstract class BasePlayer {
 
     public void addCardToHand(BaseCard card) {
         hand.add(card);
+        broadcastHandUpdated();
     }
     // Remove a card from the user's hand
     public void useCard(BaseCard card) {
