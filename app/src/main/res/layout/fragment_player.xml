@@ -19,7 +19,7 @@
 
     <RelativeLayout
         android:id="@+id/hand"
-        android:layout_width="200dp"
+        android:layout_width="400dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
