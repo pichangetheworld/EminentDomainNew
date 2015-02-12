@@ -193,17 +193,32 @@ public class GameActivity extends FragmentActivity {
     }
 
     // Update hand view
-    public void updateHand(ArrayList<CardDrawableData> drawables) {
-        myHandAndDeckFragment.updateHand(drawables);
+    public void updateHand(final ArrayList<CardDrawableData> drawables) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                myHandAndDeckFragment.updateHand(drawables);
+            }
+        });
     }
 
     // Update ship count
-    public void updateShipCount(int shipCount) {
-        myHandAndDeckFragment.updateShipCount(shipCount);
+    public void updateShipCount(final int shipCount) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                myHandAndDeckFragment.updateShipCount(shipCount);
+            }
+        });
     }
 
     // Update planet view
-    public void updatePlanets(ArrayList<PlanetDrawableData> drawables) {
-        myPlanetsFragment.updatePlanets(drawables);
+    public void updatePlanets(final ArrayList<PlanetDrawableData> drawables) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                myPlanetsFragment.updatePlanets(drawables);
+            }
+        });
     }
 }
