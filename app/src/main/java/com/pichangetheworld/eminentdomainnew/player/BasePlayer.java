@@ -121,6 +121,7 @@ public abstract class BasePlayer {
 
     public void gainShips(int n) {
         numShips += n;
+        context.updateShipCount(numShips);
     }
 
     // Broadcast to view that hand has changed

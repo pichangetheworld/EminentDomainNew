@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
@@ -32,6 +33,7 @@ public class MyHandAndDeckFragment extends Fragment {
     // Views
     Button okayButton;
     Button noneButton;
+    TextView shipCountView;
 
     // Parent layout holding all the card views
     RelativeLayout handView;
@@ -134,6 +136,8 @@ public class MyHandAndDeckFragment extends Fragment {
 
         handView = (RelativeLayout) v.findViewById(R.id.hand);
 
+        shipCountView = (TextView) v.findViewById(R.id.ship_count);
+
         selectedAction = -1;
 
         return v;
@@ -155,6 +159,10 @@ public class MyHandAndDeckFragment extends Fragment {
         if (handWidth > 0) {
             redraw();
         }
+    }
+
+    public void updateShipCount(int shipCount) {
+        shipCountView.setText("x" + shipCount);
     }
 
     private void redraw() {

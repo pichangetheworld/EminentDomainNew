@@ -197,6 +197,11 @@ public class GameActivity extends FragmentActivity {
         myHandAndDeckFragment.updateHand(drawables);
     }
 
+    // Update ship count
+    public void updateShipCount(int shipCount) {
+        myHandAndDeckFragment.updateShipCount(shipCount);
+    }
+
     // Update planet view
     public void updatePlanets(ArrayList<PlanetDrawableData> drawables) {
         myPlanetsFragment.updatePlanets(drawables);

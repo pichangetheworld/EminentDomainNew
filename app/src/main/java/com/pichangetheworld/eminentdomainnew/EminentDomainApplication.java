@@ -154,6 +154,11 @@ public class EminentDomainApplication extends Application {
         activity.updateHand(drawables);
     }
 
+    // Update ship count
+    public void updateShipCount(int shipCount) {
+        activity.updateShipCount(shipCount);
+    }
+
     public void updatePlanets(ArrayList<PlanetDrawableData> drawables) {
         activity.updatePlanets(drawables);
     }
