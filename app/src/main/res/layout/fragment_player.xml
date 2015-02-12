@@ -17,27 +17,16 @@
         android:layout_alignParentBottom="true"
         android:text="@string/ok" />
 
-    <RelativeLayout
-        android:id="@+id/hand"
-        android:layout_width="400dp"
+    <ImageView
+        android:id="@+id/deck"
+        android:layout_width="60dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/okay_button"
-        android:layout_toEndOf="@id/okay_button" />
-
-    <TextView
-        android:id="@+id/ship_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/x0"
-        android:textSize="20sp"
-        android:layout_alignTop="@id/hand"
-        android:layout_toRightOf="@id/hand"
-        android:layout_toEndOf="@id/hand"/>
+        android:contentDescription="@string/deck"
+        android:scaleType="fitXY"
+        android:src="@drawable/card_back"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
 
     <ImageView
         android:id="@+id/discardPile"
@@ -49,15 +38,26 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:id="@+id/deck"
-        android:layout_width="60dp"
+    <TextView
+        android:id="@+id/ship_count"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="@string/x0"
+        android:textSize="20sp"
+        android:layout_alignBottom="@id/discardPile"
+        android:layout_toLeftOf="@id/deck"
+        android:layout_toStartOf="@id/deck"/>
+
+    <RelativeLayout
+        android:id="@+id/hand"
+        android:layout_width="400dp"
         android:layout_height="100dp"
-        android:contentDescription="@string/deck"
-        android:scaleType="fitXY"
-        android:src="@drawable/card_back"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/ship_count"
+        android:layout_toStartOf="@id/ship_count" />
 
 </RelativeLayout>
