@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
@@ -55,6 +56,7 @@ public class GameActivity extends FragmentActivity {
     ViewPager mPager;
     static MyPlanetsFragment myPlanetsFragment = new MyPlanetsFragment();
     static FieldFragment fieldFragment = new FieldFragment();
+    ImageView currentPhase;
     MyHandAndDeckFragment myHandAndDeckFragment;
 
     int numPlayers = 3;
@@ -72,6 +74,7 @@ public class GameActivity extends FragmentActivity {
 
         numPlayers = getIntent().getIntExtra("numPlayers", 3);
 
+        currentPhase = (ImageView) findViewById(R.id.current_phase);
         myHandAndDeckFragment = (MyHandAndDeckFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_player);
 
@@ -134,38 +137,48 @@ public class GameActivity extends FragmentActivity {
         }
     }
 
-    public void actionPhase(final String name) {
+    public void actionPhase(final String name, final boolean isComputer) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                currentPhase.setImageDrawable(getResources().getDrawable(R.drawable.action_phase));
                 Toast.makeText(GameActivity.this, name + "'s turn! Action Phase", Toast.LENGTH_LONG).show();
-                showPlanets();
-                fieldFragment.onActionPhase();
-                myHandAndDeckFragment.onActionPhase();
+
+                if (!isComputer) {
+                    showPlanets();
+                    fieldFragment.onActionPhase();
+                    myHandAndDeckFragment.onActionPhase();
+                }
             }
         });
     }
 
-    public void rolePhase() {
+    public void rolePhase(final boolean isComputer) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(GameActivity.this, "Role Phase", Toast.LENGTH_LONG).show();
-                showField();
-                fieldFragment.onRolePhase();
-                myHandAndDeckFragment.onRolePhase();
+                currentPhase.setImageDrawable(getResources().getDrawable(R.drawable.role_phase));
+
+                if (!isComputer) {
+                    showField();
+                    fieldFragment.onRolePhase();
+                    myHandAndDeckFragment.onRolePhase();
+                }
             }
         });
     }
 
-    public void discardDrawPhase() {
+    public void discardDrawPhase(final boolean isComputer) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(GameActivity.this, "Discard Phase", Toast.LENGTH_LONG).show();
-                showField();
-                fieldFragment.onDiscardDrawPhase();
-                myHandAndDeckFragment.onDiscardDrawPhase();
+                currentPhase.setImageDrawable(getResources().getDrawable(R.drawable.discard_phase));
+
+                if (!isComputer) {
+                    showField();
+                    fieldFragment.onDiscardDrawPhase();
+                    myHandAndDeckFragment.onDiscardDrawPhase();
+                }
             }
         });
     }

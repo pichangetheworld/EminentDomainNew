@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GameActivity"
-            android:label="@string/gameactivity"
+            android:label="@string/app_name"
             android:screenOrientation="landscape" />
     </application>
 

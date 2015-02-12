@@ -62,12 +62,12 @@ public class EminentDomainApplication extends Application {
 
     // Action Phase
     private void actionPhase(String name, boolean isComputer) {
+        activity.actionPhase(name, isComputer);
+
         if (isComputer) {
             int index = gameManager.letAISelectTargetHandCard();
             Log.d("ActionPhase", name + " plays card at " + index);
             playAction(index);
-        } else {
-            activity.actionPhase(name);
         }
     }
 
@@ -87,12 +87,12 @@ public class EminentDomainApplication extends Application {
 
     // Role Phase
     private void rolePhase(String name, boolean isComputer) {
+        activity.rolePhase(isComputer);
+
         if (isComputer) {
             int index = gameManager.letAISelectTargetRole();
             Log.d("RolePhase", name + " plays role at " + index);
             playRole(index);
-        } else {
-            activity.rolePhase();
         }
     }
 
@@ -107,11 +107,11 @@ public class EminentDomainApplication extends Application {
 
     // Discard/Draw Phase
     private void discardDrawPhase(boolean isComputer) {
+        activity.discardDrawPhase(isComputer);
+
         if (isComputer) {
             List<Integer> toDiscard = gameManager.letAISelectHandCardsToDiscard();
             discardSelectedCards(toDiscard);
-        } else {
-            activity.discardDrawPhase();
         }
     }
 
