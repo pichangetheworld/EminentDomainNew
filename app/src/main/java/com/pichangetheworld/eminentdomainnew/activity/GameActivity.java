@@ -20,9 +20,11 @@ import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.fragment.FieldFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyHandAndDeckFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
+import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
+import com.pichangetheworld.eminentdomainnew.view.PopupView;
 
 import java.util.ArrayList;
 
@@ -114,6 +116,18 @@ public class GameActivity extends FragmentActivity {
 
     public void doneWarfare() {
         myPlanetsFragment.resetPlanetsClickable();
+    }
+
+    public void popupPrompt(final CardDrawableData data,
+                            final CallbackInterface callback) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new PopupView(GameActivity.this, callback)
+                        .setDetails(data)
+                        .show(getWindow().getDecorView());
+            }
+        });
     }
 
     private static class MyFragmentAdapter extends FragmentPagerAdapter {

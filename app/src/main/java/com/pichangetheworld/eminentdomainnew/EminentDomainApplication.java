@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
+import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
+import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
@@ -138,5 +140,10 @@ public class EminentDomainApplication extends Application {
         } else {
             activity.letPlayerChooseTargetConqueredPlanet(callback);
         }
+    }
+
+    // Popup
+    public void popupPrompt(CardDrawableData data, CallbackInterface callback) {
+        activity.popupPrompt(data, callback);
     }
 }

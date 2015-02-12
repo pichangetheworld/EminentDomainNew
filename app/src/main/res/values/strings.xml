@@ -29,5 +29,6 @@
     <string name="discard">Discard</string>
     <string name="conquered_planet">Conquered Planet</string>
     <string name="action_phase">Action Phase</string>
+    <string name="card_name">Card Name</string>
 
 </resources>

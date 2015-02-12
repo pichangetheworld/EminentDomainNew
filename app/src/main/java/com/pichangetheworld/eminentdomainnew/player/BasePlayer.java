@@ -169,4 +169,10 @@ public abstract class BasePlayer {
     public int numCardsAboveLimit() {
         return Math.max(0, hand.size() - handCardLimit);
     }
+
+    public CardDrawableData getCardData(int index) {
+        CardDrawableData cd = new CardDrawableData();
+        cd.setData(hand.get(index));
+        return cd;
+    }
 }

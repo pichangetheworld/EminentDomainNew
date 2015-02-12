@@ -8,6 +8,7 @@ import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 import com.pichangetheworld.eminentdomainnew.player.ComputerPlayer;
 import com.pichangetheworld.eminentdomainnew.player.DumbAIPlayer;
 import com.pichangetheworld.eminentdomainnew.player.HumanPlayer;
+import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 
 import java.util.ArrayList;
@@ -98,8 +99,14 @@ public class GameManager {
 
 // ACTION PHASE
     // Current player plays the card at index i
-    public void playAction(int index) {
-        mPlayers.get(mCurrentPlayer).playCard(index);
+    public void playAction(final int index) {
+        BasePlayer player = mPlayers.get(mCurrentPlayer);
+        context.popupPrompt(player.getCardData(index), new CallbackInterface() {
+            @Override
+            public void callback() {
+                mPlayers.get(mCurrentPlayer).playCard(index);
+            }
+        });
     }
 
     public void endActionPhase() {
