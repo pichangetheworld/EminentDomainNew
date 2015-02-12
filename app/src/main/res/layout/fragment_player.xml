@@ -1,65 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_field"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:baselineAligned="true"
-    android:gravity="bottom"
-    android:orientation="horizontal">
+    android:layout_height="200dp">
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/allow_none"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="@string/none" />
 
-        <Button
-            android:id="@+id/allow_none"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/none" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/okay_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ok" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/okay_button"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/ok" />
 
     <RelativeLayout
         android:id="@+id/hand"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
-        android:layout_weight="1" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/okay_button"
+        android:layout_toEndOf="@id/okay_button" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/ship_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="@string/x0"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/hand"
+        android:layout_toRightOf="@id/hand"
+        android:layout_toEndOf="@id/hand"/>
 
-        <ImageView
-            android:id="@+id/discardPile"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/discard"
-            android:scaleType="fitXY"
-            android:src="@drawable/blank_card" />
+    <ImageView
+        android:id="@+id/discardPile"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/discard"
+        android:scaleType="fitXY"
+        android:src="@drawable/blank_card"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-        <ImageView
-            android:id="@+id/deck"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/deck"
-            android:scaleType="fitXY"
-            android:src="@drawable/card_back" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/deck"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/deck"
+        android:scaleType="fitXY"
+        android:src="@drawable/card_back"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
 
-</LinearLayout>
+</RelativeLayout>

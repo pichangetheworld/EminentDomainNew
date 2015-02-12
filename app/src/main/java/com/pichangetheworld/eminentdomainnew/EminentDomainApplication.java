@@ -7,8 +7,10 @@ import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
+import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -145,5 +147,14 @@ public class EminentDomainApplication extends Application {
     // Popup
     public void popupPrompt(CardDrawableData data, CallbackInterface callback) {
         activity.popupPrompt(data, callback);
+    }
+
+    // Views
+    public void updateHand(ArrayList<CardDrawableData> drawables) {
+        activity.updateHand(drawables);
+    }
+
+    public void updatePlanets(ArrayList<PlanetDrawableData> drawables) {
+        activity.updatePlanets(drawables);
     }
 }

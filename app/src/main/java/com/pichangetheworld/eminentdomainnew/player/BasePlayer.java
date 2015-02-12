@@ -1,9 +1,5 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
-import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-
 import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Politics;
@@ -23,9 +19,6 @@ import java.util.List;
 public abstract class BasePlayer {
     final int[] STARTING_DECK = { 0, 0, 1, 2, 2, 3, 3, 4, 4 };
 //    final int[] STARTING_DECK = { 2, 2, 2, 2, 2, 2 }; // for testing
-
-    private final Intent mHandChangedIntent = new Intent("HAND_UPDATED");
-    private final Intent mPlanetsChangedIntent = new Intent("PLANETS_UPDATED");
 
     EminentDomainApplication context;
     String name;
@@ -138,9 +131,7 @@ public abstract class BasePlayer {
             cd.setData(hand.get(i));
             handDrawables.add(cd);
         }
-        mHandChangedIntent.putParcelableArrayListExtra("drawable", handDrawables);
-        Log.d("BasePlayer", "Broadcasting hand changed " + handDrawables.size());
-        LocalBroadcastManager.getInstance(context).sendBroadcast(mHandChangedIntent);
+        context.updateHand(handDrawables);
     }
 
     // Broadcast to view that planets has changed
@@ -151,9 +142,7 @@ public abstract class BasePlayer {
             pd.setData(surveyedPlanets.get(i));
             planetDrawables.add(pd);
         }
-        mPlanetsChangedIntent.putParcelableArrayListExtra("drawable", planetDrawables);
-        Log.d("BasePlayer", "Broadcasting planets changed " + planetDrawables.size());
-        LocalBroadcastManager.getInstance(context).sendBroadcast(mPlanetsChangedIntent);
+        context.updatePlanets(planetDrawables);
     }
 
     // Play the card at index i
