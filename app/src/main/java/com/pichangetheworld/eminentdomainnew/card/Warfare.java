@@ -21,7 +21,22 @@ public class Warfare extends BaseCard {
             } else {
                 user.gainShips(1);
             }
+            user.discardCard(Warfare.this);
             context.endActionPhase();
+        }
+    };
+    // Callback after target planet has been selected
+    private final TargetCallbackInterface onRoleCallback = new TargetCallbackInterface() {
+        @Override
+        public void callback(int index) {
+            if (index >= 0 &&
+                    user.getNumShips() > user.getSurveyedPlanets().get(index).getWarfareCost()) {
+                Warfare.this.conquerAction(user.getSurveyedPlanets().get(index));
+            } else {
+                user.gainShips(1);
+            }
+            user.discardCard(Warfare.this);
+            context.endRolePhase();
         }
     };
 
@@ -39,8 +54,7 @@ public class Warfare extends BaseCard {
     public void onRole() {
         super.onRole();
 
-        // TODO implement warfare
-        context.endRolePhase();
+        context.selectTargetUnconqueredPlanet(true, onRoleCallback);
     }
 
     @Override
