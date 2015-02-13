@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:slot="http://schemas.android.com/apk/res/com.pichangetheworld.eminentdomainnew">
+    <item
+        slot:state_produced="true"
+        android:drawable="@drawable/produce_slot_filled"/>
+    <item
+        slot:state_produced="false"
+        android:drawable="@drawable/produce_slot"/>
+</selector>

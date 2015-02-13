@@ -27,7 +27,8 @@ public class PlanetView extends RelativeLayout {
 
     // Conquered planets
     TextView vps;
-    TextView produceCapacity;
+    ProduceSlot produceCapacity;
+    ProduceSlot produceCapacity2;
 
     public PlanetView(Context context) {
         super(context);
@@ -76,10 +77,33 @@ public class PlanetView extends RelativeLayout {
             mInflater.inflate(R.layout.conquered_planet_view, this, true);
 
             vps = (TextView) findViewById(R.id.VPs);
-            produceCapacity = (TextView) findViewById(R.id.produce_capacity);
+            produceCapacity = (ProduceSlot) findViewById(R.id.produce_capacity);
+            produceCapacity2 = (ProduceSlot) findViewById(R.id.produce_capacity2);
 
             vps.setText(Integer.toString(data.vps));
-            produceCapacity.setText(Integer.toString(data.produceCapacity));
+            if (data.produceCapacity == 0) {
+                produceCapacity.setVisibility(GONE);
+                produceCapacity2.setVisibility(GONE);
+            } else if (data.produceCapacity == 1) {
+                produceCapacity2.setVisibility(GONE);
+                if (data.curProduceCount > 0) {
+                    produceCapacity.produce();
+                } else {
+                    produceCapacity.trade();
+                }
+            } else {
+                if (data.curProduceCount > 0) {
+                    produceCapacity.produce();
+                } else {
+                    produceCapacity.trade();
+                    produceCapacity2.trade();
+                }
+                if (data.curProduceCount > 1) {
+                    produceCapacity2.produce();
+                } else {
+                    produceCapacity2.trade();
+                }
+            }
         }
     }
 }
