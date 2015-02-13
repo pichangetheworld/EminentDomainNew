@@ -127,7 +127,13 @@ public class EminentDomainApplication extends Application {
     }
 
     public void letPlayerChooseProduceTrade(TargetCallbackInterface callback) {
-        activity.letPlayerChooseProduceTrade(callback);
+        if (gameManager.isComputerTurn()) {
+            // let computer select target
+            int index = gameManager.letAISelectProduceTrade();
+            callback.callback(index);
+        } else {
+            activity.letPlayerChooseProduceTrade(callback);
+        }
     }
 
     // selecting target planets

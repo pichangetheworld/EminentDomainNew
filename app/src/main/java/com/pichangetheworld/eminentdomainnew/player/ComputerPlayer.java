@@ -15,6 +15,9 @@ public interface ComputerPlayer {
     // Role phase
     int selectTargetRole();
 
+    // Choosing between Produce or Trade
+    int selectProduceTrade();
+
     // Selecting targets
     int selectTargetUnconqueredPlanet(boolean allowNone);
     int selectTargetConqueredPlanet();

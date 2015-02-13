@@ -168,14 +168,22 @@ public class GameManager {
         return ((ComputerPlayer) mPlayers.get(mCurrentPlayer));
     }
 
+    // Action
     public int letAISelectTargetHandCard() {
         return getComputerPlayer().selectTargetHandCard();
     }
 
+    // Role
     public int letAISelectTargetRole() {
         return getComputerPlayer().selectTargetRole();
     }
 
+    // Produce / Trade
+    public int letAISelectProduceTrade() {
+        return getComputerPlayer().selectProduceTrade();
+    }
+
+    // Select target planet
     public int letAISelectTargetUnconqueredPlanet(boolean allowNone) {
         return getComputerPlayer().selectTargetUnconqueredPlanet(allowNone);
     }
