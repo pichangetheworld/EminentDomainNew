@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.fragment.FieldFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.PlayerFragment;

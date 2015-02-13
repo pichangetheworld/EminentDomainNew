@@ -1,8 +1,10 @@
-package com.pichangetheworld.eminentdomainnew;
+package com.pichangetheworld.eminentdomainnew.application;
 
 import android.app.Application;
 import android.util.Log;
 
+import com.pichangetheworld.eminentdomainnew.GameField;
+import com.pichangetheworld.eminentdomainnew.GameManager;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;

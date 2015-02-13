@@ -1,6 +1,6 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Politics;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;

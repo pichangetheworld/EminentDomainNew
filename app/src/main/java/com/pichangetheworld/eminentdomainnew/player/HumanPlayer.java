@@ -1,6 +1,6 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 
 /**
  * Eminent Domain AS

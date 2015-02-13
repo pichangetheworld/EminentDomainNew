@@ -1,6 +1,6 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 
 import java.util.ArrayList;
 import java.util.List;

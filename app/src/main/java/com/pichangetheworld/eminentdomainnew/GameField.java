@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew;
 
 import android.util.Log;
 
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Colonize;
 import com.pichangetheworld.eminentdomainnew.card.ProduceTrade;
@@ -30,7 +31,7 @@ public class GameField {
     };
     List<BasePlanet> planetDeck;
 
-    GameField() {
+    public GameField() {
         int i;
         for (i = 0; i < 20; ++i) fieldDecks[0].addCardToDeck(new Survey());
         for (i = 0; i < 16; ++i) fieldDecks[1].addCardToDeck(new Warfare());

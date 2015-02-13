@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew;
 
 import android.util.Log;
 
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
@@ -31,7 +32,7 @@ public class GameManager {
     Phase mCurrentPhase;
 
     // Constructor
-    GameManager(EminentDomainApplication context) {
+    public GameManager(EminentDomainApplication context) {
         this.context = context;
 
         mPlayers = new ArrayList<>();

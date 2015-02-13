@@ -2,7 +2,7 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import android.util.Log;
 
-import com.pichangetheworld.eminentdomainnew.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 
 /**
