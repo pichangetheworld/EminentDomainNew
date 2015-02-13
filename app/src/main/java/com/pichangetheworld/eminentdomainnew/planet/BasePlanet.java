@@ -29,7 +29,7 @@ public class BasePlanet {
     List<BaseCard> colonizeCount;
     boolean conquered;
 
-    public BasePlanet(int colonizeCost, int warfareCost, int canProduce) {
+    public BasePlanet(int colonizeCost, int warfareCost, int canProduce, int vps) {
         // Temporarily
         this.name = "Planet";
         this.drawable = R.drawable.planet;
@@ -38,7 +38,7 @@ public class BasePlanet {
         this.warfareCost = warfareCost;
         this.colonizeCount = new ArrayList<>();
         this.produceCapacity = canProduce;
-        this.VPs = 0;
+        this.VPs = vps;
 
         owner = null;
         conquered = false;
