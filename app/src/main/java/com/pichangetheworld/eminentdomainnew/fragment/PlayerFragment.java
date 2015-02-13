@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,13 +35,16 @@ public class PlayerFragment extends Fragment {
     Button okayButton;
     Button noneButton;
     TextView shipCountView;
+    ImageView deckView;
+    ImageView discardView;
 
     // Parent layout holding all the card views
     RelativeLayout handView;
     List<CardView> handCards;
 
     // Card data
-    List<CardDrawableData> cardData;
+    List<CardDrawableData> handCardData;
+    List<CardDrawableData> discardData;
 
 
     // Layout display sizes for resizing hand cards
@@ -117,7 +121,8 @@ public class PlayerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handCards = new ArrayList<>();
-        cardData = new ArrayList<>();
+        handCardData = new ArrayList<>();
+        discardData = new ArrayList<>();
         selectedHandCards = new ArrayList<>();
         displayMetrics = new DisplayMetrics();
 
@@ -133,6 +138,9 @@ public class PlayerFragment extends Fragment {
 
         noneButton = (Button) v.findViewById(R.id.allow_none);
         noneButton.setVisibility(View.GONE);
+
+        deckView = (ImageView) v.findViewById(R.id.deck);
+        discardView = (ImageView) v.findViewById(R.id.discardPile);
 
         handView = (RelativeLayout) v.findViewById(R.id.hand);
 
@@ -154,26 +162,38 @@ public class PlayerFragment extends Fragment {
 
     // Update the hand view with cards in the user's hand
     public void updateHand(ArrayList<CardDrawableData> data) {
-        this.cardData.clear();
-        this.cardData.addAll(data);
+        this.handCardData.clear();
+        this.handCardData.addAll(data);
         if (handWidth > 0) {
             redraw();
         }
     }
 
+    // Display the number of ships player has
     public void updateShipCount(int shipCount) {
         shipCountView.setText("x" + shipCount);
     }
 
+    // Update the top card of the discard pile and the list of cards in it
+    public void updateDiscardPile(ArrayList<CardDrawableData> drawables) {
+        discardData.clear();
+        discardData.addAll(drawables);
+        if (discardData.isEmpty()) {
+            discardView.setImageResource(R.drawable.blank_card);
+        } else {
+            discardView.setImageResource(discardData.get(discardData.size()-1).drawable);
+        }
+    }
+
     private void redraw() {
         float cardWidth;
-        if (cardData.isEmpty()) {
+        if (handCardData.isEmpty()) {
             cardWidth = 75 * displayMetrics.density;
         } else {
-            cardWidth = Math.min(handWidth/cardData.size(), 75 * displayMetrics.density);
+            cardWidth = Math.min(handWidth/ handCardData.size(), 75 * displayMetrics.density);
         }
         Log.d("HandDeckFragment", "Setting card width to " + cardWidth);
-        for (int i = 0; i < Math.max(cardData.size(), handCards.size()); ++i) {
+        for (int i = 0; i < Math.max(handCardData.size(), handCards.size()); ++i) {
             RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(
                     Math.round(cardWidth),
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -186,11 +206,11 @@ public class PlayerFragment extends Fragment {
                 handCards.add(cv);
             }
             CardView cv = handCards.get(i);
-            if (i >= cardData.size() || cardData.get(i).drawable == -1) {
+            if (i >= handCardData.size() || handCardData.get(i).drawable == -1) {
                 cv.setVisibility(View.GONE);
             } else {
                 cv.setLayoutParams(newParams);
-                cv.setBackgroundResource(cardData.get(i).drawable);
+                cv.setBackgroundResource(handCardData.get(i).drawable);
                 cv.setVisibility(View.VISIBLE);
 
                 switch (curMode) {
@@ -220,7 +240,7 @@ public class PlayerFragment extends Fragment {
                 break;
             case SELECT_TO_DISCARD_DRAW_PHASE:
                 // TODO actually depend on what hand limit is
-                if (cardData.size() - selectedHandCards.size() <= 5) {
+                if (handCardData.size() - selectedHandCards.size() <= 5) {
                     enableSkip(selectedHandCards.isEmpty());
                     okayButton.setEnabled(true);
                 } else

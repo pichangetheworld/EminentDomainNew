@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_field"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="180dp">
 
     <Button
         android:id="@+id/allow_none"
@@ -18,25 +18,25 @@
         android:text="@string/ok" />
 
     <ImageView
+        android:id="@+id/discardPile"
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/discard"
+        android:scaleType="fitXY"
+        android:src="@drawable/blank_card"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
         android:id="@+id/deck"
         android:layout_width="60dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:contentDescription="@string/deck"
         android:scaleType="fitXY"
         android:src="@drawable/card_back"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true" />
-
-    <ImageView
-        android:id="@+id/discardPile"
-        android:layout_width="60dp"
-        android:layout_height="100dp"
-        android:contentDescription="@string/discard"
-        android:scaleType="fitXY"
-        android:src="@drawable/blank_card"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/ship_count"

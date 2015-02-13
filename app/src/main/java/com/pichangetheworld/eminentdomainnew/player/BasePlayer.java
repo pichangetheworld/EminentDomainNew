@@ -101,11 +101,13 @@ public abstract class BasePlayer {
     // Add a card to the discard pile
     public void discardCard(BaseCard card) {
         deck.addDiscard(card);
+        broadcastDiscardPileUpdated();
     }
 
     // Add cards to the discard pile
     public void discardCards(List<BaseCard> cards) {
         deck.addDiscards(cards);
+        broadcastDiscardPileUpdated();
     }
 
     public void discardIndexCards(List<Integer> indices) {
@@ -134,6 +136,10 @@ public abstract class BasePlayer {
             handDrawables.add(cd);
         }
         context.updateHand(handDrawables);
+    }
+
+    private void broadcastDiscardPileUpdated() {
+        context.updateDiscardPile(deck.getDiscardDrawables());
     }
 
     // Broadcast to view that planets has changed

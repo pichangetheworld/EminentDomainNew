@@ -54,14 +54,22 @@ public class EminentDomainApplication extends Application {
         gameManager.startGame();
     }
 
-    public GameField getGameField() { return gameField; }
+    public GameField getGameField() {
+        return gameField;
+    }
 
     public void updateViewNextPhase(Phase phase, String name, boolean isComputer) {
         Log.d("NextPhaseStart", "Got phase start: " + phase);
         switch (phase) {
-            case ACTION_PHASE: actionPhase(name, isComputer); break;
-            case ROLE_PHASE: rolePhase(); break;
-            case DISCARD_DRAW_PHASE: discardDrawPhase(isComputer); break;
+            case ACTION_PHASE:
+                actionPhase(name, isComputer);
+                break;
+            case ROLE_PHASE:
+                rolePhase();
+                break;
+            case DISCARD_DRAW_PHASE:
+                discardDrawPhase(isComputer);
+                break;
             default:
         }
     }
@@ -185,5 +193,9 @@ public class EminentDomainApplication extends Application {
 
     public void updatePlanets(ArrayList<PlanetDrawableData> drawables) {
         activity.updatePlanets(drawables);
+    }
+
+    public void updateDiscardPile(ArrayList<CardDrawableData> drawables) {
+        activity.updateDiscardPile(drawables);
     }
 }

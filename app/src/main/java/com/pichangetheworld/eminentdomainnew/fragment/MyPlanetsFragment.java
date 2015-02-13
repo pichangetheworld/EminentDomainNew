@@ -87,7 +87,7 @@ public class MyPlanetsFragment extends Fragment {
 //        if (planetData.isEmpty()) {
 //            cardWidth = 75 * displayMetrics.density;
 //        } else {
-//            cardWidth = Math.min(layoutWidth/cardData.size(), 75 * displayMetrics.density);
+//            cardWidth = Math.min(layoutWidth/handCardData.size(), 75 * displayMetrics.density);
 //        }
 //        Log.d("HandDeckFragment", "Setting card width to " + cardWidth);
         Log.d("PlanetsFragment", "Drawing " + planetData.size() + " planets");

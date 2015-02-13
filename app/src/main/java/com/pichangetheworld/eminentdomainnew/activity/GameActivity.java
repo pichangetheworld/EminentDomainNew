@@ -207,6 +207,7 @@ public class GameActivity extends FragmentActivity {
         myPlanetsFragment.chooseTargetConqueredPlanet(callback);
     }
 
+    // Update View
     // Update hand view
     public void updateHand(final ArrayList<CardDrawableData> drawables) {
         runOnUiThread(new Runnable() {
@@ -233,6 +234,15 @@ public class GameActivity extends FragmentActivity {
             @Override
             public void run() {
                 myPlanetsFragment.updatePlanets(drawables);
+            }
+        });
+    }
+
+    public void updateDiscardPile(final ArrayList<CardDrawableData> drawables) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playerFragment.updateDiscardPile(drawables);
             }
         });
     }
