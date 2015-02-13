@@ -27,9 +27,9 @@
     <!--Content Description-->
     <string name="deck">Deck</string>
     <string name="discard">Discard</string>
-    <string name="conquered_planet">Conquered Planet</string>
     <string name="action_phase">Action Phase</string>
     <string name="card_name">Card Name</string>
     <string name="x0">x0</string>
+    <string name="planet_image">Planet Image</string>
 
 </resources>

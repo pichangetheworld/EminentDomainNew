@@ -8,7 +8,8 @@
         android:id="@+id/planet_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/planet" />
+        android:src="@drawable/planet"
+        android:contentDescription="@string/planet_image" />
 
     <TextView
         android:id="@+id/warfare_cost"
