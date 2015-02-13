@@ -124,6 +124,10 @@ public class EminentDomainApplication extends Application {
         gameManager.curPlayerDiscardSelectedCards(selectedCards);
     }
 
+    public void letPlayerChooseProduceTrade(TargetCallbackInterface callback) {
+        activity.letPlayerChooseProduceTrade(callback);
+    }
+
     // selecting target planets
     public void selectTargetRole(TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {

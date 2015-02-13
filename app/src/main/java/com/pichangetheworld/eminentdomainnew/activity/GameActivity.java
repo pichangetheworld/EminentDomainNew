@@ -20,6 +20,7 @@ import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.view.PopupView;
+import com.pichangetheworld.eminentdomainnew.view.ProduceTradePopupView;
 
 import java.util.ArrayList;
 
@@ -176,6 +177,11 @@ public class GameActivity extends FragmentActivity {
 
     public void showField() {
         mPager.setCurrentItem(1);
+    }
+
+    // Let player choose between produce and trade after selecting produce/trade
+    public void letPlayerChooseProduceTrade(TargetCallbackInterface callback) {
+        new ProduceTradePopupView(this, callback).show(getWindow().getDecorView());
     }
 
     // Let player choose role

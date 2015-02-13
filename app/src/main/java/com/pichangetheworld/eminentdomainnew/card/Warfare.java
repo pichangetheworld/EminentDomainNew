@@ -65,5 +65,6 @@ public class Warfare extends BaseCard {
     public void conquerAction(BasePlanet targetPlanet) {
         user.gainShips(-1 * targetPlanet.getWarfareCost());
         targetPlanet.conquer();
+        user.broadcastPlanetsUpdated();
     }
 }

@@ -1,10 +1,5 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
@@ -14,29 +9,18 @@ import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
  * Date: 17/01/2015
  */
 public class ProduceTrade extends BaseCard {
-    // Handler to receive CHOSE_TARGET_ACTION broadcasts
-    private final BroadcastReceiver mChooseActionReceiver = new BroadcastReceiver() {
+    private final TargetCallbackInterface onActionSelectProduceTradeCallback = new TargetCallbackInterface() {
         @Override
-        public void onReceive(Context context2, Intent intent) {
-            String roleOrAction = intent.getStringExtra("roleOrAction");
-            int actionIndex = intent.getIntExtra("actionIndex", -1);
-            Log.d("ProduceTrade", "Broadcast Received! Action chosen was " + actionIndex);
-
-            if (roleOrAction.equals("ACTION")) {
-                // Action
-                switch (actionIndex) {
-                    case 0: // PRODUCE
-                        context.selectTargetConqueredPlanet(onActionProduceCallback);
-                        break;
-                    case 1: // TRADE
-                    default:
-                        context.selectTargetConqueredPlanet(onActionTradeCallback);
-                        break;
-                }
-            } else {
-                // TODO Role
+        public void callback(int index) {
+            switch (index) {
+                case 0: // PRODUCE
+                    context.selectTargetConqueredPlanet(onActionProduceCallback);
+                    break;
+                case 1: // TRADE
+                default:
+                    context.selectTargetConqueredPlanet(onActionTradeCallback);
+                    break;
             }
-            context.unregisterReceiver(mChooseActionReceiver);
         }
     };
 
@@ -48,6 +32,7 @@ public class ProduceTrade extends BaseCard {
             user.useCard(ProduceTrade.this);
             if (index >= 0 && user.getSurveyedPlanets().get(index).canProduce()) {
                 user.getSurveyedPlanets().get(index).produce(1);
+                user.broadcastPlanetsUpdated();
             }
             context.endActionPhase();
         }
@@ -60,6 +45,7 @@ public class ProduceTrade extends BaseCard {
             user.useCard(ProduceTrade.this);
             if (planetIndex >= 0 && user.getSurveyedPlanets().get(planetIndex).canTrade()) {
                 user.getSurveyedPlanets().get(planetIndex).trade(1);
+                user.broadcastPlanetsUpdated();
             }
             context.endActionPhase();
         }
@@ -73,8 +59,7 @@ public class ProduceTrade extends BaseCard {
     public void onAction() {
         super.onAction();
 
-        context.endActionPhase(); // TODO
-//        context.registerReceiver(mChooseActionReceiver, new IntentFilter("CHOSE_TARGET_ACTION"));
+        context.letPlayerChooseProduceTrade(onActionSelectProduceTradeCallback);
     }
 
     @Override
