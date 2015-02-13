@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,9 @@ public class PlanetView extends RelativeLayout {
     LayoutInflater mInflater;
 
     private PlanetDrawableData data = null;
+
+    // Drawable
+    ImageView planetImage;
 
     // Surveyed planets
     TextView colonizeCost;
@@ -51,9 +55,18 @@ public class PlanetView extends RelativeLayout {
     private void init() {
         mInflater.inflate(R.layout.planet_view, this, true);
 
+        // Drawable
+        planetImage = (ImageView) findViewById(R.id.planet_image);
+
+        // Surveyed Planets
         colonizeCost = (TextView) findViewById(R.id.colonize_cost);
         warfareCost = (TextView) findViewById(R.id.warfare_cost);
         colonizeCount = (TextView) findViewById(R.id.colonize_count);
+
+        // Conquered Planets
+        vps = (TextView) findViewById(R.id.VPs);
+        produceCapacity = (ProduceSlot) findViewById(R.id.produce_capacity);
+        produceCapacity2 = (ProduceSlot) findViewById(R.id.produce_capacity2);
     }
 
     // Getter
@@ -64,6 +77,10 @@ public class PlanetView extends RelativeLayout {
         this.data = data;
         Log.d("PlanetView", "Drawing planet conquered: " + data.conquered);
         if (!data.conquered) {
+            vps.setVisibility(GONE);
+            produceCapacity.setVisibility(GONE);
+            produceCapacity2.setVisibility(GONE);
+
             colonizeCost.setText(Integer.toString(data.colonizeCost));
             warfareCost.setText(Integer.toString(data.warfareCost));
             Log.d("PlanetView", "Drawing planet colonize count is: " + data.colonizeCount);
@@ -74,17 +91,19 @@ public class PlanetView extends RelativeLayout {
                 colonizeCount.setVisibility(GONE);
             }
         } else {
-            mInflater.inflate(R.layout.conquered_planet_view, this, true);
+            colonizeCost.setVisibility(GONE);
+            warfareCost.setVisibility(GONE);
+            colonizeCount.setVisibility(GONE);
 
-            vps = (TextView) findViewById(R.id.VPs);
-            produceCapacity = (ProduceSlot) findViewById(R.id.produce_capacity);
-            produceCapacity2 = (ProduceSlot) findViewById(R.id.produce_capacity2);
+            planetImage.setImageResource(R.drawable.conquered_planet);
 
+            vps.setVisibility(VISIBLE);
             vps.setText(Integer.toString(data.vps));
             if (data.produceCapacity == 0) {
                 produceCapacity.setVisibility(GONE);
                 produceCapacity2.setVisibility(GONE);
             } else if (data.produceCapacity == 1) {
+                produceCapacity.setVisibility(VISIBLE);
                 produceCapacity2.setVisibility(GONE);
                 if (data.curProduceCount > 0) {
                     produceCapacity.produce();
@@ -92,6 +111,8 @@ public class PlanetView extends RelativeLayout {
                     produceCapacity.trade();
                 }
             } else {
+                produceCapacity.setVisibility(VISIBLE);
+                produceCapacity2.setVisibility(VISIBLE);
                 if (data.curProduceCount > 0) {
                     produceCapacity.produce();
                 } else {
