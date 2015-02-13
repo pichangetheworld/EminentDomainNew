@@ -161,6 +161,7 @@ public abstract class BasePlayer {
     public void updateAllViews() {
         broadcastHandUpdated();
         broadcastPlanetsUpdated();
+        broadcastDiscardPileUpdated();
     }
 
     public int numCardsAboveLimit() {
