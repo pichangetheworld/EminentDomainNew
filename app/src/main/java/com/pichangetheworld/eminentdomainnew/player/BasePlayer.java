@@ -109,6 +109,7 @@ public abstract class BasePlayer {
         }
 //        if (this instanceof HumanPlayer) {
             broadcastHandUpdated();
+            broadcastDiscardPileUpdated();
 //        }
     }
 
