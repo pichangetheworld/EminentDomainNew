@@ -19,6 +19,7 @@ import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.SelectMode;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.view.PopupView;
 import com.pichangetheworld.eminentdomainnew.view.ProduceTradePopupView;
@@ -191,6 +192,11 @@ public class GameActivity extends FragmentActivity {
         fieldFragment.chooseTargetRole(callback);
     }
 
+    public void letPlayerChooseDiscards(MultiTargetCallbackInterface discardCallback) {
+        playerFragment.selectCardsToRemove(0, SelectMode.DISCARD,
+                discardCallback);
+    }
+
     // Let the player choose target planet
     public void letPlayerChooseTargetUnconqueredPlanet(boolean allowNone,
                                                        TargetCallbackInterface callback) {
@@ -210,7 +216,7 @@ public class GameActivity extends FragmentActivity {
 
     // Let current player select cards to remove from the game
     public void selectCardsToRemove(int num, MultiTargetCallbackInterface callback) {
-        playerFragment.selectCardsToRemove(num, callback);
+        playerFragment.selectCardsToRemove(num, SelectMode.RESEARCH, callback);
     }
 
     // Update View

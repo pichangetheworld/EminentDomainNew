@@ -8,6 +8,6 @@ package com.pichangetheworld.eminentdomainnew.util;
 public enum SelectMode {
     ACTION_PLAY_PHASE,
     MATCH_ROLE_PHASE,
-    SELECT_TO_DISCARD_DRAW_PHASE,
+    DISCARD,
     RESEARCH
 }

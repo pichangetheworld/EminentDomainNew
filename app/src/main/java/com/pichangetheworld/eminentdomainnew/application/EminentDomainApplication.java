@@ -125,13 +125,10 @@ public class EminentDomainApplication extends Application {
     private void discardDrawPhase(boolean isComputer) {
         activity.discardDrawPhase(isComputer);
 
-        if (isComputer) {
-            List<Integer> toDiscard = gameManager.letAISelectHandCardsToDiscard();
-            discardSelectedCards(toDiscard);
-        }
+        chooseCardsToDiscard();
     }
 
-    public void discardSelectedCards(List<Integer> selectedCards) {
+    private void discardSelectedCards(List<Integer> selectedCards) {
         gameManager.curPlayerDiscardSelectedCards(selectedCards);
     }
 
@@ -154,6 +151,23 @@ public class EminentDomainApplication extends Application {
             callback.callback(index);
         } else {
             activity.letPlayerChooseTargetRole(callback);
+        }
+    }
+
+    private final MultiTargetCallbackInterface DISCARD_CALLBACK = new MultiTargetCallbackInterface() {
+        @Override
+        public void callback(List<Integer> targets) {
+            discardSelectedCards(targets);
+        }
+    };
+
+    // Let current player choose cards to discard from his hand for Discard Phase
+    private void chooseCardsToDiscard() {
+        if (gameManager.isComputerTurn()) {
+            List<Integer> toDiscard = gameManager.letAISelectHandCardsToDiscard();
+            discardSelectedCards(toDiscard);
+        } else {
+            activity.letPlayerChooseDiscards(DISCARD_CALLBACK);
         }
     }
 

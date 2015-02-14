@@ -74,10 +74,7 @@ public class PlayerFragment extends Fragment {
                     // play the selected action
                     EminentDomainApplication.getInstance().playAction(selectedAction);
                     break;
-                case SELECT_TO_DISCARD_DRAW_PHASE:
-                    // discard the cards
-                    EminentDomainApplication.getInstance().discardSelectedCards(selectedHandCards);
-                    break;
+                case DISCARD:
                 case RESEARCH:
                     mMultiCallback.callback(selectedHandCards);
                     break;
@@ -114,7 +111,7 @@ public class PlayerFragment extends Fragment {
                         selectedHandCards.add(i);
                     }
                     break;
-                case SELECT_TO_DISCARD_DRAW_PHASE:
+                case DISCARD:
                     // Show the selected card
                     if (selectedHandCards.contains(i)) {
                         selectedHandCards.remove(i);
@@ -233,7 +230,7 @@ public class PlayerFragment extends Fragment {
                             cv.onCardSelected(false);
                         }
                         break;
-                    case SELECT_TO_DISCARD_DRAW_PHASE:
+                    case DISCARD:
                     case RESEARCH:
                         if (selectedHandCards.contains(i)) {
                             cv.onCardSelected(true);
@@ -250,7 +247,7 @@ public class PlayerFragment extends Fragment {
             case ACTION_PLAY_PHASE:
                 enableSkip(selectedAction == -1);
                 break;
-            case SELECT_TO_DISCARD_DRAW_PHASE:
+            case DISCARD:
                 // TODO actually depend on what hand limit is
                 if (handCardData.size() - selectedHandCards.size() <= 5) {
                     enableSkip(selectedHandCards.isEmpty());
@@ -278,7 +275,7 @@ public class PlayerFragment extends Fragment {
     }
 
     public void onDiscardDrawPhase() {
-        curMode = SelectMode.SELECT_TO_DISCARD_DRAW_PHASE;
+        curMode = SelectMode.DISCARD;
         okayButton.setVisibility(View.VISIBLE);
         noneButton.setVisibility(View.GONE);
         redraw();
@@ -303,11 +300,14 @@ public class PlayerFragment extends Fragment {
     }
 
     // Let player select multiple cards in hand to remove from game
-    public void selectCardsToRemove(int num,
+    public void selectCardsToRemove(int num, SelectMode mode,
                                     final MultiTargetCallbackInterface callback) {
-        curMode = SelectMode.RESEARCH;
+        curMode = mode;
         mMultiCallback = callback;
-        multiCardLimit = num;
+        if (mode == SelectMode.RESEARCH)
+            multiCardLimit = num;
+        else
+            multiCardLimit = handCardData.size();
         selectedHandCards.clear();
 
         okayButton.setVisibility(View.VISIBLE);
