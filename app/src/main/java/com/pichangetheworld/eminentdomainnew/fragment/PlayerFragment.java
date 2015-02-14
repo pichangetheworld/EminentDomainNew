@@ -311,6 +311,7 @@ public class PlayerFragment extends Fragment {
         selectedHandCards.clear();
 
         okayButton.setVisibility(View.VISIBLE);
+        okayButton.setEnabled(true);
         okayButton.setText("OK");
         noneButton.setVisibility(View.GONE);
         redraw();

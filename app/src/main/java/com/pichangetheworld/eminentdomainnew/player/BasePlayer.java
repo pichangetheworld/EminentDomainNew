@@ -1,5 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.player;
 
+import android.util.Log;
+
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.card.Politics;
@@ -92,7 +94,9 @@ public abstract class BasePlayer {
     public void removeFromHand(List<Integer> targets) {
         Collections.sort(targets);
         for (int i = targets.size() - 1; i >= 0; i--) {
-            hand.remove(i).removeFromGame();
+            int index = targets.get(i);
+            Log.d("BasePlayer", "Removing card " + index + " " + hand.get(index).getName() + " from game");
+            hand.remove(index).removeFromGame();
         }
         broadcastHandUpdated();
     }
@@ -165,7 +169,7 @@ public abstract class BasePlayer {
 
     // Play the card at index i
     public void playCard(int index) {
-        hand.remove(index).onAction();
+        hand.get(index).onAction();
     }
 
     public void updateAllViews() {
