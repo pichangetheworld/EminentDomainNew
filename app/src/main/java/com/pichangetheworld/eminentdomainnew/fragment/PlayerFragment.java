@@ -18,6 +18,7 @@ import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplicatio
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.SelectMode;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.view.CardView;
@@ -59,6 +60,8 @@ public class PlayerFragment extends Fragment {
     int selectedAction;
     List<Integer> selectedHandCards;
 
+    MultiTargetCallbackInterface mMultiCallback;
+    int multiCardLimit = 0;
     private final View.OnClickListener onOkay = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -75,12 +78,12 @@ public class PlayerFragment extends Fragment {
                     // discard the cards
                     EminentDomainApplication.getInstance().discardSelectedCards(selectedHandCards);
                     break;
+                case RESEARCH:
+                    mMultiCallback.callback(selectedHandCards);
+                    break;
             }
 
-            // Reset
-            selectedAction = -1;
-            selectedHandCards.clear();
-            redraw();
+            reset();
         }
     };
 
@@ -101,6 +104,14 @@ public class PlayerFragment extends Fragment {
                         selectedAction = -1;
                     } else {
                         selectedAction = i;
+                    }
+                    break;
+                case RESEARCH:
+                    // Show the selected card
+                    if (selectedHandCards.contains(i)) {
+                        selectedHandCards.remove(i);
+                    } else if (selectedHandCards.size() < multiCardLimit) {
+                        selectedHandCards.add(i);
                     }
                     break;
                 case SELECT_TO_DISCARD_DRAW_PHASE:
@@ -223,6 +234,7 @@ public class PlayerFragment extends Fragment {
                         }
                         break;
                     case SELECT_TO_DISCARD_DRAW_PHASE:
+                    case RESEARCH:
                         if (selectedHandCards.contains(i)) {
                             cv.onCardSelected(true);
                         } else {
@@ -288,5 +300,27 @@ public class PlayerFragment extends Fragment {
                 noneButton.setVisibility(View.GONE);
             }
         });
+    }
+
+    // Let player select multiple cards in hand to remove from game
+    public void selectCardsToRemove(int num,
+                                    final MultiTargetCallbackInterface callback) {
+        curMode = SelectMode.RESEARCH;
+        mMultiCallback = callback;
+        multiCardLimit = num;
+        selectedHandCards.clear();
+
+        okayButton.setVisibility(View.VISIBLE);
+        okayButton.setText("OK");
+        noneButton.setVisibility(View.GONE);
+        redraw();
+    }
+
+    private void reset() {
+        selectedAction = -1;
+        selectedHandCards.clear();
+        mMultiCallback = null;
+        multiCardLimit = 0;
+        redraw();
     }
 }

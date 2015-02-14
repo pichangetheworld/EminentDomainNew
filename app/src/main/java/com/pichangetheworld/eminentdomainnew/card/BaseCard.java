@@ -51,4 +51,12 @@ public abstract class BaseCard {
     public int getColonize() { return 0; }
     public int getProduceTrade() { return 0; }
     public int getResearch() { return 0; }
+
+    public void removeFromGame() {
+        user = null;
+    }
+
+    public boolean inGame() {
+        return user != null;
+    }
 }

@@ -9,6 +9,7 @@ import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlayerDeck;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -85,7 +86,16 @@ public abstract class BasePlayer {
         hand.remove(card);
         broadcastHandUpdated();
     }
-    public void removeFromHand(int index) { hand.remove(index); }
+
+    // Remove a set of user's hand cards from the game
+    // targets is not null
+    public void removeFromHand(List<Integer> targets) {
+        Collections.sort(targets);
+        for (int i = targets.size() - 1; i >= 0; i--) {
+            hand.remove(i).removeFromGame();
+        }
+        broadcastHandUpdated();
+    }
 
     // Draw a card into the hand
     public void drawCards(int n) {

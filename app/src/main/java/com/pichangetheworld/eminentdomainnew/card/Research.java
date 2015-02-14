@@ -1,11 +1,9 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
+
+import java.util.List;
 
 /**
  * Eminent Domain AS
@@ -14,21 +12,17 @@ import com.pichangetheworld.eminentdomainnew.R;
  */
 public class Research extends BaseCard {
     // Handler to receive CHOSE_TARGET_HAND_CARD broadcasts
-    private final BroadcastReceiver mChooseHandCardReceiver = new BroadcastReceiver() {
+    private final MultiTargetCallbackInterface mActionCallback = new MultiTargetCallbackInterface() {
         @Override
-        public void onReceive(Context context2, Intent intent) {
-            int handCardIndex = intent.getIntExtra("handCardIndex", -1);
-            int [] cardsLeftToRemove = intent.getIntArrayExtra("cardsLeftToRemove");
-            Log.d("Research", "Broadcast Received! Card in hand chosen was " + handCardIndex);
-
-            if (handCardIndex >= 0) {
-                // Hack to 'use' the card by removing it without discarding to discard pile
-                // TODO change this function name
-                user.removeFromHand(handCardIndex);
-
-                context.endActionPhase();
-                context.unregisterReceiver(this);
+        public void callback(List<Integer> targets) {
+            if (targets != null) {
+                user.removeFromHand(targets);
             }
+            if (inGame()) {
+                user.useCard(Research.this);
+                user.discardCard(Research.this);
+            }
+            context.endActionPhase();
         }
     };
 
@@ -39,8 +33,7 @@ public class Research extends BaseCard {
     @Override
     public void onAction() {
         super.onAction();
-        context.endActionPhase(); // TODO
-//        context.registerReceiver(mChooseHandCardReceiver, new IntentFilter("CHOSE_TARGET_HAND_CARD"));
+        context.selectCardsToRemove(2, mActionCallback);
     }
 
     @Override

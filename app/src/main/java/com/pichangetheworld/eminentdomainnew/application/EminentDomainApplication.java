@@ -8,6 +8,7 @@ import com.pichangetheworld.eminentdomainnew.GameManager;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
@@ -134,6 +135,7 @@ public class EminentDomainApplication extends Application {
         gameManager.curPlayerDiscardSelectedCards(selectedCards);
     }
 
+    // Let current player decide whether to produce or trade after playing Produce/Trade
     public void chooseProduceTrade(TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
@@ -144,7 +146,7 @@ public class EminentDomainApplication extends Application {
         }
     }
 
-    // selecting target planets
+    // Let current player choose target role card, e.g. for Role phase or Politics
     public void selectTargetRole(TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
@@ -155,8 +157,9 @@ public class EminentDomainApplication extends Application {
         }
     }
 
-    // selecting target planets
-    public void selectTargetUnconqueredPlanet(boolean allowNone, TargetCallbackInterface callback) {
+    // Let current player select target unconquered planet, e.g. for Warfare, Colonize
+    public void selectTargetUnconqueredPlanet(boolean allowNone,
+                                              TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
             int index = gameManager.letAISelectTargetUnconqueredPlanet(allowNone);
@@ -166,6 +169,7 @@ public class EminentDomainApplication extends Application {
         }
     }
 
+    // Let current player select target conquered planet, e.g. for Produce/Trade
     public void selectTargetConqueredPlanet(TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
@@ -174,6 +178,11 @@ public class EminentDomainApplication extends Application {
         } else {
             activity.letPlayerChooseTargetConqueredPlanet(callback);
         }
+    }
+
+    // Let current player select cards to remove from the game
+    public void selectCardsToRemove(int num, MultiTargetCallbackInterface callback) {
+        activity.selectCardsToRemove(num, callback);
     }
 
     // Popup
