@@ -134,10 +134,10 @@ public class EminentDomainApplication extends Application {
         gameManager.curPlayerDiscardSelectedCards(selectedCards);
     }
 
-    public void letPlayerChooseProduceTrade(TargetCallbackInterface callback) {
+    public void chooseProduceTrade(TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
-            int index = gameManager.letAISelectProduceTrade();
+            int index = gameManager.letAIChooseProduceTrade();
             callback.callback(index);
         } else {
             activity.letPlayerChooseProduceTrade(callback);

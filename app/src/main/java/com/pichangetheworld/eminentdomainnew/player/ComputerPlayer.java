@@ -16,7 +16,7 @@ public interface ComputerPlayer {
     int selectTargetRole();
 
     // Choosing between Produce or Trade
-    int selectProduceTrade();
+    int chooseProduceTrade();
 
     // Selecting targets
     int selectTargetUnconqueredPlanet(boolean allowNone);

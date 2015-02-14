@@ -27,7 +27,7 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
     }
 
     @Override
-    public int selectProduceTrade() {
+    public int chooseProduceTrade() {
         if (surveyedPlanets.get(0).canTrade()) {
             return 1;
         }

@@ -97,7 +97,7 @@ public class ProduceTrade extends BaseCard {
 
         curPhase = Phase.ACTION_PHASE;
 
-        context.letPlayerChooseProduceTrade(onSelectProduceTradeCallback);
+        context.chooseProduceTrade(onSelectProduceTradeCallback);
     }
 
     @Override
@@ -106,6 +106,6 @@ public class ProduceTrade extends BaseCard {
 
         curPhase = Phase.ROLE_PHASE;
 
-        context.letPlayerChooseProduceTrade(onSelectProduceTradeCallback);
+        context.chooseProduceTrade(onSelectProduceTradeCallback);
     }
 }

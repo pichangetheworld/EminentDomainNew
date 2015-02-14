@@ -179,8 +179,8 @@ public class GameManager {
     }
 
     // Produce / Trade
-    public int letAISelectProduceTrade() {
-        return getComputerPlayer().selectProduceTrade();
+    public int letAIChooseProduceTrade() {
+        return getComputerPlayer().chooseProduceTrade();
     }
 
     // Select target planet
