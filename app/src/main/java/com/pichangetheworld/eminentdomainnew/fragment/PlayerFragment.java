@@ -300,12 +300,12 @@ public class PlayerFragment extends Fragment {
     }
 
     // Let player select multiple cards in hand to remove from game
-    public void selectCardsToRemove(int num, SelectMode mode,
+    public void selectCardsToRemove(int max, SelectMode mode,
                                     final MultiTargetCallbackInterface callback) {
         curMode = mode;
         mMultiCallback = callback;
         if (mode == SelectMode.RESEARCH)
-            multiCardLimit = num;
+            multiCardLimit = max;
         else
             multiCardLimit = handCardData.size();
         selectedHandCards.clear();

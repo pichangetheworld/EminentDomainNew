@@ -196,4 +196,8 @@ public class GameManager {
         int min = mPlayers.get(mCurrentPlayer).numCardsAboveLimit();
         return getComputerPlayer().selectTargetHandCardsToDiscard(min);
     }
+
+    public List<Integer> letAISelectHandCardsToRemove(int max) {
+        return getComputerPlayer().selectTargetHandCardsToRemove(max);
+    }
 }

@@ -195,8 +195,13 @@ public class EminentDomainApplication extends Application {
     }
 
     // Let current player select cards to remove from the game
-    public void selectCardsToRemove(int num, MultiTargetCallbackInterface callback) {
-        activity.selectCardsToRemove(num, callback);
+    public void selectCardsToRemove(int max, MultiTargetCallbackInterface callback) {
+        if (gameManager.isComputerTurn()) {
+            List<Integer> toRemove = gameManager.letAISelectHandCardsToRemove(max);
+            callback.callback(toRemove);
+        } else {
+            activity.selectCardsToRemove(max, callback);
+        }
     }
 
     // Popup

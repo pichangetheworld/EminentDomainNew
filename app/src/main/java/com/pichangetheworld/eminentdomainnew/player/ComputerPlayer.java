@@ -24,4 +24,7 @@ public interface ComputerPlayer {
 
     // Discard phase
     List<Integer> selectTargetHandCardsToDiscard(int min);
+
+    // Removing cards e.g. Research
+    List<Integer> selectTargetHandCardsToRemove(int max);
 }

@@ -214,8 +214,8 @@ public class GameActivity extends FragmentActivity {
     }
 
     // Let current player select cards to remove from the game
-    public void selectCardsToRemove(int num, MultiTargetCallbackInterface callback) {
-        playerFragment.selectCardsToRemove(num, SelectMode.RESEARCH, callback);
+    public void selectCardsToRemove(int max, MultiTargetCallbackInterface callback) {
+        playerFragment.selectCardsToRemove(max, SelectMode.RESEARCH, callback);
     }
 
     // Update View

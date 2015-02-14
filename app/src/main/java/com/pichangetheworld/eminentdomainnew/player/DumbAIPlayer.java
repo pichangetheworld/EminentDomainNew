@@ -60,4 +60,13 @@ public class DumbAIPlayer extends BasePlayer implements ComputerPlayer {
         }
         return ret;
     }
+
+    @Override
+    public List<Integer> selectTargetHandCardsToRemove(int max) {
+        List<Integer> ret = new ArrayList<>();
+        for (int i = 0; i < max; ++i) {
+            ret.add(i);
+        }
+        return ret;
+    }
 }
