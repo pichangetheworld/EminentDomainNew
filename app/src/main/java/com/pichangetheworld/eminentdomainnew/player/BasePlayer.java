@@ -85,7 +85,7 @@ public abstract class BasePlayer {
         hand.remove(card);
         broadcastHandUpdated();
     }
-    public void useCardIndex(int index) { hand.remove(index); }
+    public void removeFromHand(int index) { hand.remove(index); }
 
     // Draw a card into the hand
     public void drawCards(int n) {

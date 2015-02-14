@@ -3,7 +3,6 @@ package com.pichangetheworld.eminentdomainnew.card;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.R;
@@ -25,7 +24,7 @@ public class Research extends BaseCard {
             if (handCardIndex >= 0) {
                 // Hack to 'use' the card by removing it without discarding to discard pile
                 // TODO change this function name
-                user.useCardIndex(handCardIndex);
+                user.removeFromHand(handCardIndex);
 
                 context.endActionPhase();
                 context.unregisterReceiver(this);
