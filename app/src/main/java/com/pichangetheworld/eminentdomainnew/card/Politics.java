@@ -18,7 +18,6 @@ public class Politics extends BaseCard {
             Log.d("Politics", "Broadcast Received! Role chosen was " + roleIndex);
 
             if (roleIndex >= 0) {
-                user.useCard(Politics.this);
                 BaseCard card = context.getGameField()
                         .drawCardFromFieldDeck(context, user, roleIndex);
                 if (card != null)
@@ -29,13 +28,14 @@ public class Politics extends BaseCard {
     };
 
     public Politics() {
-        super("Politics", R.drawable.blank_card);
+        super("Politics", R.drawable.politics);
     }
 
     @Override
     public void onAction() {
         super.onAction();
 
+        user.useCard(Politics.this);
         context.selectTargetRole(onActionCallback);
     }
 

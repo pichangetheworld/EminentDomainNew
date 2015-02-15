@@ -14,7 +14,6 @@ public class Colonize extends BaseCard {
     private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
-            user.useCard(Colonize.this);
             if (index >= 0) {
                 Colonize.this.colonizeAction(user.getSurveyedPlanets().get(index));
             }
@@ -40,6 +39,8 @@ public class Colonize extends BaseCard {
     @Override
     public void onAction() {
         super.onAction();
+
+        user.useCard(Colonize.this);
         context.selectTargetUnconqueredPlanet(false, onActionCallback);
     }
 
