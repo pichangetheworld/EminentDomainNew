@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
+import com.pichangetheworld.eminentdomainnew.util.CardType;
 
 /**
  * Eminent Domain AS
@@ -52,6 +53,8 @@ public abstract class BaseCard {
     public int getProduce() { return 0; }
     public int getTrade() { return 0; }
     public int getResearch() { return 0; }
+
+    public CardType getType() { return CardType.OTHER; }
 
     public void removeFromGame() {
         user = null;

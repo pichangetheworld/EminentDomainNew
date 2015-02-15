@@ -163,6 +163,7 @@ public class GameManager {
         context.popupPrompt(cardData, new CallbackInterface() {
             @Override
             public void callback() {
+                context.matchRole(card.getType());
                 card.onRole();
             }
         });

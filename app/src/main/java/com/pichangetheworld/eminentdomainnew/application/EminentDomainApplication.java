@@ -8,6 +8,7 @@ import com.pichangetheworld.eminentdomainnew.GameManager;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.CardType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
@@ -154,6 +155,12 @@ public class EminentDomainApplication extends Application {
         }
     }
 
+    // Let player match cards from his hand matching selected role
+    public void matchRole(CardType cardType) {
+
+    }
+
+    // Survey Role
     public void surveyPlanets(int count) {
         gameManager.surveyPlanets(count);
     }

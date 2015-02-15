@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.util.CardType;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
@@ -110,6 +111,11 @@ public class ProduceTrade extends BaseCard {
         curPhase = Phase.ROLE_PHASE;
 
         context.chooseProduceTrade(onSelectProduceTradeCallback);
+    }
+
+    @Override
+    public CardType getType() {
+        return CardType.PRODUCETRADE;
     }
 
     @Override

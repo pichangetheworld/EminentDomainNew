@@ -3,6 +3,7 @@ package com.pichangetheworld.eminentdomainnew.card;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
+import com.pichangetheworld.eminentdomainnew.util.CardType;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
@@ -50,6 +51,11 @@ public class Colonize extends BaseCard {
         super.onRole();
 
         context.selectTargetUnconqueredPlanet(false, onRoleCallback);
+    }
+
+    @Override
+    public CardType getType() {
+        return CardType.COLONIZE;
     }
 
     @Override

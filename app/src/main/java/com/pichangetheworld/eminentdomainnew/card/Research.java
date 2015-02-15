@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.util.CardType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 
 import java.util.List;
@@ -43,5 +44,10 @@ public class Research extends BaseCard {
 
         // TODO
         context.endRolePhase();
+    }
+
+    @Override
+    public CardType getType() {
+        return CardType.RESEARCH;
     }
 }

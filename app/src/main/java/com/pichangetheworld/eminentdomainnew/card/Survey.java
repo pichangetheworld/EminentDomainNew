@@ -2,6 +2,7 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.util.CardType;
 
 /**
  * Eminent Domain AS
@@ -28,5 +29,15 @@ public class Survey extends BaseCard {
         super.onRole();
 
         context.surveyPlanets(1);
+    }
+
+    @Override
+    public CardType getType() {
+        return CardType.SURVEY;
+    }
+
+    @Override
+    public int getSurvey() {
+        return 1;
     }
 }
