@@ -37,7 +37,7 @@ public class PlayerFragment extends Fragment {
     Button noneButton;
     TextView shipCountView;
     ImageView deckView;
-    ImageView discardView;
+    RelativeLayout discardView;
 
     // Parent layout holding all the card views
     RelativeLayout handView;
@@ -148,7 +148,7 @@ public class PlayerFragment extends Fragment {
         noneButton.setVisibility(View.GONE);
 
         deckView = (ImageView) v.findViewById(R.id.deck);
-        discardView = (ImageView) v.findViewById(R.id.discardPile);
+        discardView = (RelativeLayout) v.findViewById(R.id.discardPile);
 
         handView = (RelativeLayout) v.findViewById(R.id.hand);
 
@@ -186,10 +186,15 @@ public class PlayerFragment extends Fragment {
     public void updateDiscardPile(ArrayList<CardDrawableData> drawables) {
         discardData.clear();
         discardData.addAll(drawables);
+        ImageView image = (ImageView) discardView.findViewById(R.id.image);
+        TextView count = (TextView) discardView.findViewById(R.id.remaining_count);
         if (discardData.isEmpty()) {
-            discardView.setImageResource(R.drawable.blank_card);
+            image.setImageResource(R.drawable.blank_card);
+            count.setVisibility(View.GONE);
         } else {
-            discardView.setImageResource(discardData.get(discardData.size()-1).drawable);
+            image.setImageResource(discardData.get(discardData.size()-1).drawable);
+            count.setText(Integer.toString(drawables.size()));
+            count.setVisibility(View.VISIBLE);
         }
     }
 
