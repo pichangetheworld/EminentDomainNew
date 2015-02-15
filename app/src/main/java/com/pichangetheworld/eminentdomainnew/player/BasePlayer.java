@@ -129,6 +129,7 @@ public abstract class BasePlayer {
         broadcastDiscardPileUpdated();
     }
 
+    // Discard cards at indices from hand to the discard pile
     public void discardIndexCards(List<Integer> indices) {
         List<BaseCard> toDiscard = new ArrayList<>();
         for (int i : indices) {
