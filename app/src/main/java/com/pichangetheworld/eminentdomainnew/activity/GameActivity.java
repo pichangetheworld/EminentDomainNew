@@ -192,8 +192,13 @@ public class GameActivity extends FragmentActivity {
         fieldFragment.chooseTargetRole(callback);
     }
 
-    public void letPlayerChooseDiscards(MultiTargetCallbackInterface callback) {
-        playerFragment.selectCardsToRemove(0, SelectMode.DISCARD, callback);
+    public void letPlayerChooseDiscards(final MultiTargetCallbackInterface callback) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playerFragment.selectCardsToRemove(0, SelectMode.DISCARD, callback);
+            }
+        });
     }
 
     // Let the player choose target planet
