@@ -14,7 +14,6 @@ public class Warfare extends BaseCard {
     private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
-            user.useCard(Warfare.this);
             if (index >= 0 &&
                     user.getNumShips() > user.getSurveyedPlanets().get(index).getWarfareCost()) {
                 Warfare.this.conquerAction(user.getSurveyedPlanets().get(index));
@@ -47,6 +46,8 @@ public class Warfare extends BaseCard {
     @Override
     public void onAction() {
         super.onAction();
+        
+        user.useCard(Warfare.this);
         context.selectTargetUnconqueredPlanet(true, onActionCallback);
     }
 
