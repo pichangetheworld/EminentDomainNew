@@ -8,10 +8,11 @@ import com.pichangetheworld.eminentdomainnew.GameManager;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
-import com.pichangetheworld.eminentdomainnew.util.CardType;
+import com.pichangetheworld.eminentdomainnew.util.IconType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.RoleCountCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 import java.util.ArrayList;
@@ -156,8 +157,14 @@ public class EminentDomainApplication extends Application {
     }
 
     // Let player match cards from his hand matching selected role
-    public void matchRole(CardType cardType) {
-
+    public void matchRole(IconType iconType, final RoleCountCallbackInterface callback) {
+        MultiTargetCallbackInterface multiCallback = new MultiTargetCallbackInterface() {
+            @Override
+            public void callback(List<Integer> targets) {
+                gameManager.onMatchRoleCallback(callback, targets);
+            }
+        };
+        activity.letPlayerMatchRole(iconType, multiCallback);
     }
 
     // Survey Role

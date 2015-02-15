@@ -4,7 +4,8 @@ import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
-import com.pichangetheworld.eminentdomainnew.util.CardType;
+
+import java.util.List;
 
 /**
  * Eminent Domain AS
@@ -43,8 +44,8 @@ public abstract class BaseCard {
     public void onAction() {
         Log.d("BaseCard", "On Action playing " + name);
     }
-    public void onRole() {
-        Log.d("BaseCard", "On Role playing " + name);
+    public void onRole(List<BaseCard> matching) {
+        Log.d("BaseCard", "On Role playing " + matching.size() + " " + name + "s");
     }
 
     public int getSurvey() { return 0; }
@@ -54,7 +55,8 @@ public abstract class BaseCard {
     public int getTrade() { return 0; }
     public int getResearch() { return 0; }
 
-    public CardType getType() { return CardType.OTHER; }
+    // Let player match role
+    public void setUpMatchRole() {}
 
     public void removeFromGame() {
         user = null;

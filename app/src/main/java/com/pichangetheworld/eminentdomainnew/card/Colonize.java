@@ -3,8 +3,11 @@ package com.pichangetheworld.eminentdomainnew.card;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
-import com.pichangetheworld.eminentdomainnew.util.CardType;
+import com.pichangetheworld.eminentdomainnew.util.IconType;
+import com.pichangetheworld.eminentdomainnew.util.RoleCountCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
+
+import java.util.List;
 
 /**
  * Eminent Domain AS
@@ -17,18 +20,19 @@ public class Colonize extends BaseCard {
         @Override
         public void callback(int index) {
             if (index >= 0) {
-                Colonize.this.colonizeAction(user.getSurveyedPlanets().get(index));
+                colonizeAction(user.getSurveyedPlanets().get(index));
             }
             context.endActionPhase();
         }
     };
 
+    List<BaseCard> matching;
     // Callback after target planet has been selected
     private final TargetCallbackInterface onRoleCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
             if (index >= 0) {
-                Colonize.this.colonizeAction(user.getSurveyedPlanets().get(index));
+                colonizeRole(user.getSurveyedPlanets().get(index), matching);
             }
             context.endRolePhase();
         }
@@ -47,16 +51,23 @@ public class Colonize extends BaseCard {
     }
 
     @Override
-    public void onRole() {
-        super.onRole();
+    public void onRole(List<BaseCard> matching) {
+        super.onRole(matching);
+        this.matching = matching;
 
         context.selectTargetUnconqueredPlanet(false, onRoleCallback);
     }
 
     @Override
-    public CardType getType() {
-        return CardType.COLONIZE;
+    public void setUpMatchRole() {
+        context.matchRole(IconType.COLONIZE, new RoleCountCallbackInterface() {
+            @Override
+            public void callback(List<BaseCard> matching) {
+                onRole(matching);
+            }
+        });
     }
+
 
     @Override
     public int getColonize() {
@@ -69,6 +80,13 @@ public class Colonize extends BaseCard {
             targetPlanet.conquer();
         } else {
             targetPlanet.addColony(this);
+        }
+        user.broadcastPlanetsUpdated();
+    }
+
+    public void colonizeRole(BasePlanet targetPlanet, List<BaseCard> colonies) {
+        for (BaseCard card : colonies) {
+            targetPlanet.addColony(card);
         }
         user.broadcastPlanetsUpdated();
     }

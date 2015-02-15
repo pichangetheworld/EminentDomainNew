@@ -9,6 +9,7 @@ import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlayerDeck;
+import com.pichangetheworld.eminentdomainnew.util.RoleCountCallbackInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -188,5 +189,14 @@ public abstract class BasePlayer {
         CardDrawableData cd = new CardDrawableData();
         cd.setData(hand.get(index));
         return cd;
+    }
+
+    public void onMatchRoleCallback(RoleCountCallbackInterface callback, List<Integer> targets) {
+        Collections.sort(targets);
+        List<BaseCard> cards = new ArrayList<>(targets.size());
+        for (int index : targets) {
+            cards.add(hand.remove(index));
+        }
+        callback.callback(cards);
     }
 }

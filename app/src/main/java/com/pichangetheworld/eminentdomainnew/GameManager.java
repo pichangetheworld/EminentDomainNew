@@ -14,6 +14,7 @@ import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlanetFactory;
+import com.pichangetheworld.eminentdomainnew.util.RoleCountCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 import java.io.BufferedReader;
@@ -163,8 +164,7 @@ public class GameManager {
         context.popupPrompt(cardData, new CallbackInterface() {
             @Override
             public void callback() {
-                context.matchRole(card.getType());
-                card.onRole();
+                card.setUpMatchRole();
             }
         });
     }
@@ -262,5 +262,10 @@ public class GameManager {
 
     public List<Integer> letAISelectHandCardsToRemove(int max) {
         return getComputerPlayer().selectTargetHandCardsToRemove(max);
+    }
+
+    public void onMatchRoleCallback(RoleCountCallbackInterface callback,
+                                    List<Integer> targets) {
+        mPlayers.get(mCurrentPlayer).onMatchRoleCallback(callback, targets);
     }
 }

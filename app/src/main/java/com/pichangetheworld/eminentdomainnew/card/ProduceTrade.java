@@ -2,9 +2,10 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
-import com.pichangetheworld.eminentdomainnew.util.CardType;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
+
+import java.util.List;
 
 /**
  * Eminent Domain AS
@@ -105,17 +106,12 @@ public class ProduceTrade extends BaseCard {
     }
 
     @Override
-    public void onRole() {
-        super.onRole();
+    public void onRole(List<BaseCard> matching) {
+        super.onRole(matching);
 
         curPhase = Phase.ROLE_PHASE;
 
         context.chooseProduceTrade(onSelectProduceTradeCallback);
-    }
-
-    @Override
-    public CardType getType() {
-        return CardType.PRODUCETRADE;
     }
 
     @Override

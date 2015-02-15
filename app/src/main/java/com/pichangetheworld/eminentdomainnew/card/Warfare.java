@@ -3,8 +3,10 @@ package com.pichangetheworld.eminentdomainnew.card;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
-import com.pichangetheworld.eminentdomainnew.util.CardType;
+import com.pichangetheworld.eminentdomainnew.util.IconType;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
+
+import java.util.List;
 
 /**
  * Eminent Domain AS
@@ -54,15 +56,10 @@ public class Warfare extends BaseCard {
     }
 
     @Override
-    public void onRole() {
-        super.onRole();
+    public void onRole(List<BaseCard> matching) {
+        super.onRole(matching);
 
         context.selectTargetUnconqueredPlanet(true, onRoleCallback);
-    }
-
-    @Override
-    public CardType getType() {
-        return CardType.WARFARE;
     }
 
     @Override

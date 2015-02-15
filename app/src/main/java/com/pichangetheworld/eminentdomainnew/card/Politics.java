@@ -39,7 +39,4 @@ public class Politics extends BaseCard {
         user.useCard(Politics.this);
         context.selectTargetRole(onActionCallback);
     }
-
-    @Override
-    public void onRole() {}
 }

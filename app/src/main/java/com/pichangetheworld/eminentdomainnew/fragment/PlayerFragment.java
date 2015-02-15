@@ -18,6 +18,7 @@ import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplicatio
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.IconType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.SelectMode;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
@@ -200,6 +201,13 @@ public class PlayerFragment extends Fragment {
         }
     }
 
+    // Updating hand view when the window size is changed
+    public void onWindowFocusChanged() {
+        Log.d("HandDeckFragment", "Window is changed! width is " + handView.getWidth());
+        handWidth = handView.getWidth();
+        redraw();
+    }
+
     private void redraw() {
         float cardWidth;
         if (handCardData.isEmpty()) {
@@ -275,8 +283,21 @@ public class PlayerFragment extends Fragment {
         curMode = SelectMode.MATCH_ROLE_PHASE;
         okayButton.setVisibility(View.GONE);
         noneButton.setVisibility(View.GONE);
-        // TODO set it back to visible when we try to match
 
+        redraw();
+    }
+
+    IconType roleToMatch;
+    // Let player match the selected icon type
+    public void matchRole(IconType iconType, MultiTargetCallbackInterface callback) {
+        curMode = SelectMode.MATCH_ROLE_PHASE;
+        roleToMatch = iconType;
+        mMultiCallback = callback;
+
+        okayButton.setVisibility(View.VISIBLE);
+        okayButton.setEnabled(true);
+        okayButton.setText("OK");
+        noneButton.setVisibility(View.GONE);
         redraw();
     }
 
@@ -284,12 +305,6 @@ public class PlayerFragment extends Fragment {
         curMode = SelectMode.DISCARD;
         okayButton.setVisibility(View.VISIBLE);
         noneButton.setVisibility(View.GONE);
-        redraw();
-    }
-
-    public void onWindowFocusChanged() {
-        Log.d("HandDeckFragment", "Window is changed! width is " + handView.getWidth());
-        handWidth = handView.getWidth();
         redraw();
     }
 

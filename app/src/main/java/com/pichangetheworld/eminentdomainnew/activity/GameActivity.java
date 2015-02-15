@@ -17,6 +17,7 @@ import com.pichangetheworld.eminentdomainnew.fragment.PlayerFragment;
 import com.pichangetheworld.eminentdomainnew.fragment.MyPlanetsFragment;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.IconType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.SelectMode;
@@ -106,6 +107,16 @@ public class GameActivity extends FragmentActivity {
                 new PopupView(GameActivity.this, callback)
                         .setDetails(data)
                         .show(getWindow().getDecorView());
+            }
+        });
+    }
+
+    public void letPlayerMatchRole(final IconType iconType,
+                                   final MultiTargetCallbackInterface callback) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playerFragment.matchRole(iconType, callback);
             }
         });
     }
