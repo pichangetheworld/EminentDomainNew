@@ -123,7 +123,9 @@ public abstract class BasePlayer {
 
     // Add cards to the discard pile
     public void discardCards(List<BaseCard> cards) {
-        deck.addDiscards(cards);
+        for (BaseCard card : cards)
+            if (card.inGame())
+                deck.addDiscard(card);
         broadcastDiscardPileUpdated();
     }
 

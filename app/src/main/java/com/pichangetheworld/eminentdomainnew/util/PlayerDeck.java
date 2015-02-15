@@ -38,10 +38,6 @@ public class PlayerDeck {
         discards.add(card);
     }
 
-    public void addDiscards(List<BaseCard> cards) {
-        discards.addAll(cards);
-    }
-
     public ArrayList<CardDrawableData> getDiscardDrawables() {
         ArrayList<CardDrawableData> discardDrawables = new ArrayList<>();
         for (int i = 0; i < discards.size(); ++i) {
