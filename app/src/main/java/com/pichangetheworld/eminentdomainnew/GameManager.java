@@ -14,6 +14,7 @@ import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
 import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.PlanetFactory;
+import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -90,6 +92,8 @@ public class GameManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Collections.shuffle(planetDeck);
     }
 
     public void startGame() {
@@ -180,7 +184,17 @@ public class GameManager {
             pd.setData(mPlanetsBeingSurveyed.get(i));
             planetDrawables.add(pd);
         }
-        context.updateSurveyedPlanets(planetDrawables);
+        context.updateSurveyedPlanets(planetDrawables,
+                new TargetCallbackInterface() {
+                    @Override
+                    public void callback(int index) {
+                        mPlayers.get(mCurrentPlayer).surveyPlanet(mPlanetsBeingSurveyed.remove(index));
+                        planetDeck.addAll(mPlanetsBeingSurveyed);
+                        mPlanetsBeingSurveyed.clear();
+
+                        endRolePhase();
+                    }
+                });
     }
 
     public void endRolePhase() {

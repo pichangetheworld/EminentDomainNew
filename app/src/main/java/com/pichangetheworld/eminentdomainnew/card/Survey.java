@@ -27,7 +27,6 @@ public class Survey extends BaseCard {
     public void onRole() {
         super.onRole();
 
-        // TODO
-        context.endRolePhase();
+        context.surveyPlanets(1);
     }
 }

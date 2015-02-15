@@ -23,6 +23,7 @@ import com.pichangetheworld.eminentdomainnew.util.SelectMode;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 import com.pichangetheworld.eminentdomainnew.view.PopupView;
 import com.pichangetheworld.eminentdomainnew.view.ProduceTradePopupView;
+import com.pichangetheworld.eminentdomainnew.view.SurveyPlanetsPopupView;
 
 import java.util.ArrayList;
 
@@ -272,13 +273,14 @@ public class GameActivity extends FragmentActivity {
         });
     }
 
-    public void updateSurveyedPlanets(ArrayList<PlanetDrawableData> planetDrawables) {
+    public void updateSurveyedPlanets(final ArrayList<PlanetDrawableData> planetDrawables,
+                                      final TargetCallbackInterface callback) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-//                new PopupView(GameActivity.this, callback)
-//                        .setDetails(data)
-//                        .show(getWindow().getDecorView());
+                new SurveyPlanetsPopupView(GameActivity.this,
+                        planetDrawables, callback)
+                        .show(getWindow().getDecorView());
             }
         });
     }

@@ -154,6 +154,10 @@ public class EminentDomainApplication extends Application {
         }
     }
 
+    public void surveyPlanets(int count) {
+        gameManager.surveyPlanets(count);
+    }
+
     private final MultiTargetCallbackInterface DISCARD_CALLBACK = new MultiTargetCallbackInterface() {
         @Override
         public void callback(List<Integer> targets) {
@@ -231,7 +235,8 @@ public class EminentDomainApplication extends Application {
         activity.updateField(fieldDeckCounts);
     }
 
-    public void updateSurveyedPlanets(ArrayList<PlanetDrawableData> planetDrawables) {
-        activity.updateSurveyedPlanets(planetDrawables);
+    public void updateSurveyedPlanets(ArrayList<PlanetDrawableData> planetDrawables,
+                                      TargetCallbackInterface callback) {
+        activity.updateSurveyedPlanets(planetDrawables, callback);
     }
 }
