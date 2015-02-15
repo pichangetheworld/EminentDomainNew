@@ -45,6 +45,7 @@ public class ProduceTrade extends BaseCard {
                 user.getSurveyedPlanets().get(index).produce(1);
                 user.broadcastPlanetsUpdated();
             }
+            user.discardCard(ProduceTrade.this);
             context.endActionPhase();
         }
     };
@@ -58,6 +59,7 @@ public class ProduceTrade extends BaseCard {
                 user.getSurveyedPlanets().get(planetIndex).trade(1);
                 user.broadcastPlanetsUpdated();
             }
+            user.discardCard(ProduceTrade.this);
             context.endActionPhase();
         }
     };
