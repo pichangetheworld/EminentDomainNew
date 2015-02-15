@@ -202,13 +202,13 @@ public class EminentDomainApplication extends Application {
     }
 
     // Let current player select target conquered planet, e.g. for Produce/Trade
-    public void selectTargetConqueredPlanet(TargetCallbackInterface callback) {
+    public void selectTargetConqueredPlanet(boolean produceNotTrade, TargetCallbackInterface callback) {
         if (gameManager.isComputerTurn()) {
             // let computer select target
             int index = gameManager.letAISelectTargetConqueredPlanet();
             callback.callback(index);
         } else {
-            activity.letPlayerChooseTargetConqueredPlanet(callback);
+            activity.letPlayerChooseTargetConqueredPlanet(produceNotTrade, callback);
         }
     }
 

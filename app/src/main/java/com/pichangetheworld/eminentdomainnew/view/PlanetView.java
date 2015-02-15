@@ -71,6 +71,8 @@ public class PlanetView extends RelativeLayout {
 
     // Getter
     public boolean isConquered() { return (data != null && data.conquered); }
+    public boolean canProduce() { return data != null && data.curProduceCount < data.produceCapacity; }
+    public boolean canTrade() { return data != null && data.curProduceCount > 0; }
 
     // Set all details at once
     public void setDetails(PlanetDrawableData data) {

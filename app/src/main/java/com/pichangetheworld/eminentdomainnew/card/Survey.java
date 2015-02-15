@@ -39,6 +39,7 @@ public class Survey extends BaseCard {
             }
         }
         user.discardCards(matching);
+        matching.clear();
         context.surveyPlanets(toSurvey - 1);
     }
 

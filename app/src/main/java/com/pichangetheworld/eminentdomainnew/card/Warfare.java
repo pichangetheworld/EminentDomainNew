@@ -20,7 +20,7 @@ public class Warfare extends BaseCard {
         @Override
         public void callback(int index) {
             if (index >= 0 &&
-                    user.getNumShips() > user.getSurveyedPlanets().get(index).getWarfareCost()) {
+                    user.getNumShips() >= user.getSurveyedPlanets().get(index).getWarfareCost()) {
                 Warfare.this.conquerAction(user.getSurveyedPlanets().get(index));
             } else {
                 user.gainShips(1);
@@ -55,6 +55,7 @@ public class Warfare extends BaseCard {
         }
         user.gainShips(toGain);
         user.discardCards(matching);
+        matching.clear();
         context.endRolePhase();
     }
 

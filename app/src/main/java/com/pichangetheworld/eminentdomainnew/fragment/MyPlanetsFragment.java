@@ -43,8 +43,8 @@ public class MyPlanetsFragment extends Fragment {
                 if (v == planetViews.get(i)) break;
             }
 
-            mCallback.callback(i);
             resetPlanetsClickable();
+            mCallback.callback(i);
         }
     };
 
@@ -127,19 +127,19 @@ public class MyPlanetsFragment extends Fragment {
         }
     }
 
-    public void chooseTargetConqueredPlanet(TargetCallbackInterface callback) {
-        Log.d("PlanetsFragment", "Choosing target planet " + planetViews.size());
+    public void chooseTargetConqueredPlanet(boolean produceNotTrade, TargetCallbackInterface callback) {
         mCallback = callback;
 
         int validTargets = 0;
         for (PlanetView pv : planetViews) {
-            if (pv.isConquered()) {
+            if (pv.isConquered() && (produceNotTrade ? pv.canProduce() : pv.canTrade())) {
                 validTargets++;
                 pv.setOnClickListener(onPlanetClicked);
             } else {
                 pv.setClickable(false);
             }
         }
+        Log.d("PlanetsFragment", "Choosing target planet targets:" + validTargets);
         if (validTargets == 0) {
             mCallback.callback(-1);
         }

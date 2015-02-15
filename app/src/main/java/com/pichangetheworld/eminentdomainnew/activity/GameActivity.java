@@ -225,9 +225,9 @@ public class GameActivity extends FragmentActivity {
         }
     }
 
-    public void letPlayerChooseTargetConqueredPlanet(TargetCallbackInterface callback) {
+    public void letPlayerChooseTargetConqueredPlanet(boolean produceNotTrade, TargetCallbackInterface callback) {
         showPlanets();
-        myPlanetsFragment.chooseTargetConqueredPlanet(callback);
+        myPlanetsFragment.chooseTargetConqueredPlanet(produceNotTrade, callback);
     }
 
     // Let current player select cards to remove from the game

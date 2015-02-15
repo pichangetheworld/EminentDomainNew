@@ -182,6 +182,7 @@ public abstract class BasePlayer {
         broadcastHandUpdated();
         broadcastPlanetsUpdated();
         broadcastDiscardPileUpdated();
+        context.updateShipCount(numShips);
     }
 
     public int numCardsAboveLimit() {

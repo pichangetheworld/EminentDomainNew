@@ -171,10 +171,14 @@ public class GameManager {
 
     private List<BasePlanet> mPlanetsBeingSurveyed;
     public void surveyPlanets(int count) {
-        for (int i = 0; i < count; ++i) {
-            mPlanetsBeingSurveyed.add(planetDeck.remove(0));
+        if (count > 0) {
+            for (int i = 0; i < count; ++i) {
+                mPlanetsBeingSurveyed.add(planetDeck.remove(0));
+            }
+            broadcastSurveyPlanets();
+        } else {
+            endRolePhase();
         }
-        broadcastSurveyPlanets();
     }
 
     // Broadcast to view that planets has changed
