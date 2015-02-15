@@ -122,15 +122,17 @@ public class FieldFragment extends Fragment {
     }
 
     public void updateField(int[] fieldDeckCounts) {
-        for (int i = 0; i < ROLE_CARDS.length; ++i) {
-            RelativeLayout button = roles[i];
-            TextView remainingCount = (TextView) button.findViewById(R.id.remaining_count);
-            if (fieldDeckCounts[i] == 0) {
-                ImageView cardDrawable = (ImageView) button.findViewById(R.id.image);
-                cardDrawable.setImageResource(R.drawable.blank_card);
-                remainingCount.setVisibility(View.GONE);
-            } else {
-                remainingCount.setText(Integer.toString(fieldDeckCounts[i]));
+        if (roles[0] != null) {
+            for (int i = 0; i < ROLE_CARDS.length; ++i) {
+                RelativeLayout button = roles[i];
+                TextView remainingCount = (TextView) button.findViewById(R.id.remaining_count);
+                if (fieldDeckCounts[i] == 0) {
+                    ImageView cardDrawable = (ImageView) button.findViewById(R.id.image);
+                    cardDrawable.setImageResource(R.drawable.blank_card);
+                    remainingCount.setVisibility(View.GONE);
+                } else {
+                    remainingCount.setText(Integer.toString(fieldDeckCounts[i]));
+                }
             }
         }
     }
