@@ -63,6 +63,7 @@ public class Colonize extends BaseCard {
         context.matchRole(IconType.COLONIZE, new RoleCountCallbackInterface() {
             @Override
             public void callback(List<BaseCard> matching) {
+                matching.add(Colonize.this);
                 onRole(matching);
             }
         });
@@ -86,6 +87,9 @@ public class Colonize extends BaseCard {
 
     public void colonizeRole(BasePlanet targetPlanet, List<BaseCard> colonies) {
         for (BaseCard card : colonies) {
+            if (card.inGame()) {
+                user.useCard(card);
+            }
             targetPlanet.addColony(card);
         }
         user.broadcastPlanetsUpdated();

@@ -76,8 +76,9 @@ public class PlayerFragment extends Fragment {
                     // play the selected action
                     EminentDomainApplication.getInstance().playAction(selectedAction);
                     break;
-                case DISCARD:
                 case RESEARCH:
+                case MATCH_ROLE_PHASE:
+                case DISCARD:
                     mMultiCallback.callback(selectedHandCards);
                     break;
             }
@@ -110,6 +111,13 @@ public class PlayerFragment extends Fragment {
                     if (selectedHandCards.contains(i)) {
                         selectedHandCards.remove(i);
                     } else if (selectedHandCards.size() < multiCardLimit) {
+                        selectedHandCards.add(i);
+                    }
+                    break;
+                case MATCH_ROLE_PHASE:
+                    if (selectedHandCards.contains(i)) {
+                        selectedHandCards.remove(i);
+                    } else if (handCards.get(i).getIcon(roleToMatch)) {
                         selectedHandCards.add(i);
                     }
                     break;
@@ -233,8 +241,7 @@ public class PlayerFragment extends Fragment {
                 cv.setVisibility(View.GONE);
             } else {
                 cv.setLayoutParams(newParams);
-                cv.setBackgroundResource(handCardData.get(i).drawable);
-                cv.setVisibility(View.VISIBLE);
+                cv.setDetails(handCardData.get(i));
 
                 switch (curMode) {
                     case ACTION_PLAY_PHASE:
@@ -245,8 +252,9 @@ public class PlayerFragment extends Fragment {
                             cv.onCardSelected(false);
                         }
                         break;
-                    case DISCARD:
                     case RESEARCH:
+                    case MATCH_ROLE_PHASE:
+                    case DISCARD:
                         if (selectedHandCards.contains(i)) {
                             cv.onCardSelected(true);
                         } else {
@@ -290,6 +298,7 @@ public class PlayerFragment extends Fragment {
     IconType roleToMatch;
     // Let player match the selected icon type
     public void matchRole(IconType iconType, MultiTargetCallbackInterface callback) {
+        Log.d("PlayerFragment", "Matching role " + iconType);
         curMode = SelectMode.MATCH_ROLE_PHASE;
         roleToMatch = iconType;
         mMultiCallback = callback;

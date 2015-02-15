@@ -194,7 +194,9 @@ public abstract class BasePlayer {
     public void onMatchRoleCallback(RoleCountCallbackInterface callback, List<Integer> targets) {
         Collections.sort(targets);
         List<BaseCard> cards = new ArrayList<>(targets.size());
-        for (int index : targets) {
+        // Go in reverse order so the card still exists
+        for (int i = targets.size() -1; i >= 0; --i) {
+            int index = targets.get(i);
             cards.add(hand.remove(index));
         }
         callback.callback(cards);
