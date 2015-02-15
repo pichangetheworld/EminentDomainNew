@@ -13,13 +13,14 @@ import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
  * Author: pchan
  * Date: 12/02/2015
  */
+
+// Popup to let the user choose between Produce and Trade when they play a Produce/Trade card
 public class ProduceTradePopupView extends PopupWindow {
     TargetCallbackInterface mCallback;
 
     public ProduceTradePopupView(Context context, TargetCallbackInterface callback) {
         super((int) (300 * context.getResources().getDisplayMetrics().density),
                 (int) (200 * context.getResources().getDisplayMetrics().density));
-        // So the popup will close when you click outside
         View v = View.inflate(context, R.layout.produce_trade, null);
         setContentView(v);
 
