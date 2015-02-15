@@ -5,6 +5,7 @@ import android.util.Log;
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
+import com.pichangetheworld.eminentdomainnew.util.PlanetType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,10 @@ public class BasePlanet {
     int colonizeCost;
     int warfareCost;
 
+    PlanetType type;
     int produceCapacity;
     int currentlyProduced;
-    int VPs; // TODO PlanetType enum
+    int VPs;
 
     BasePlayer owner;
     List<BaseCard> colonizeCount;
@@ -32,6 +34,7 @@ public class BasePlanet {
     public BasePlanet(int colonizeCost, int warfareCost, int canProduce, int vps) {
         // Temporarily
         this.name = "Planet";
+        this.type = PlanetType.METALLIC;
         this.drawable = R.drawable.planet;
 
         this.colonizeCost = colonizeCost;
