@@ -91,14 +91,15 @@ public class MyPlanetsFragment extends Fragment {
 //        }
 //        Log.d("HandDeckFragment", "Setting card width to " + cardWidth);
         Log.d("PlanetsFragment", "Drawing " + planetData.size() + " planets");
-        for (int i = 0; i < planetData.size(); ++i) {
+        for (int i = 0; i < Math.max(planetData.size(), planetViews.size()); ++i) {
             if (i == planetViews.size()) {
                 PlanetView pv = new PlanetView(getActivity());
                 planetLayout.addView(pv);
                 planetViews.add(pv);
             }
             PlanetView pv = planetViews.get(i);
-            if (planetData.get(i).drawable == -1) {
+            if (i >= planetData.size() ||
+                    planetData.get(i).drawable == -1) {
                 pv.setVisibility(View.GONE);
             } else {
                 pv.setVisibility(View.VISIBLE);
