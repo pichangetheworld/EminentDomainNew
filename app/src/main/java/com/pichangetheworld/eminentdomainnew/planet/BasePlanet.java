@@ -31,10 +31,11 @@ public class BasePlanet {
     List<BaseCard> colonizeCount;
     boolean conquered;
 
-    public BasePlanet(int colonizeCost, int warfareCost, int canProduce, int vps) {
+    public BasePlanet(String name, PlanetType type,
+                      int colonizeCost, int warfareCost, int canProduce, int vps) {
         // Temporarily
-        this.name = "Planet";
-        this.type = PlanetType.METALLIC;
+        this.name = name;
+        this.type = type;
         this.drawable = R.drawable.planet;
 
         this.colonizeCost = colonizeCost;

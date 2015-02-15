@@ -271,4 +271,15 @@ public class GameActivity extends FragmentActivity {
             }
         });
     }
+
+    public void updateSurveyedPlanets(ArrayList<PlanetDrawableData> planetDrawables) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                new PopupView(GameActivity.this, callback)
+//                        .setDetails(data)
+//                        .show(getWindow().getDecorView());
+            }
+        });
+    }
 }

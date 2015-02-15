@@ -12,7 +12,13 @@ import com.pichangetheworld.eminentdomainnew.player.HumanPlayer;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
 import com.pichangetheworld.eminentdomainnew.util.Phase;
+import com.pichangetheworld.eminentdomainnew.util.PlanetDrawableData;
+import com.pichangetheworld.eminentdomainnew.util.PlanetFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,10 +30,11 @@ import java.util.Random;
  * Date: 17/01/2015
  */
 public class GameManager {
-    private final String NAMES[] = { "Alf", "Bob", "Charles", "Dick" };
+    private final String NAMES[] = {"Alf", "Bob", "Charles", "Dick"};
 
     EminentDomainApplication context;
     private List<BasePlayer> mPlayers;
+    private List<BasePlanet> planetDeck;
     int mCurrentPlayer;
     Phase mCurrentPhase;
 
@@ -36,15 +43,17 @@ public class GameManager {
         this.context = context;
 
         mPlayers = new ArrayList<>();
+        planetDeck = new ArrayList<>();
+        mPlanetsBeingSurveyed = new ArrayList<>();
     }
 
     private final BasePlanet[] STARTER_PLANETS = {
-            new BasePlanet(2, 2, 1, 1),
-            new BasePlanet(2, 2, 1, 1),
-            new BasePlanet(2, 2, 1, 1),
-            new BasePlanet(2, 2, 1, 1),
-            new BasePlanet(2, 2, 1, 1),
-            new BasePlanet(2, 2, 1, 1)
+            PlanetFactory.getPlanet("Start1,Metallic,2,2,1,1"),
+            PlanetFactory.getPlanet("Start2,Metallic,2,2,1,1"),
+            PlanetFactory.getPlanet("Start3,Fertile,2,2,1,1"),
+            PlanetFactory.getPlanet("Start4,Fertile,2,2,1,1"),
+            PlanetFactory.getPlanet("Start5,Advanced,2,2,1,1"),
+            PlanetFactory.getPlanet("Start6,Advanced,2,2,1,1")
     };
 
     public void init(int numPlayers) {
@@ -55,11 +64,31 @@ public class GameManager {
         for (int i = 1; i < numPlayers; ++i) {
             mPlayers.add(new DumbAIPlayer(context, NAMES[i], i).init());
         }
+        initPlanets();
 
         Random r = new Random();
         for (BasePlayer player : mPlayers) {
             int j = r.nextInt(starterPlanets.size());
             player.surveyPlanet(starterPlanets.remove(j));
+        }
+    }
+
+    private void initPlanets() {
+        planetDeck.clear();
+
+        InputStream inputStream = context.getResources().openRawResource(R.raw.planet_list);
+        InputStreamReader isr = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        String line;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.startsWith("#")) continue; // Skip lines starting with #
+                BasePlanet planet = PlanetFactory.getPlanet(line);
+                if (planet != null)
+                    planetDeck.add(planet);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -100,7 +129,7 @@ public class GameManager {
         thread.start();
     }
 
-// ACTION PHASE
+    // ACTION PHASE
     // Current player plays the card at index i
     public void playAction(final int index) {
         final BasePlayer player = mPlayers.get(mCurrentPlayer);
@@ -120,7 +149,7 @@ public class GameManager {
         }
     }
 
-// ROLE PHASE
+    // ROLE PHASE
     // Play the role at the selected index
     public void playRole(int index) {
         final BaseCard card = context.getGameField()
@@ -135,6 +164,25 @@ public class GameManager {
         });
     }
 
+    private List<BasePlanet> mPlanetsBeingSurveyed;
+    public void surveyPlanets(int count) {
+        for (int i = 0; i < count; ++i) {
+            mPlanetsBeingSurveyed.add(planetDeck.remove(0));
+        }
+        broadcastSurveyPlanets();
+    }
+
+    // Broadcast to view that planets has changed
+    public void broadcastSurveyPlanets() {
+        ArrayList<PlanetDrawableData> planetDrawables = new ArrayList<>();
+        for (int i = 0; i < mPlanetsBeingSurveyed.size(); ++i) {
+            PlanetDrawableData pd = new PlanetDrawableData();
+            pd.setData(mPlanetsBeingSurveyed.get(i));
+            planetDrawables.add(pd);
+        }
+        context.updateSurveyedPlanets(planetDrawables);
+    }
+
     public void endRolePhase() {
         if (mCurrentPhase == Phase.ROLE_PHASE)
             nextPhase();
@@ -143,7 +191,7 @@ public class GameManager {
         }
     }
 
-// DISCARD / DRAW PHASE
+    // DISCARD / DRAW PHASE
     // Discard selected cards
     public void curPlayerDiscardSelectedCards(List<Integer> selectedCards) {
         mPlayers.get(mCurrentPlayer).discardIndexCards(selectedCards);

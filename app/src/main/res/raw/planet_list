@@ -1,0 +1,9 @@
+# Ignore lines starting with #
+# Name, Type, Colonize cost, Warfare cost, Produce, VPs
+Alpha Centauri,Metallic,4,5,1,3
+Voson,Metallic,3,6,1,3
+Styku,Fertile,5,4,1,3
+Athena,Fertile,2,2,1,2
+Hermes,Fertile,4,4,1,3
+Lyttle,Advanced,6,3,1,3
+Hephaestus,Utopian,3,3,1,2

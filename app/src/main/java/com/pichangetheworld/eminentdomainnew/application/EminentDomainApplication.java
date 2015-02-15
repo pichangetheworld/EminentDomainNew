@@ -230,4 +230,8 @@ public class EminentDomainApplication extends Application {
     public void updateField(int[] fieldDeckCounts) {
         activity.updateField(fieldDeckCounts);
     }
+
+    public void updateSurveyedPlanets(ArrayList<PlanetDrawableData> planetDrawables) {
+        activity.updateSurveyedPlanets(planetDrawables);
+    }
 }

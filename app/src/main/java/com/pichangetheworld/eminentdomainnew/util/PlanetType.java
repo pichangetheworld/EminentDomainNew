@@ -9,5 +9,6 @@ public enum PlanetType {
     METALLIC,
     FERTILE,
     ADVANCED,
-    UTOPIAN
+    UTOPIAN,
+    PRESTIGE
 }
