@@ -225,11 +225,11 @@ public class GameActivity extends FragmentActivity {
 
     // Update View
     // Update hand view
-    public void updateHand(final ArrayList<CardDrawableData> drawables) {
+    public void updateHand(final ArrayList<CardDrawableData> drawables, final int handLimit) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                playerFragment.updateHand(drawables);
+                playerFragment.updateHand(drawables, handLimit);
             }
         });
     }

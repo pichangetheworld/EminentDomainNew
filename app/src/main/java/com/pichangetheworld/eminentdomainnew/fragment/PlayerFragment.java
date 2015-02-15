@@ -47,6 +47,7 @@ public class PlayerFragment extends Fragment {
     List<CardDrawableData> handCardData;
     List<CardDrawableData> discardData;
 
+    int handLimit;
 
     // Layout display sizes for resizing hand cards
     DisplayMetrics displayMetrics;
@@ -169,9 +170,10 @@ public class PlayerFragment extends Fragment {
     }
 
     // Update the hand view with cards in the user's hand
-    public void updateHand(ArrayList<CardDrawableData> data) {
+    public void updateHand(ArrayList<CardDrawableData> data, int handLimit) {
         this.handCardData.clear();
         this.handCardData.addAll(data);
+        this.handLimit = handLimit;
         if (handWidth > 0) {
             redraw();
         }
@@ -253,8 +255,7 @@ public class PlayerFragment extends Fragment {
                 enableSkip(selectedAction == -1);
                 break;
             case DISCARD:
-                // TODO actually depend on what hand limit is
-                if (handCardData.size() - selectedHandCards.size() <= 5) {
+                if (handCardData.size() - selectedHandCards.size() <= handLimit) {
                     enableSkip(selectedHandCards.isEmpty());
                     okayButton.setEnabled(true);
                 } else

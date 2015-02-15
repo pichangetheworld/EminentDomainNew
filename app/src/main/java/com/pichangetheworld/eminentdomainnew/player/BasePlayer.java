@@ -151,7 +151,7 @@ public abstract class BasePlayer {
             cd.setData(hand.get(i));
             handDrawables.add(cd);
         }
-        context.updateHand(handDrawables);
+        context.updateHand(handDrawables, handCardLimit);
     }
 
     private void broadcastDiscardPileUpdated() {

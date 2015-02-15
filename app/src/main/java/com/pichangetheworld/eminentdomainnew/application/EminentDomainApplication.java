@@ -210,8 +210,8 @@ public class EminentDomainApplication extends Application {
     }
 
     // Views
-    public void updateHand(ArrayList<CardDrawableData> drawables) {
-        activity.updateHand(drawables);
+    public void updateHand(ArrayList<CardDrawableData> drawables, int handLimit) {
+        activity.updateHand(drawables, handLimit);
     }
 
     // Update ship count
