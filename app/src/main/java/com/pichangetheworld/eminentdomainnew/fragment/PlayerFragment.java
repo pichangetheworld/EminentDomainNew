@@ -56,7 +56,7 @@ public class PlayerFragment extends Fragment {
 
 
     // Select mode - single or multiple card select
-    SelectMode curMode;
+    SelectMode curMode = SelectMode.ACTION_PLAY_PHASE;
 
     // Index of selected card
     int selectedAction;
