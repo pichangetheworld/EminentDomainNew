@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
@@ -23,6 +25,13 @@ public class FieldFragment extends Fragment {
             R.id.colonize,
             R.id.producetrade,
             R.id.research
+    };
+    final int ROLE_DRAWABLES[] = {
+            R.drawable.survey,
+            R.drawable.warfare,
+            R.drawable.colonize,
+            R.drawable.producetrade,
+            R.drawable.research
     };
 
     TargetCallbackInterface mCallback;
@@ -49,7 +58,7 @@ public class FieldFragment extends Fragment {
         }
     };
 
-    ImageButton [] roles = new ImageButton[5];
+    RelativeLayout[] roles = new RelativeLayout[5];
     int selectedRole = -1;
 
     @Override
@@ -63,7 +72,9 @@ public class FieldFragment extends Fragment {
 
         for (int i = 0; i < ROLE_CARDS.length; ++i) {
             int id = ROLE_CARDS[i];
-            ImageButton button = (ImageButton) v.findViewById(id);
+            RelativeLayout button = (RelativeLayout) v.findViewById(id);
+            ImageView cardDrawable = (ImageView) button.findViewById(R.id.image);
+            cardDrawable.setImageResource(ROLE_DRAWABLES[i]);
             button.setOnClickListener(onClickCard);
             button.setClickable(false);
             roles[i] = button;
@@ -87,7 +98,7 @@ public class FieldFragment extends Fragment {
     // Allow the user to choose a role
     public void chooseTargetRole(TargetCallbackInterface callback) {
         mCallback = callback;
-        for (ImageButton button : roles) {
+        for (RelativeLayout button : roles) {
             button.setClickable(true);
         }
     }
@@ -108,5 +119,19 @@ public class FieldFragment extends Fragment {
     public void onDiscardDrawPhase() {
         selectedRole = -1;
         updateSelectedRole();
+    }
+
+    public void updateField(int[] fieldDeckCounts) {
+        for (int i = 0; i < ROLE_CARDS.length; ++i) {
+            RelativeLayout button = roles[i];
+            TextView remainingCount = (TextView) button.findViewById(R.id.remaining_count);
+            if (fieldDeckCounts[i] == 0) {
+                ImageView cardDrawable = (ImageView) button.findViewById(R.id.image);
+                cardDrawable.setImageResource(R.drawable.blank_card);
+                remainingCount.setVisibility(View.GONE);
+            } else {
+                remainingCount.setText(Integer.toString(fieldDeckCounts[i]));
+            }
+        }
     }
 }

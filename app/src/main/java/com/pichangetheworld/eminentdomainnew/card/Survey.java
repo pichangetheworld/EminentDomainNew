@@ -1,6 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 
 /**
  * Eminent Domain AS
@@ -8,8 +9,8 @@ import com.pichangetheworld.eminentdomainnew.R;
  * Date: 17/01/2015
  */
 public class Survey extends BaseCard {
-    public Survey() {
-        super("Survey", R.drawable.survey);
+    public Survey(EminentDomainApplication context) {
+        super(context, "Survey", R.drawable.survey);
     }
 
     @Override

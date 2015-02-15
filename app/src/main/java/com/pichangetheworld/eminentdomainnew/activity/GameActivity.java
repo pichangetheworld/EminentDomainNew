@@ -262,4 +262,13 @@ public class GameActivity extends FragmentActivity {
             }
         });
     }
+
+    public void updateField(final int[] fieldDeckCounts) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                fieldFragment.updateField(fieldDeckCounts);
+            }
+        });
+    }
 }

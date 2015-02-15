@@ -17,14 +17,14 @@ public abstract class BaseCard {
     String name;
     int drawable;
 
-    BaseCard(String name, int drawable) {
+    BaseCard(EminentDomainApplication context, String name, int drawable) {
+        this.context = context;
         this.name = name;
         this.drawable = drawable;
     }
 
     // Called when the card is added to the player's deck, e.g. via Politics or Role
-    public BaseCard toUser(EminentDomainApplication context, BasePlayer user) {
-        this.context = context;
+    public BaseCard toUser(BasePlayer user) {
         this.user = user;
         return this;
     }

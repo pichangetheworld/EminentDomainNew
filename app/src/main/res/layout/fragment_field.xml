@@ -6,54 +6,44 @@
     android:padding="25dp"
     android:orientation="horizontal">
 
-    <ImageButton
+    <include
+        layout="@layout/field_deck"
         android:id="@+id/survey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
-        android:background="@drawable/survey"
-        android:contentDescription="@string/survey"
-        android:scaleType="fitXY" />
+        android:layout_marginStart="50dp" />
 
-    <ImageButton
+    <include
+        layout="@layout/field_deck"
         android:id="@+id/warfare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/warfare"
-        android:contentDescription="@string/warfare"
-        android:scaleType="fitXY" />
+        android:layout_marginStart="10dp" />
 
-    <ImageButton
+    <include
+        layout="@layout/field_deck"
         android:id="@+id/colonize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/colonize"
-        android:contentDescription="@string/colonize"
-        android:scaleType="fitXY" />
+        android:layout_marginStart="10dp" />
 
-    <ImageButton
+    <include
+        layout="@layout/field_deck"
         android:id="@+id/producetrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/producetrade"
-        android:contentDescription="@string/produce_trade"
-        android:scaleType="fitXY" />
+        android:layout_marginStart="10dp" />
 
-    <ImageButton
+    <include
+        layout="@layout/field_deck"
         android:id="@+id/research"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/research"
-        android:contentDescription="@string/research"
-        android:scaleType="fitXY" />
+        android:layout_marginStart="10dp" />
 
 </LinearLayout>

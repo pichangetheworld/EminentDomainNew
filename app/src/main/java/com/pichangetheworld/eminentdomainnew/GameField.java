@@ -31,13 +31,19 @@ public class GameField {
     };
     List<BasePlanet> planetDeck;
 
-    public GameField() {
+    EminentDomainApplication context;
+
+    int[] fieldDeckCounts = new int[5];
+
+    public GameField(EminentDomainApplication context) {
+        this.context = context;
+
         int i;
-        for (i = 0; i < 20; ++i) fieldDecks[0].addCardToDeck(new Survey());
-        for (i = 0; i < 16; ++i) fieldDecks[1].addCardToDeck(new Warfare());
-        for (i = 0; i < 20; ++i) fieldDecks[2].addCardToDeck(new Colonize());
-        for (i = 0; i < 20; ++i) fieldDecks[3].addCardToDeck(new ProduceTrade());
-        for (i = 0; i < 20; ++i) fieldDecks[4].addCardToDeck(new Research());
+        for (i = 0; i < 20; ++i) fieldDecks[0].addCardToDeck(new Survey(context));
+        for (i = 0; i < 16; ++i) fieldDecks[1].addCardToDeck(new Warfare(context));
+        for (i = 0; i < 20; ++i) fieldDecks[2].addCardToDeck(new Colonize(context));
+        for (i = 0; i < 20; ++i) fieldDecks[3].addCardToDeck(new ProduceTrade(context));
+        for (i = 0; i < 20; ++i) fieldDecks[4].addCardToDeck(new Research(context));
 
         planetDeck = new ArrayList<>();
     }
@@ -48,18 +54,28 @@ public class GameField {
             // TODO broadcast to view that the deck is empty and scene should be redrawn
             switch (index) {
                 case 0:
-                    return new Survey();
+                    return new Survey(context);
                 case 1:
-                    return new Warfare();
+                    return new Warfare(context);
                 case 2:
-                    return new Colonize();
+                    return new Colonize(context);
                 case 3:
-                    return new ProduceTrade();
+                    return new ProduceTrade(context);
                 case 4:
-                    return new Research();
+                    return new Research(context);
             }
             return null;
         }
-        return fieldDecks[index].drawCardFromField(context, player);
+        BaseCard card = fieldDecks[index].drawCardFromField(player);
+        broadcastFieldDecksUpdated();
+        return card;
+    }
+
+    // Broadcast to view that hand has changed
+    private void broadcastFieldDecksUpdated() {
+        for (int i = 0; i < fieldDecks.length; ++i) {
+            fieldDeckCounts[i] = fieldDecks[i].size();
+        }
+        context.updateField(fieldDeckCounts);
     }
 }

@@ -60,7 +60,7 @@ public abstract class BasePlayer {
             if (card != null)
                 discardCard(card);
         }
-        discardCard(new Politics().toUser(context, this));
+        discardCard(new Politics(context).toUser(this));
         drawUpToCardLimit();
         return this;
     }

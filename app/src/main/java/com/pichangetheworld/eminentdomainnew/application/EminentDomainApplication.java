@@ -40,7 +40,7 @@ public class EminentDomainApplication extends Application {
             gameManager = new GameManager(this);
         }
         if (gameField == null) {
-            gameField = new GameField();
+            gameField = new GameField(this);
         }
     }
 
@@ -225,5 +225,9 @@ public class EminentDomainApplication extends Application {
 
     public void updateDiscardPile(ArrayList<CardDrawableData> drawables) {
         activity.updateDiscardPile(drawables);
+    }
+
+    public void updateField(int[] fieldDeckCounts) {
+        activity.updateField(fieldDeckCounts);
     }
 }

@@ -31,5 +31,6 @@
     <string name="card_name">Card Name</string>
     <string name="x0">x0</string>
     <string name="planet_image">Planet Image</string>
+    <string name="twenty">20</string>
 
 </resources>

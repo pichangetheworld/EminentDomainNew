@@ -1,6 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class Research extends BaseCard {
         }
     };
 
-    public Research() {
-        super("Research", R.drawable.research);
+    public Research(EminentDomainApplication context) {
+        super(context, "Research", R.drawable.research);
     }
 
     @Override

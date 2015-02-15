@@ -3,6 +3,7 @@ package com.pichangetheworld.eminentdomainnew.card;
 import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
 /**
@@ -27,8 +28,8 @@ public class Politics extends BaseCard {
         }
     };
 
-    public Politics() {
-        super("Politics", R.drawable.politics);
+    public Politics(EminentDomainApplication context) {
+        super(context, "Politics", R.drawable.politics);
     }
 
     @Override

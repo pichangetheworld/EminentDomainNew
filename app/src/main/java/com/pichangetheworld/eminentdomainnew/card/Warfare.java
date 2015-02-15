@@ -1,6 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
@@ -39,14 +40,14 @@ public class Warfare extends BaseCard {
         }
     };
 
-    public Warfare() {
-        super("Warfare", R.drawable.warfare);
+    public Warfare(EminentDomainApplication context) {
+        super(context, "Warfare", R.drawable.warfare);
     }
 
     @Override
     public void onAction() {
         super.onAction();
-        
+
         user.useCard(Warfare.this);
         context.selectTargetUnconqueredPlanet(true, onActionCallback);
     }

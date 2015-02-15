@@ -1,6 +1,7 @@
 package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
+import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.planet.BasePlanet;
 import com.pichangetheworld.eminentdomainnew.util.TargetCallbackInterface;
 
@@ -32,8 +33,8 @@ public class Colonize extends BaseCard {
         }
     };
 
-    public Colonize() {
-        super("Colonize", R.drawable.colonize);
+    public Colonize(EminentDomainApplication context) {
+        super(context, "Colonize", R.drawable.colonize);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.pichangetheworld.eminentdomainnew.util;
 
-import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
 import com.pichangetheworld.eminentdomainnew.card.BaseCard;
 import com.pichangetheworld.eminentdomainnew.player.BasePlayer;
 
@@ -27,10 +26,14 @@ public class FieldDeck {
         return deck.isEmpty();
     }
 
-    public BaseCard drawCardFromField(EminentDomainApplication context, BasePlayer player) {
+    public BaseCard drawCardFromField(BasePlayer player) {
         if (!deck.isEmpty()) {
-            return deck.remove(0).toUser(context, player);
+            return deck.remove(0).toUser(player);
         }
         return null;
+    }
+
+    public int size() {
+        return deck.size();
     }
 }
