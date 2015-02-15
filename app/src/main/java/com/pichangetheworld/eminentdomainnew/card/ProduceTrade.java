@@ -36,7 +36,7 @@ public class ProduceTrade extends BaseCard {
         }
     };
 
-    // Callback after target planet has been selected
+    // Callback after targeto planet has been selected
     private final TargetCallbackInterface onActionProduceCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
@@ -110,5 +110,15 @@ public class ProduceTrade extends BaseCard {
         curPhase = Phase.ROLE_PHASE;
 
         context.chooseProduceTrade(onSelectProduceTradeCallback);
+    }
+
+    @Override
+    public int getProduce() {
+        return 1;
+    }
+
+    @Override
+    public int getTrade() {
+        return 1;
     }
 }

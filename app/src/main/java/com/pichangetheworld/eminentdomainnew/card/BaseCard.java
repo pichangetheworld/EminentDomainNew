@@ -49,7 +49,8 @@ public abstract class BaseCard {
     public int getSurvey() { return 0; }
     public int getWarfare() { return 0; }
     public int getColonize() { return 0; }
-    public int getProduceTrade() { return 0; }
+    public int getProduce() { return 0; }
+    public int getTrade() { return 0; }
     public int getResearch() { return 0; }
 
     public void removeFromGame() {
