@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.pichangetheworld.eminentdomainnew.GameField;
 import com.pichangetheworld.eminentdomainnew.GameManager;
+import com.pichangetheworld.eminentdomainnew.activity.EndActivity;
 import com.pichangetheworld.eminentdomainnew.activity.GameActivity;
 import com.pichangetheworld.eminentdomainnew.util.CallbackInterface;
 import com.pichangetheworld.eminentdomainnew.util.CardDrawableData;
@@ -277,5 +278,21 @@ public class EminentDomainApplication extends Application {
         if (count >= numEmptyDecksToEndOfGame) {
             gameManager.startEndGameCountdown();
         }
+    }
+
+    // Function to end the GameActivity
+    public void endGame() {
+        activity.endGame();
+    }
+
+    EndActivity endActivity;
+    public void setEndGameActivity(EndActivity endActivity) {
+        this.endActivity = endActivity;
+        endActivity.setWinner(winner);
+    }
+
+    String winner;
+    public void setWinner(String name) {
+        winner = name;
     }
 }

@@ -133,9 +133,24 @@ public class GameManager {
     // End the game
     private void endGame() {
         // go to end of game page
+        context.endGame();
+
         // check each player's score
+        int[] scores = new int[mPlayers.size()];
+        for (int i = 0; i < mPlayers.size(); ++i) {
+            scores[i] = mPlayers.get(i).calculateFinalScore();
+        }
+
         // highest score wins!
-        // have a back button to go back to the start game page
+        int maxScore = 0;
+        for (int i = 1; i < scores.length; ++i) {
+            if (scores[i] > scores[maxScore]) {
+                maxScore = i;
+            }
+        }
+
+        // set winner
+        context.setWinner(mPlayers.get(maxScore).getName());
     }
 
     // Next Phase
@@ -157,8 +172,10 @@ public class GameManager {
                     // TODO: This should no longer happen
                     mPlayers.get(mCurrentPlayer).updateAllViews();
                 }
-                if (gameEnding && mCurrentPlayer == mStartingPlayer) {
+                if (gameEnding && mCurrentPlayer == mStartingPlayer
+                        && mCurrentPhase == Phase.ACTION_PHASE) {
                     // we're done
+                    Log.d("GameManager", "Starting player was " + mStartingPlayer);
                     endGame();
                 } else {
                     context.updateViewNextPhase(mCurrentPhase,

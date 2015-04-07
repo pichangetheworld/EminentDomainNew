@@ -31,6 +31,7 @@ public class Survey extends BaseCard {
     public void onRole(List<BaseCard> matching) {
         super.onRole(matching);
 
+        // TODO what if you use an empty card (use Survey when no survey remaining)
         int toSurvey = 0;
         for (BaseCard card : matching) {
             toSurvey += card.getSurvey();

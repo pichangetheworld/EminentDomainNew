@@ -105,6 +105,7 @@ public class BasePlanet {
     public int trade(int n) {
         int toTrade = Math.min(currentlyProduced, n);
         currentlyProduced -= toTrade;
+        owner.gainVPs(toTrade);
         return n - toTrade;
     }
 }

@@ -34,6 +34,7 @@ public abstract class BasePlayer {
     int handCardLimit;
     List<BaseCard> hand;
     int numShips;
+    int vps;
 
     // Getters
     public String getName() { return name; }
@@ -48,6 +49,7 @@ public abstract class BasePlayer {
 
         handCardLimit = 5;
         numShips = 0;
+        vps = 0;
 
         deck = new PlayerDeck();
         hand = new ArrayList<>();
@@ -142,9 +144,15 @@ public abstract class BasePlayer {
         broadcastHandUpdated();
     }
 
+    // Gain Warfare ships (warships)
     public void gainShips(int n) {
         numShips += n;
         context.updateShipCount(numShips);
+    }
+
+    // Gain VPs
+    public void gainVPs(int count) {
+        vps += count;
     }
 
     // Broadcast to view that hand has changed
@@ -204,5 +212,15 @@ public abstract class BasePlayer {
             cards.add(hand.remove(index));
         }
         callback.callback(cards);
+    }
+
+    // Function to calculate a player's score at the end of the game
+    public int calculateFinalScore() {
+        int total = 0;
+        for (BasePlanet planet : surveyedPlanets) {
+            if (planet.isConquered()) total += planet.getVPs();
+        }
+        total += vps;
+        return total;
     }
 }
