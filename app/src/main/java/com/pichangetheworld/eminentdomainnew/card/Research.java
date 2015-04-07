@@ -2,7 +2,6 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
-import com.pichangetheworld.eminentdomainnew.util.IconType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
 
 import java.util.List;
@@ -18,11 +17,11 @@ public class Research extends BaseCard {
         @Override
         public void callback(List<Integer> targets) {
             if (targets != null) {
-                user.removeFromHand(targets);
+                owner.removeFromHand(targets);
             }
             if (inGame()) {
-                user.useCard(Research.this);
-                user.discardCard(Research.this);
+                owner.useCard(Research.this);
+                owner.discardCard(Research.this);
             }
             context.endActionPhase();
         }

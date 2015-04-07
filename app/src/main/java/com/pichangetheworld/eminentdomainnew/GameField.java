@@ -51,19 +51,28 @@ public class GameField {
     public BaseCard drawCardFromFieldDeck(EminentDomainApplication context, BasePlayer player, int index) {
         if (fieldDecks[index].isEmpty()) {
             Log.d("GameField", "Field deck is empty");
+            BaseCard card;
             switch (index) {
                 case 0:
-                    return new Survey(context);
+                    card = new Survey(context);
+                    break;
                 case 1:
-                    return new Warfare(context);
+                    card = new Warfare(context);
+                    break;
                 case 2:
-                    return new Colonize(context);
+                    card = new Colonize(context);
+                    break;
                 case 3:
-                    return new ProduceTrade(context);
+                    card = new ProduceTrade(context);
+                    break;
                 case 4:
-                    return new Research(context);
+                    card = new Research(context);
+                    break;
+                default:
+                    card = new Survey(context);
             }
-            return null;
+            card.temporaryUser(player);
+            return card;
         }
         BaseCard card = fieldDecks[index].drawCardFromField(player);
         broadcastFieldDecksUpdated();

@@ -20,9 +20,9 @@ public class Politics extends BaseCard {
 
             if (roleIndex >= 0) {
                 BaseCard card = context.getGameField()
-                        .drawCardFromFieldDeck(context, user, roleIndex);
+                        .drawCardFromFieldDeck(context, owner, roleIndex);
                 if (card != null)
-                    user.addCardToHand(card);
+                    owner.addCardToHand(card);
                 context.endActionPhase();
             }
         }
@@ -36,7 +36,7 @@ public class Politics extends BaseCard {
     public void onAction() {
         super.onAction();
 
-        user.useCard(Politics.this);
+        owner.useCard(Politics.this);
         context.selectTargetRole(onActionCallback);
     }
 }

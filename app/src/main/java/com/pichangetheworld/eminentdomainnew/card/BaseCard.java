@@ -15,6 +15,7 @@ import java.util.List;
  */
 public abstract class BaseCard {
     EminentDomainApplication context;
+    BasePlayer owner;
     BasePlayer user;
     String name;
     int drawable;
@@ -27,8 +28,14 @@ public abstract class BaseCard {
 
     // Called when the card is added to the player's deck, e.g. via Politics or Role
     public BaseCard toUser(BasePlayer user) {
-        this.user = user;
+        this.owner = user;
         return this;
+    }
+
+    // Called when a card is temporarily played but not owned
+    //  e.g. using Survey when the field is out of Survey
+    public void temporaryUser(BasePlayer user) {
+        this.user = user;
     }
 
     public EminentDomainApplication getContext() {
@@ -59,10 +66,10 @@ public abstract class BaseCard {
     public void setUpMatchRole() {}
 
     public void removeFromGame() {
-        user = null;
+        owner = null;
     }
 
     public boolean inGame() {
-        return user != null;
+        return owner != null;
     }
 }

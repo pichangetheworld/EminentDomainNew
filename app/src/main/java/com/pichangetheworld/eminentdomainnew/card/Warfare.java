@@ -20,12 +20,12 @@ public class Warfare extends BaseCard {
         @Override
         public void callback(int index) {
             if (index >= 0 &&
-                    user.getNumShips() >= user.getSurveyedPlanets().get(index).getWarfareCost()) {
-                Warfare.this.conquerAction(user.getSurveyedPlanets().get(index));
+                    owner.getNumShips() >= owner.getSurveyedPlanets().get(index).getWarfareCost()) {
+                Warfare.this.conquerAction(owner.getSurveyedPlanets().get(index));
             } else {
-                user.gainShips(1);
+                owner.gainShips(1);
             }
-            user.discardCard(Warfare.this);
+            owner.discardCard(Warfare.this);
             context.endActionPhase();
         }
     };
@@ -38,7 +38,7 @@ public class Warfare extends BaseCard {
     public void onAction() {
         super.onAction();
 
-        user.useCard(Warfare.this);
+        owner.useCard(Warfare.this);
         context.selectTargetUnconqueredPlanet(true, onActionCallback);
     }
 
@@ -50,11 +50,11 @@ public class Warfare extends BaseCard {
         for (BaseCard card : matching) {
             toGain += card.getWarfare();
             if (card.inGame()) {
-                user.useCard(card);
+                owner.useCard(card);
             }
         }
-        user.gainShips(toGain);
-        user.discardCards(matching);
+        owner.gainShips(toGain);
+        owner.discardCards(matching);
         matching.clear();
         context.endRolePhase();
     }
@@ -76,8 +76,8 @@ public class Warfare extends BaseCard {
     }
 
     public void conquerAction(BasePlanet targetPlanet) {
-        user.gainShips(-1 * targetPlanet.getWarfareCost());
+        owner.gainShips(-1 * targetPlanet.getWarfareCost());
         targetPlanet.conquer();
-        user.broadcastPlanetsUpdated();
+        owner.broadcastPlanetsUpdated();
     }
 }

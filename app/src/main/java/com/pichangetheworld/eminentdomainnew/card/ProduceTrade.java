@@ -44,19 +44,19 @@ public class ProduceTrade extends BaseCard {
     private final TargetCallbackInterface onActionCallback = new TargetCallbackInterface() {
         @Override
         public void callback(int index) {
-            user.useCard(ProduceTrade.this);
+            owner.useCard(ProduceTrade.this);
             if (produceNotTrade) {
-                if (index >= 0 && user.getSurveyedPlanets().get(index).canProduce()) {
-                    user.getSurveyedPlanets().get(index).produce(1);
-                    user.broadcastPlanetsUpdated();
+                if (index >= 0 && owner.getSurveyedPlanets().get(index).canProduce()) {
+                    owner.getSurveyedPlanets().get(index).produce(1);
+                    owner.broadcastPlanetsUpdated();
                 }
             } else {
-                if (index >= 0 && user.getSurveyedPlanets().get(index).canTrade()) {
-                    user.getSurveyedPlanets().get(index).trade(1);
-                    user.broadcastPlanetsUpdated();
+                if (index >= 0 && owner.getSurveyedPlanets().get(index).canTrade()) {
+                    owner.getSurveyedPlanets().get(index).trade(1);
+                    owner.broadcastPlanetsUpdated();
                 }
             }
-            user.discardCard(ProduceTrade.this);
+            owner.discardCard(ProduceTrade.this);
             context.endActionPhase();
         }
     };
@@ -68,38 +68,38 @@ public class ProduceTrade extends BaseCard {
         @Override
         public void callback(int index) {
             if (produceNotTrade) {
-                if (index >= 0 && user.getSurveyedPlanets().get(index).canProduce()) {
-                    toGain = user.getSurveyedPlanets().get(index).produce(toGain);
+                if (index >= 0 && owner.getSurveyedPlanets().get(index).canProduce()) {
+                    toGain = owner.getSurveyedPlanets().get(index).produce(toGain);
                     if (toGain > 0) {
                         // do this again
-                        user.broadcastPlanetsUpdated();
+                        owner.broadcastPlanetsUpdated();
                         context.selectTargetConqueredPlanet(produceNotTrade, onRoleCallback);
                     } else {
-                        user.broadcastPlanetsUpdated();
-                        user.discardCards(matching);
+                        owner.broadcastPlanetsUpdated();
+                        owner.discardCards(matching);
                         matching.clear();
                         context.endRolePhase();
                     }
                 } else {
-                    user.discardCards(matching);
+                    owner.discardCards(matching);
                     matching.clear();
                     context.endRolePhase();
                 }
             } else {
-                if (index >= 0 && user.getSurveyedPlanets().get(index).canTrade()) {
-                    toGain = user.getSurveyedPlanets().get(index).trade(toGain);
+                if (index >= 0 && owner.getSurveyedPlanets().get(index).canTrade()) {
+                    toGain = owner.getSurveyedPlanets().get(index).trade(toGain);
                     if (toGain > 0) {
                         // do this again
-                        user.broadcastPlanetsUpdated();
+                        owner.broadcastPlanetsUpdated();
                         context.selectTargetConqueredPlanet(produceNotTrade, onRoleCallback);
                     } else {
-                        user.broadcastPlanetsUpdated();
-                        user.discardCards(matching);
+                        owner.broadcastPlanetsUpdated();
+                        owner.discardCards(matching);
                         matching.clear();
                         context.endRolePhase();
                     }
                 } else {
-                    user.discardCards(matching);
+                    owner.discardCards(matching);
                     matching.clear();
                     context.endRolePhase();
                 }
@@ -129,7 +129,7 @@ public class ProduceTrade extends BaseCard {
         for (BaseCard card : matching) {
             toGain += (produceNotTrade ? card.getProduce() : card.getTrade());
             if (card.inGame()) {
-                user.useCard(card);
+                owner.useCard(card);
             }
         }
 

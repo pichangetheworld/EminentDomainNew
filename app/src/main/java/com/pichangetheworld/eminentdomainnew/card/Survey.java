@@ -21,9 +21,9 @@ public class Survey extends BaseCard {
     public void onAction() {
         super.onAction();
 
-        user.useCard(this);
-        user.drawCards(2);
-        user.discardCard(this);
+        owner.useCard(this);
+        owner.drawCards(2);
+        owner.discardCard(this);
         context.endActionPhase();
     }
 
@@ -31,7 +31,8 @@ public class Survey extends BaseCard {
     public void onRole(List<BaseCard> matching) {
         super.onRole(matching);
 
-        // TODO what if you use an empty card (use Survey when no survey remaining)
+        if (user == null) user = owner;
+
         int toSurvey = 0;
         for (BaseCard card : matching) {
             toSurvey += card.getSurvey();

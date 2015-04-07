@@ -20,7 +20,7 @@ public class Colonize extends BaseCard {
         @Override
         public void callback(int index) {
             if (index >= 0) {
-                colonizeAction(user.getSurveyedPlanets().get(index));
+                colonizeAction(owner.getSurveyedPlanets().get(index));
             }
             context.endActionPhase();
         }
@@ -32,7 +32,7 @@ public class Colonize extends BaseCard {
         @Override
         public void callback(int index) {
             if (index >= 0) {
-                colonizeRole(user.getSurveyedPlanets().get(index), matching);
+                colonizeRole(owner.getSurveyedPlanets().get(index), matching);
             }
             context.endRolePhase();
         }
@@ -46,7 +46,7 @@ public class Colonize extends BaseCard {
     public void onAction() {
         super.onAction();
 
-        user.useCard(Colonize.this);
+        owner.useCard(Colonize.this);
         context.selectTargetUnconqueredPlanet(false, onActionCallback);
     }
 
@@ -77,21 +77,21 @@ public class Colonize extends BaseCard {
 
     public void colonizeAction(BasePlanet targetPlanet) {
         if (targetPlanet.getColonizeCount() >= targetPlanet.getColonizeCost()) {
-            user.discardCard(this);
+            owner.discardCard(this);
             targetPlanet.conquer();
         } else {
             targetPlanet.addColony(this);
         }
-        user.broadcastPlanetsUpdated();
+        owner.broadcastPlanetsUpdated();
     }
 
     public void colonizeRole(BasePlanet targetPlanet, List<BaseCard> colonies) {
         for (BaseCard card : colonies) {
             if (card.inGame()) {
-                user.useCard(card);
+                owner.useCard(card);
             }
             targetPlanet.addColony(card);
         }
-        user.broadcastPlanetsUpdated();
+        owner.broadcastPlanetsUpdated();
     }
 }

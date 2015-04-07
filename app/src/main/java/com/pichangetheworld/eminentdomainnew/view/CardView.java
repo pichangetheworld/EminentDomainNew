@@ -61,6 +61,7 @@ public class CardView extends ImageButton {
     }
 
     public boolean getIcon(IconType type) {
+        // TODO weird error
         switch (type) {
             case SURVEY:
                 return survey;
