@@ -38,6 +38,8 @@ public class GameManager {
     EminentDomainApplication context;
     private List<BasePlayer> mPlayers;
     private List<BasePlanet> planetDeck;
+    boolean gameEnding;
+    int mStartingPlayer;
     int mCurrentPlayer;
     Phase mCurrentPhase;
 
@@ -50,6 +52,12 @@ public class GameManager {
         mPlanetsBeingSurveyed = new ArrayList<>();
     }
 
+    // Getter
+    public int getPlayerCount() {
+        return mPlayers.size();
+    }
+
+    // Starter planets (constant)
     private final BasePlanet[] STARTER_PLANETS = {
             PlanetFactory.getPlanet("Start1,Metallic,2,2,1,1"),
             PlanetFactory.getPlanet("Start2,Metallic,2,2,1,1"),
@@ -59,6 +67,7 @@ public class GameManager {
             PlanetFactory.getPlanet("Start6,Advanced,2,2,1,1")
     };
 
+    // Initialize (setup) game
     public void init(int numPlayers) {
         ArrayList<BasePlanet> starterPlanets = new ArrayList<>();
         starterPlanets.addAll(Arrays.asList(STARTER_PLANETS));
@@ -76,6 +85,7 @@ public class GameManager {
         }
     }
 
+    // Initialize Planets
     private void initPlanets() {
         planetDeck.clear();
 
@@ -97,16 +107,35 @@ public class GameManager {
         Collections.shuffle(planetDeck);
     }
 
+    // Start the actual game
     public void startGame() {
         Log.d("GameManager", "Game started with " + mPlayers.size() + " players");
 
-        mCurrentPlayer = 0;
+        mStartingPlayer = new Random().nextInt(mPlayers.size());
+
+        mCurrentPlayer = mStartingPlayer;
         mCurrentPhase = Phase.ACTION_PHASE;
+
+        gameEnding = false;
 
         mPlayers.get(mCurrentPlayer).updateAllViews();
         context.updateViewNextPhase(mCurrentPhase,
                 mPlayers.get(mCurrentPlayer).getName(),
                 isComputerTurn());
+    }
+
+    // When the end of the game is triggered, toggle the end of game
+    public void startEndGameCountdown() {
+        Log.d("GameManager", "End game condition reached, beginning end game countdown");
+        gameEnding = true;
+    }
+
+    // End the game
+    private void endGame() {
+        // go to end of game page
+        // check each player's score
+        // highest score wins!
+        // have a back button to go back to the start game page
     }
 
     // Next Phase
@@ -124,11 +153,18 @@ public class GameManager {
                 if (mCurrentPhase == null) {
                     mCurrentPlayer = (mCurrentPlayer + 1) % mPlayers.size();
                     mCurrentPhase = Phase.ACTION_PHASE;
+
+                    // TODO: This should no longer happen
                     mPlayers.get(mCurrentPlayer).updateAllViews();
                 }
-                context.updateViewNextPhase(mCurrentPhase,
-                        mPlayers.get(mCurrentPlayer).getName(),
-                        isComputerTurn());
+                if (gameEnding && mCurrentPlayer == mStartingPlayer) {
+                    // we're done
+                    endGame();
+                } else {
+                    context.updateViewNextPhase(mCurrentPhase,
+                            mPlayers.get(mCurrentPlayer).getName(),
+                            isComputerTurn());
+                }
             }
         };
         thread.start();

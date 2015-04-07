@@ -50,7 +50,7 @@ public class GameField {
 
     public BaseCard drawCardFromFieldDeck(EminentDomainApplication context, BasePlayer player, int index) {
         if (fieldDecks[index].isEmpty()) {
-            Log.d("GameField", "Field deck is null");
+            Log.d("GameField", "Field deck is empty");
             switch (index) {
                 case 0:
                     return new Survey(context);
@@ -67,6 +67,7 @@ public class GameField {
         }
         BaseCard card = fieldDecks[index].drawCardFromField(player);
         broadcastFieldDecksUpdated();
+        context.checkEndOfGame(fieldDeckCounts);
         return card;
     }
 

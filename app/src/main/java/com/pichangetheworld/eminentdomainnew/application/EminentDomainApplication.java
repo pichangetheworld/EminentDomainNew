@@ -253,4 +253,29 @@ public class EminentDomainApplication extends Application {
                                       TargetCallbackInterface callback) {
         activity.updateSurveyedPlanets(planetDrawables, callback);
     }
+
+    // Check for end of game
+    public void checkEndOfGame(int[] fieldDeckCounts) {
+        int numEmptyDecksToEndOfGame;
+        switch (gameManager.getPlayerCount()) {
+            case 2:
+            case 3:
+                numEmptyDecksToEndOfGame = 1;
+                break;
+            case 4:
+                numEmptyDecksToEndOfGame = 2;
+                break;
+            default:
+                Log.e("Application", "Warning, invalid number of players " + gameManager.getPlayerCount());
+                numEmptyDecksToEndOfGame = 1;
+        }
+
+        int count = 0;
+        for (int fieldDeckCount : fieldDeckCounts) {
+            if (fieldDeckCount == 0) ++count;
+        }
+        if (count >= numEmptyDecksToEndOfGame) {
+            gameManager.startEndGameCountdown();
+        }
+    }
 }
