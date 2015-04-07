@@ -51,7 +51,6 @@ public class GameField {
     public BaseCard drawCardFromFieldDeck(EminentDomainApplication context, BasePlayer player, int index) {
         if (fieldDecks[index].isEmpty()) {
             Log.d("GameField", "Field deck is null");
-            // TODO broadcast to view that the deck is empty and scene should be redrawn
             switch (index) {
                 case 0:
                     return new Survey(context);
@@ -71,7 +70,7 @@ public class GameField {
         return card;
     }
 
-    // Broadcast to view that hand has changed
+    // Broadcast to view that field decks has changed
     private void broadcastFieldDecksUpdated() {
         for (int i = 0; i < fieldDecks.length; ++i) {
             fieldDeckCounts[i] = fieldDecks[i].size();
