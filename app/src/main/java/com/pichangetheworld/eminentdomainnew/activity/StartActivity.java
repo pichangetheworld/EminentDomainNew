@@ -27,6 +27,7 @@ public class StartActivity extends Activity {
     public void start(View v) {
         Intent intent = new Intent(StartActivity.this, GameActivity.class);
         intent.putExtra("numPlayers", np.getValue());
+        finish();
         startActivity(intent);
     }
 }
