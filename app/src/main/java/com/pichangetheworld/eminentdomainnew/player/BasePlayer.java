@@ -153,6 +153,7 @@ public abstract class BasePlayer {
     // Gain VPs
     public void gainVPs(int count) {
         vps += count;
+        context.updateVpCount(vps);
     }
 
     // Broadcast to view that hand has changed

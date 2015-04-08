@@ -37,6 +37,7 @@ public class PlayerFragment extends Fragment {
     Button okayButton;
     Button noneButton;
     TextView shipCountView;
+    TextView vpCountView;
     ImageView deckView;
     RelativeLayout discardView;
 
@@ -163,6 +164,7 @@ public class PlayerFragment extends Fragment {
         handView = (RelativeLayout) v.findViewById(R.id.hand);
 
         shipCountView = (TextView) v.findViewById(R.id.ship_count);
+        vpCountView = (TextView) v.findViewById(R.id.vp_count);
 
         selectedAction = -1;
 
@@ -191,6 +193,10 @@ public class PlayerFragment extends Fragment {
     // Display the number of ships player has
     public void updateShipCount(int shipCount) {
         shipCountView.setText("x" + shipCount);
+    }
+    // Display the number of vps player has
+    public void updateVpCount(int vpCount) {
+        vpCountView.setText(vpCount + "VP");
     }
 
     // Update the top card of the discard pile and the list of cards in it

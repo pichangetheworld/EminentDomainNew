@@ -46,6 +46,16 @@
         android:layout_toLeftOf="@id/deck"
         android:layout_toStartOf="@id/deck"/>
 
+    <TextView
+        android:id="@+id/vp_count"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="@string/dummyvp"
+        android:textSize="20sp"
+        android:layout_above="@id/ship_count"
+        android:layout_toLeftOf="@id/deck"
+        android:layout_toStartOf="@id/deck"/>
+
     <RelativeLayout
         android:id="@+id/hand"
         android:layout_width="400dp"

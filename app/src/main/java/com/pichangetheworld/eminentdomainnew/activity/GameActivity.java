@@ -257,6 +257,16 @@ public class GameActivity extends FragmentActivity {
         });
     }
 
+    // Update vp count
+    public void updateVpCount(final int vpCount) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playerFragment.updateVpCount(vpCount);
+            }
+        });
+    }
+
     // Update planet view
     public void updatePlanets(final ArrayList<PlanetDrawableData> drawables) {
         runOnUiThread(new Runnable() {
