@@ -2,7 +2,9 @@ package com.pichangetheworld.eminentdomainnew.card;
 
 import com.pichangetheworld.eminentdomainnew.R;
 import com.pichangetheworld.eminentdomainnew.application.EminentDomainApplication;
+import com.pichangetheworld.eminentdomainnew.util.IconType;
 import com.pichangetheworld.eminentdomainnew.util.MultiTargetCallbackInterface;
+import com.pichangetheworld.eminentdomainnew.util.RoleCountCallbackInterface;
 
 import java.util.List;
 
@@ -41,7 +43,35 @@ public class Research extends BaseCard {
     public void onRole(List<BaseCard> matching) {
         super.onRole(matching);
 
-        // TODO
+        if (user == null) user = owner;
+
+        int toResearch = 0;
+        for (BaseCard card : matching) {
+            toResearch += card.getSurvey();
+            if (card.inGame()) {
+                user.useCard(card);
+            }
+        }
+        user.discardCards(matching);
+        matching.clear();
+
+        // Expansion: use toResearch
         context.endRolePhase();
+    }
+
+    @Override
+    public void setUpMatchRole() {
+        context.matchRole(IconType.SURVEY, new RoleCountCallbackInterface() {
+            @Override
+            public void callback(List<BaseCard> matching) {
+                matching.add(Research.this);
+                onRole(matching);
+            }
+        });
+    }
+
+    @Override
+    public int getResearch() {
+        return 1;
     }
 }
